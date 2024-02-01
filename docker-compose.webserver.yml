@@ -62,7 +62,7 @@ services:
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.options=default"
       - "traefik.http.routers.traefik-secure.tls.certresolver=mycert"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8123"
 
 
   nginx:
@@ -90,7 +90,7 @@ services:
       - "traefik.http.routers.nginx_backend-secure.tls.options=default"
       - "traefik.http.routers.nginx_backend-secure.tls.certresolver=mycert"
       - "traefik.http.routers.nginx_backend-secure.service=nginx_backend-secure"
-      - "traefik.http.services.nginx_backend-secure.loadbalancer.server.port=80"
+      - "traefik.http.services.nginx_backend-secure.loadbalancer.server.port=8080"
 
 
 
