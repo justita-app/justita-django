@@ -1,6 +1,4 @@
-
 import os
-from pathlib import Path
 from config.env import env, BASE_DIR
 
 
@@ -67,7 +65,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'config.wsgi.application'
+# WSGI_APPLICATION = 'config.wsgi.application'
 
 ASGI_APPLICATION = 'config.asgi.application'
 
