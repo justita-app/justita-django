@@ -5,7 +5,17 @@ FROM python:3.11
 # Installing all python dependencies
 ADD requirements/ requirements/
 COPY requirements.txt .
-RUN python -m pip install -r requirements.txt && pip install ipython==8.2.0 && pip install gunicorn==20.1.0
+
+# Install system dependencies required for building twisted-iocpsupport
+RUN apt-get update && \
+    apt-get install -y build-essential python3-dev && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN python -m pip install -r requirements.txt && \
+    pip install ipython==8.2.0 && \
+    pip install gunicorn==20.1.0
 
 ENV HOME=/app
 ENV APP_HOME=/app/justita_django_app
@@ -22,10 +32,5 @@ RUN mkdir -p /app && \
 WORKDIR ${APP_HOME}
 EXPOSE 8000
 
-
-# Install pip requirements
-
+# Copy application code
 COPY . ${APP_HOME}
-
-
-
