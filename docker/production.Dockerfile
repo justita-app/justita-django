@@ -23,9 +23,11 @@ WORKDIR ${APP_HOME}
 EXPOSE 8000
 
 
-# Install pip requirements
 
 COPY . ${APP_HOME}
+
+# Copy the contents of the static folder to the Django app's static folder
+COPY static/* ${APP_HOME}/static/
 
 
 
