@@ -53,7 +53,7 @@ ROOT_URLCONF = 'theapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [Path(__file__).resolve().parent.parent / 'templates'],
+        'DIRS': os.path.join(BASE_DIR, 'templates'),
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -136,14 +136,12 @@ USE_TZ = True
 # STATIC_ROOT = '/home/forushif/theapp/statics'
 # MEDIA_ROOT=BASE_DIR/'static/userimages'
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-STATICFILES_DIRS = (
-    os.path.join(Path(__file__).resolve().parent.parent , 'static'),
-)
-
-MEDIA_URL = 'media/'
-MEDIA_ROOT = os.path.join(Path(__file__).resolve().parent.parent , 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 
 # Default primary key field type
