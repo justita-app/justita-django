@@ -10,6 +10,8 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+
+
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 CORS_ALLOWED_ORIGINS = env.list('ALLOWED_CORS')
 CSRF_COOKIE_SECURE = False
@@ -139,7 +141,7 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
