@@ -23,7 +23,6 @@ services:
     container_name: justita-django
     command:
       sh -c "python manage.py migrate &&
-               python manage.py collectstatic --no-input --clear &&
                daphne -b 0.0.0.0 -p 8000 config.asgi:application"
     environment:
       - DEBUG_MODE=False

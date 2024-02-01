@@ -7,8 +7,6 @@ echo "--> Waiting for db to be ready"
 echo "Apply database migrations"
 python manage.py makemigration
 python manage.py migrate
-python manage.py collectstatic --clear --noinput
-python manage.py collectstatic --noinput
 
 # Start server
 echo "--> Starting web process"
