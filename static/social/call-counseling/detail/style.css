@@ -1,0 +1,67 @@
+.main-box {
+    border: solid 1px rgb(235 235 235);
+    border-radius: 4px;
+    position: relative;
+    padding: 10px;
+    color: rgb(83 83 83);
+}
+
+.main-box .title {
+    position: relative;
+    top: -22px;
+    background: #fffafa;
+    display: inline-block;
+    right: 22px;
+    font-weight: bold;
+    color: #3b3b3b;
+}
+
+hr {
+    color: rgb(241 241 241);
+    opacity: 100%;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lawyer-info {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    column-gap: 5px;
+}
+
+.lawyer-profile_picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.x-small {
+    font-size: 0.82rem;
+}
+
+.go-payment_btn {
+    background-color: rgb(0 223 159);
+    border-radius: 4px;
+    color: #fff;
+    height: 50px;
+    width: 100%;
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0 2px 1px rgb(81 165 114);
+}
+
+.go-payment_btn svg{
+    fill: #fff;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 15px;
+}

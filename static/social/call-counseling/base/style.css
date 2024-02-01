@@ -1,0 +1,109 @@
+body {
+    display: grid;
+    grid-template-rows:1fr auto ;
+    background-color: #fffafa;
+}
+
+footer {
+    grid-row: 2;
+    height: 60px;
+    position: relative;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+}
+
+.next-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    row-gap: 5px;
+    color: #fff;
+    background-color: #00de9d;
+    width: 120px;
+    padding: 10px 20px;
+    position: absolute;
+    left: 10px;
+    border: none;
+    border-radius: 4px;
+}
+
+.next-btn:hover{
+    color: #fff;
+    background-color: #00de9d;
+}
+
+.next-btn:focus{
+    color: #fff;
+    background-color: #00de9d;
+}
+
+.next-btn span{
+    color: #fff;
+}
+
+.next-btn svg{
+    height: 15px;
+    fill: #fff;
+}
+
+.prev-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    row-gap: 5px;
+    color: #000000;
+    background-color: #ffffff;
+    width: 120px;
+    padding: 10px 20px;
+    position: absolute;
+    right: 10px;
+    border-radius: 4px;
+    border: solid 1px #3d3d3d;
+}
+
+.prev-btn:focus{
+    color: #000000;
+    background-color: #ffffff;
+}
+
+.prev-btn span{
+    color: #000000;
+}
+
+.prev-btn svg{
+    height: 15px;
+    fill: #000000;
+    transform: rotate(180deg);
+}
+
+
+.messages {
+    position: fixed;
+    max-width: 800px;
+    width: 100%;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+}
+
+
+.messages .message-item {
+    margin: 10px 5px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: right;
+}
+
+
+.messages .error {
+    background-color: rgb(223, 89, 89);
+    color: #fff;
+}
+
+
+.messages .success {
+    background-color: rgb(145, 201, 93);
+    color: #ffffff;
+}

@@ -1,0 +1,19 @@
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+}
+
+svg {
+    max-width: 480px;
+    width: 100%;
+}
+
+p {
+    color :#900000;
+}
+
+.time-countdown {
+    color: #900000;
+}

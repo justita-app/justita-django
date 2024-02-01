@@ -1,0 +1,53 @@
+.nav-pills .nav-item .nav-link {
+    font-size: small;
+    color: black;
+}
+
+.nav-pills .nav-item .nav-link.active {
+    background-color: var(--brand-color);
+    color: #fff;
+}
+
+.chat-lawyer_profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chat-item {
+    display: flex;
+    gap: 10px;
+    padding: 10px 12px;
+    margin: 10px;
+    border: solid 1px #eee;
+    box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
+    border-radius: 5px;
+    position: relative;
+    justify-content: space-between;
+    max-width: 420px;
+    width: 100%;
+    color: black;
+
+}
+
+.chat-item .left-side { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.marked-icon {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    cursor: pointer;
+    color: #dbd700;
+}
+
+.tab-content > .active {
+    display: flex;
+}
+
+.chat-container{
+    flex-wrap: wrap;
+}
