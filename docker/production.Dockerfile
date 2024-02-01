@@ -23,7 +23,6 @@ EXPOSE 8000
 
 
 # Install pip requirements
-COPY requirements.txt .
 COPY . ${APP_HOME}
 
 
