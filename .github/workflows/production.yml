@@ -33,7 +33,7 @@ jobs:
         script: |
           mkdir -p ${{env.WORK_DIR}}
           cd ${{env.WORK_DIR}}
-          git clone ${{env.REPOSITORY}} -y
+          git clone ${{env.REPOSITORY}} 
           cd ${{env.PROJECT_NAME}}
           
           git checkout master 
