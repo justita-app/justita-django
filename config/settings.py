@@ -8,10 +8,11 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
 CORS_ALLOWED_ORIGINS = env.list('ALLOWED_CORS')
+CSRF_COOKIE_SECURE = False
 
 
 # Application definition
@@ -67,7 +68,7 @@ TEMPLATES = [
 ]
 
 
-# WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 ASGI_APPLICATION = 'config.asgi.application'
 
