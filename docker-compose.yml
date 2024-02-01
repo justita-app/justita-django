@@ -28,7 +28,10 @@ services:
     environment:
       - DEBUG_MODE=False
       - DATABASE_URL=psql://justita:1234@1234@db:5432/justita
-      - ALLOWED_HOSTS=justita.app, localhost, 127.0.0.1
+      - MERCHANT=ed9447c3-cd3f-4d13-a1e4-191c075084dc
+      - ALLOWED_HOSTS=justita.app,www.justita.app,https://justita.app/,127.0.0.1,localhost,http://192.168.1.8:50,127.0.0.1
+      - ALLOWED_CORS=http://localhost,http://127.0.0.1,https://justita.app/,http://192.168.1.8:50,127.0.0.1
+      - HOSTADDRESS=http://justita.app
       #pass to out with command and then pass with github secret
       - SECRET_KEY=${SECRET_KEY}
     volumes:
