@@ -38,7 +38,7 @@ services:
       - "--providers.file.filename=/traefik/config.yml"
     ports:
       - 80:80
-      - 443:443
+      - 2053:2053
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
