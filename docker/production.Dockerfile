@@ -4,7 +4,7 @@ FROM python:3.11
 
 # Installing all python dependencies
 ADD requirements/ requirements/
-RUN python -m pip install -r requirements/requirements.txt && pip install ipython==8.2.0 && pip install gunicorn==20.1.0
+RUN python -m pip install -r requirements.txt && pip install ipython==8.2.0 && pip install gunicorn==20.1.0
 
 ENV HOME=/app
 ENV APP_HOME=/app/justita_django_app
@@ -23,6 +23,7 @@ EXPOSE 8000
 
 
 # Install pip requirements
+COPY requirements.txt .
 COPY . ${APP_HOME}
 
 
