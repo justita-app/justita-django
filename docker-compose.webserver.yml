@@ -92,5 +92,8 @@ services:
       - "traefik.http.routers.nginx_backend-secure.service=nginx_backend-secure"
       - "traefik.http.services.nginx_backend-secure.loadbalancer.server.port=8080"
 
+    ports:
+      - 8080:8080
+
 
 
