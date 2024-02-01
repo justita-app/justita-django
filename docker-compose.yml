@@ -37,7 +37,6 @@ services:
     volumes:
       - static_volume:/app/justita_django_app/static
       - media_volume:/app/justita_django_app/media
-      - ".:/app/justita_django_app/backend_api"
     depends_on:
       - db
     restart: on-failure
