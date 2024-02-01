@@ -15,7 +15,8 @@ RUN apt-get update && \
 # Install Python dependencies
 RUN python -m pip install -r requirements.txt && \
     pip install ipython==8.2.0 && \
-    pip install gunicorn==20.1.0
+    pip install gunicorn==20.1.0 && \
+    pip install twisted==22.4.0
 
 ENV HOME=/app
 ENV APP_HOME=/app/justita_django_app
@@ -25,7 +26,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 RUN mkdir -p /app && \
-   groupadd -r appuser && useradd --no-log-init -r -g appuser appuser && \
+    groupadd -r appuser && useradd --no-log-init -r -g appuser appuser && \
     python -m pip install --upgrade pip && \
     mkdir ${APP_HOME} ${APP_HOME}/logs
 
