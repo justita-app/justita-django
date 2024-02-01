@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static%}
+
+{% block meta %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ورود و ساخت حساب کاربری در اپلیکیشن جاستیتا">
+<meta name="keywords" content="جاستیتا, وکیل, مشاوره حقوقی, مشاوره حقوقی آنلاین , وکیل طلاق , وکیل مهاجرت , وکیل ارزان ">
+{% endblock meta %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'accounts/base/style.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/login/style.css' %}">
+{% endblock links %}
+
+{% block scripts %}<script src="{% static 'accounts/login/script.js' %}" defer></script>{% endblock scripts %}
+
+{% block title %}جاستیتا - وکالت، مشاوره حقوقی و وکیل آنلاین{% endblock title %}
+
+{% block content %}
+
+    <div>
+        {% if form.errors %}
+        <ul class="errorlist">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="messages">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <script>
+            setTimeout(function() {
+                var errorMessages = document.querySelectorAll('.messages');
+                var index = 0;
+                var interval = setInterval(function() {
+                    errorMessages[index].remove();
+                    index++;
+                    if (index >= errorMessages.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+        </script>
+        {% endif %}
+    </div>
+
+    <div class="container">
+
+        <div class="login-content">
+
+            <div class="title">
+                <img src="/media/accounts/logo-main.png" alt="جاستیتا" class="site-logo">
+                <h2 >ورود به حساب کاربری </h2>
+            </div>
+            
+            <form action="" method="POST" dir="ltr" autocomplete="off">
+
+                {%csrf_token%}
+
+                <label for="phoneNumberInput">شماره تلفن</label>
+                <input type="text" maxlength="13" class="input" name="phone_number" id="phoneNumberInput" placeholder="0912*******">
+
+                <button type="submit" class="btn submit-btn">ورود</button>
+
+            </form>
+
+        </div>
+
+    </div>
+    
+{% endblock content %}

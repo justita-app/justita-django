@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
+    <link rel="stylesheet" href="{% static 'social/call-counseling/subject-time/style.css' %}">
+    <script src="{% static 'social/call-counseling/subject-time/script.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" >
+    <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous">
+{% endblock links %}
+
+{% block title %}درخواست مشاوره تلفنی{% endblock title %}
+
+
+{% block content %}
+
+    <div class="messages">
+        <ul >
+        {% if form.errors %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="message-item error">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                var Message = document.querySelectorAll('.message-item');
+                var index = 0;
+                var interval = setInterval(function() {
+                    Message[index].remove();
+                    index++;
+                    if (index >= Message.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+            </script>
+        {% endif %}
+        </ul>
+    </div>
+
+    <main class="py-1">
+
+        <div class="container my-3 pb-1">
+            <h2 class="text-right text-muted small p-1 mb-4">لطفا موضوع مشاوره مد نظر خود را انتخاب کنید :</h2>
+
+            <div class="subject-countainer">
+
+                <div class="subject-item {% if subject == 'ملکی' %}active{% endif %}">
+                    <i class="fas fa-home subject-icon"></i>
+                    <span class="small">ملکی</span>
+                </div>
+    
+                <div class="subject-item {% if subject == 'کیفری' %}active{% endif %}">
+                    <i class="fas fa-user-shield subject-icon"></i>
+                    <span class="small">کیفری</span>
+                </div>
+    
+         
+    
+                <div class="subject-item {% if subject == 'مالیات' %}active{% endif %}">
+                    <i class="fas fa-badge-percent subject-icon"></i>
+                    <span class="small">مالیات</span>
+                </div>
+    
+                <div class="subject-item {% if subject == 'خانواده' %}active{% endif %}">
+                    <i class="fas fa-users subject-icon"></i>
+                    <span class="small">خانواده</span>
+                </div>
+    
+                <div class="subject-item {% if subject == 'قرارداد ها' %}active{% endif %}">
+                    <i class="fas fa-file-contract subject-icon"></i>
+                    <span class="small">قرارداد ها</span>
+                </div>
+    
+                <div class="subject-item {% if subject == 'وصول مطالبات' %}active{% endif %}">
+                    <i class="fas fa-coins subject-icon"></i>
+                    <span class="small">وصول مطالبات</span>
+                </div>
+    
+                <div class="subject-item {% if subject == 'انحصار وراثت' %}active{% endif %}">
+                    <i class="fas fa-chart-pie subject-icon"></i>
+                    <span class="small">انحصار وراثت</span>
+                </div>
+    
+                
+    
+                <div class="subject-item {% if subject == 'سایر' %}active{% endif %}">
+                    <i class="fas fa-file-signature subject-icon"></i>
+                    <span class="small">سایر</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container my-5">
+            <h2 class="text-right text-muted small p-1 mb-4">لطفا بسته مورد نظر خود را با توجه به زمان و مبلغ انتخاب کنید :</h2>
+
+            <div class="time-container">
+
+                <div class="time-item {% if time == '20' %}active{% endif %}" data-time="20">
+                    <div class="time">
+                        <div class="num-box">
+                            <span>20</span>
+                        </div>
+                        <span class="text-muted">دقیقه ای</span>
+                    </div>
+                    <div class="price">
+                        <span class="text-muted">هزینه</span>
+                        <p class="fs-5">{{price20}} هزار تومن</p>
+                    </div>
+                </div>
+
+                <div class="time-item {% if time == '30' %}active{% endif %}" data-time="30">
+                    <div class="time">
+                        <div class="num-box">
+                            <span>30</span>
+                        </div>
+                        <span class="text-muted">دقیقه ای</span>
+                    </div>
+                    <div class="price">
+                        <span class="text-muted">هزینه</span>
+                        <p class="fs-5">{{price30}} هزار تومن</p>
+                    </div>
+                </div>
+
+                <div class="time-item {% if time == '45' %}active{% endif %}" data-time="45">
+                    <div class="time">
+                        <div class="num-box">
+                            <span>45</span>
+                        </div>
+                        <span class="text-muted">دقیقه ای</span>
+                    </div>
+                    <div class="price">
+                        <span class="text-muted">هزینه</span>
+                        <p class="fs-5">{{price45}} هزار تومن</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <form action="" method="post" style="display: none;" id="subjectTimeForm">
+            {% csrf_token %}
+            <input type="text" name="subject" style="display: none;" id="subjectInput">
+            <input type="text" name="time" style="display: none;" id="timeInput">
+        </form>
+
+    </main>
+
+    <footer class="mt-2 fixed-bottom">
+        <a class="prev-btn" href="{% url 'call-counseling:select-lawyer' identity %}">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,512.0003051757812,512.0000152587891)"><path d="m506.134 241.843-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"opacity="1" data-original="#000000" class=""></path></g>
+            </svg>
+            <span>بازگشت</span>
+        </a>
+
+        <button class="next-btn" onclick="goNext(event)">
+            <span>ادامه</span>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,512.0003051757812,512.0000152587891)"><path d="m506.134 241.843-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"opacity="1" data-original="#000000" class=""></path></g>
+            </svg>
+        </button>
+    </footer>
+{% endblock content %}

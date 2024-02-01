@@ -1,0 +1,71 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">شناسه</th>
+            <th scope="col">سرویس</th>
+            <th scope="col">کاربر</th>
+            <th scope="col">وکیل</th>
+            <th scope="col">وضعیت</th>
+            <th scope="col">تغییر وضعیت</th>
+            <th scope="col">آخرین پیام در</th>
+            <th scope="col">صفحه چت</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for chat in chats %}
+        <!-- On tables -->
+            <tr>
+                <td scope="row">#{{chat.identity}}</td>
+                <td>{{chat.service_name}}</td>
+                <td>{{chat.client.get_full_name}}</td>
+                <td>{{chat.lawyer}}</td>
+                <td><span class="badge {% if chat.status == 'open' %}bg-success{% else %}bg-danger{% endif %}">{{chat.get_status_display}}</span></td>
+                <td>
+                    <button class="change-status" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">
+                        {% if chat.status == 'open' %}بستن چت{%else%}باز کردن چت{% endif %}
+                    </button>
+                </td>
+                <td>{{chat.last_message_time.date}} , {{chat.last_message_time.time}}</td>
+                <td>
+                    <a href="{{chat.url}}">رفتن به چت</a>
+                </td>
+  
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form class="change-status_form" method="post" style="display: none;">
+        {% csrf_token %}
+        <input type="text" name="identity" id="identityInput">
+        <input type="text" name="service" id="service_nameInput">
+    </form>
+
+{% endblock main_content %}
+
+{% block extra_scripts %}
+    <script>
+        function changeStatus(event) {
+            var identity = event.target.dataset.identity;
+            var service_name = event.target.dataset.service_name
+
+            var form = document.querySelector('.change-status_form')
+            var identityInput = document.querySelector('#identityInput')
+            var service_nameInput = document.querySelector('#service_nameInput')
+
+            identityInput.value = identity
+            service_nameInput.value = service_name
+
+            form.submit()
+        }
+    </script>
+{% endblock extra_scripts %}

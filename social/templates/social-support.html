@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}پشتیبانی جاستیتا{% endblock title %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'social/support/style.css' %}">
+  <script src="{% static 'social/support/script.js' %}" defer></script>
+  <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" > 
+  <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous"> 
+{% endblock links %}
+
+{% block content %}
+
+  <header>
+    <span onclick="window.history.back()">
+        <img src="/media/accounts/main/back-arrow.png" alt="برگشت" , class="back-arrow">
+    </span>
+    <span class="fs-5">پشتیبانی</span>
+  </header>
+
+  <div class="container pt-4">
+    <h1  class="fs-3 text-center mb-4">تیکت ها</h1>
+
+    <div class="container ticket-container">
+
+      {% for ticket in tickets %}
+      <a class="ticket" href="{% url 'social:support-room' identity=ticket.identity %}">
+          <p class="small ticket-id">تیکت : <span>{{ticket.identity}}</span></p>
+          <p class="small ticket-subject">موضوع : <span>{{ticket.subject|truncatechars:25}}</span></p>
+          <p class="small ticket-time">زمان : <span> {{ticket.created_persian.time}} , {{ticket.created_persian.date}}</span></p>
+      </a>
+      {% endfor %}
+
+    </div>
+
+    <div class="ticket-form_container" style="display: none;">
+      <form class="ticket-form" method="post">
+        <h3 class="fs-5">ایجاد تیکت جدید</h3>
+        <input type="text" name="subject" placeholder="موضوع (حداکثر 30 کاراکتر)" required>
+        {% csrf_token %}
+        <div class="btns">
+          <button type="submit" class="submit-form_button">ایجاد</button>
+          <button type="button" class="submit-form_button cancel-btn">لغو</button>
+        </div>
+      </form>
+    </div>
+
+    <button class="add-ticket">
+      <i class="fas fa-plus"></i>
+    </button>
+
+  </div>
+{% endblock content %}

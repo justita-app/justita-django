@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}حساب کاربری من{% endblock title %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'accounts/account/style.css' %}">
+{% endblock links %}
+
+{% block content %}
+
+    <header>
+        <span onclick="window.history.back()">
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" , class="back-arrow">
+        </span>
+        <span class="fs-5">حساب کاربری</span>
+    </header>
+
+    <div class="container content">
+    
+        <div>
+            {% if form.errors %}
+            <ul class="errorlist">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <li class="messages">{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+            <script>
+                setTimeout(function() {
+                    var errorMessages = document.querySelectorAll('.messages');
+                    var index = 0;
+                    var interval = setInterval(function() {
+                        errorMessages[index].remove();
+                        index++;
+                        if (index >= errorMessages.length) {
+                            clearInterval(interval);
+                        }
+                    }, 20);
+                }, 5000);
+            </script>
+            {% endif %}
+        </div>
+    
+        <div class="user-profile">
+            <img src="/media/accounts/main/user.png" alt="پروفایل" class="profile-picture">
+            <p>{{request.user.get_full_name}}</p>
+        </div>
+    
+        <form action="" method="post" class="information-form my-4" id="information-form">
+            <span>مشخصات من</span>
+            <hr color="#fff" class="my-2">
+    
+            {% csrf_token %}
+    
+            <div class="input-item">
+                <label for="first_name" class="small">نام</label>
+                <div class="input-field">
+                    <input type="text" value="{{form.first_name.initial}}" id="first_name" name="first_name" disabled>
+                    <img src="/media/accounts/main/pen-icon.png" alt="ویرایش" class="change-info_icon" onclick="changeInput(event)">
+                </div>
+            </div>
+    
+            <hr color="#fff" class="my-2">
+            <div class="input-item">
+                <label for="last_name" class="small">نام خانوادگی</label>
+                <div class="input-field">
+                    <input type="text" value="{{form.last_name.initial}}" id="last_name" name="last_name" disabled>
+                    <img src="/media/accounts/main/pen-icon.png" alt="ویرایش" class="change-info_icon" onclick="changeInput(event)">
+                </div>
+            </div>
+    
+            <hr color="#fff" class="my-2">
+            <div class="input-item">
+                <label for="city" class="small">شهر محل سکونت</label>
+                <div class="input-field">
+                    <input type="text" value="{{form.city.initial}}" id="city" name="city" disabled>
+                    <img src="/media/accounts/main/pen-icon.png" alt="ویرایش" class="change-info_icon" onclick="changeInput(event)">
+                </div>
+            </div>
+            
+            <hr color="#fff" class="my-2">
+            <div class="input-item">
+                <label for="city" class="small">شماره همراه</label>
+                <div class="input-field">
+                    <input type="text" value="{{request.user.username}}" name="phonenumber" disabled>
+                    <img src="/media/accounts/main/pen-icon.png" alt="ویرایش" class="change-info_icon" onclick="window.location.href = '{% url 'accounts:change-phonenumber' %}'">
+                </div>
+            </div>
+    
+        </form>
+    
+        <button class="disabled submit-btn account-btns" id="submitBtn" onclick="formSubmit()">
+            <img src="/media/accounts/main/save-changes.png" alt="ذخیره تغییرات">
+            <span>ذخیره تغییرات</span>
+        </button>
+    
+        <a class="account-btns" href="{% url 'accounts:change-phonenumber' %}">
+            <img src="/media/accounts/main/telephone.png" alt="تغییر شماره همراه">
+            <span>تغییر شماره همراه</span>
+        </a>
+
+        <a class="account-btns" href="{% url 'social:support' %}">
+            <img src="/media/accounts/main/support.png" alt="درخواست پشتیبانی">
+            <span>درخواست پشتیبانی</span>
+        </a>
+    
+        <a class="account-btns" href="{% url 'accounts:logout' %}">
+            <img src="/media/accounts/main/log-out.png" alt="خروج از حساب کاربری">
+            <span>خروج از حساب کاربری</span>
+        </a>
+    
+        <div class="banner">
+            <img src="/media/accounts/main/banner.png" alt="بنر" class="banner-img">
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+    <script>
+        function changeInput(event) {
+            var inputField = event.target.previousElementSibling
+            var submitBtn = document.getElementById("submitBtn")
+            submitBtn.classList.remove('disabled')
+            inputField.disabled  = false
+        }
+    </script>
+
+    <script>
+        function formSubmit(){
+            var form = document.getElementById('information-form')
+            var inputs = document.querySelectorAll('input')
+            inputs.forEach(element => {
+                element.disabled = false;
+            });
+            form.submit()
+        }
+    </script>
+{% endblock extra_scripts %}

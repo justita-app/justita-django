@@ -1,0 +1,71 @@
+version: "3.9"
+
+networks:
+  default:
+    name: web_net
+
+services:
+  db:
+    image: postgres:14.1
+    container_name: justita-postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=justita
+      - POSTGRES_USER=justita
+      - POSTGRES_PASSWORD=1234@1234
+
+  django:
+    build:
+      context: .
+      dockerfile: docker/production.Dockerfile
+    image: django-project:latest
+    container_name: justita-django
+    command:
+      sh -c "python manage.py migrate &&
+               python manage.py collectstatic --no-input --clear &&
+               daphne -b 0.0.0.0 -p 8000 config.asgi:application"
+    environment:
+      - DEBUG_MODE=False
+      - DATABASE_URL=psql://justita:1234@1234@db:5432/justita
+      - ALLOWED_HOSTS=justita.app, localhost, 127.0.0.1
+      #pass to out with command and then pass with github secret
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - static_volume:/app/justita_django_app/static
+      - media_volume:/app/justita_django_app/media
+      - ".:/app/justita_django_app/backend_api"
+    depends_on:
+      - db
+    restart: on-failure
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web_net"
+      # HTTP
+      - "traefik.http.routers.backend.entrypoints=http"
+      - "traefik.http.routers.backend.rule=Host(`justita.app`)"
+      - "traefik.http.routers.backend.service=backend-secure"
+      - "traefik.http.routers.backend.middlewares=https-redirect"
+      # HTTPS
+      - "traefik.http.routers.backend-secure.entrypoints=https"
+      - "traefik.http.routers.backend-secure.rule=Host(`justita.app`)"
+      - "traefik.http.routers.backend-secure.tls=true"
+      - "traefik.http.routers.backend-secure.tls.options=default"
+      - "traefik.http.routers.backend-secure.tls.certresolver=mycert"
+      - "traefik.http.routers.backend-secure.service=backend-secure"
+      # ws
+      - "traefik.http.routers.ws-service-ws.rule=Host(`justita.app/ws/`)"
+      - "traefik.http.routers.ws-service-ws.entrypoints=ws"
+      # wss
+      - "traefik.http.routers.ws-service-wss.rule=Host(`justita.app/ws/`)"
+      - "traefik.http.routers.ws-service-wss.entrypoints=wss"
+      - "traefik.http.routers.ws-service-wss.tls=true"
+      - "traefik.http.routers.ws-service-wss.tls.certresolver=mycert"
+      # Backend port
+      - "traefik.http.services.backend-secure.loadbalancer.server.port=8000"
+
+
+volumes:
+    static_volume:
+    media_volume:
+    postgres-data:

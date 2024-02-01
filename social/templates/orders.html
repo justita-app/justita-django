@@ -1,0 +1,30 @@
+{% extends "social/base.html" %}
+{% load static %}
+
+{% block title %}لیست سفارشات کاربر{% endblock title %}
+
+{% block links %}
+{{ block.super }}
+  <link rel="stylesheet" href="{% static 'social/orders/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+
+<div class="p-md-2 order-container">
+    {% for order in orders %}
+    
+        <div class="order-item col-12 col-lg-5">
+            <a href="{% url 'social:support' %}" class="small go-support">از سفارش خود ناراضی هستید ؟ درخواست بازگشت وجه</a>
+            <div class="info">
+                <p class="order-title">{{order.service_name}}</p>
+                <p class="small m-0">{{order.amount_paid}} تومان</p>
+                <p class="small m-0 text-muted">{{order.created_at.time}} در روز {{order.created_at.date}}</p>
+            </div>
+        </div>
+
+        {% empty %}
+        <p class="fs-5 text-danger">تا کنون سفارشی ثبت نشده است !</p>
+        {% endfor %}
+</div>
+
+{% endblock main_content %}

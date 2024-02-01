@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
+    <link rel="stylesheet" href="{% static 'social/call-counseling/failed/style.css' %}">
+{% endblock links %}
+
+{% block title %}درخواست مشاوره تلفنی{% endblock title %}
+
+
+{% block content %}
+
+    <main class="p-5">
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M471.929 480.979H40.074c-30.883 0-50.135-33.478-34.552-60.175L221.449 50.871c15.427-26.43 53.649-26.478 69.104 0L506.48 420.805c15.569 26.672-3.64 60.174-34.551 60.174z"  fill="#ff6b6b" data-original="#ff6b6b" class=""></path><path d="M250.776 67.988 34.849 437.922c-2.361 4.046.532 9.099 5.225 9.099h431.855c4.684 0 7.591-5.046 5.225-9.099L261.226 67.988c-2.337-4.004-8.099-4.028-10.45 0z"  fill="#ff494a" data-original="#ee5253" class="" opacity="1"></path><path d="M256.109 358.131c9.98 0 18.411 8.305 18.411 18.134 0 9.7-8.431 17.895-18.411 17.895-10.271 0-18.627-8.028-18.627-17.895 0-9.83 8.53-18.134 18.627-18.134zM256.109 330.134c-10.33 0-17.544-5.003-17.544-12.166V216.821c0-5.99 7.05-12.404 17.544-12.404 9.461 0 17.761 5.797 17.761 12.404v101.147c0 7.049-7.469 12.166-17.761 12.166z"  fill="#e4eaf8" data-original="#e4eaf8" class=""></path><path d="M26.127 420.805 242.054 50.871c5.464-9.361 14.148-15.875 24.25-18.52-16.842-4.409-35.352 2.238-44.855 18.52L5.522 420.805c-15.569 26.671 3.641 60.175 34.552 60.175h20.605c-30.885-.001-50.134-33.481-34.552-60.175z" fill="#ff494a" data-original="#ee5253" class="" opacity="1"></path><path d="m55.454 437.922 210.85-361.235-5.078-8.699c-2.341-4.012-8.103-4.02-10.45 0L34.849 437.922c-2.362 4.046.532 9.099 5.225 9.099h20.605c-4.685.001-7.591-5.045-5.225-9.099z"  fill="#e24951" data-original="#e24951" class=""></path><path d="M258.087 376.265c0-6.13 3.319-11.665 8.265-14.965-2.95-1.991-6.486-3.169-10.242-3.169-10.097 0-18.627 8.305-18.627 18.134 0 9.868 8.356 17.896 18.627 17.896 3.726 0 7.234-1.144 10.17-3.08-4.941-3.222-8.193-8.66-8.193-14.816zM259.17 317.968V216.821c0-3.696 2.69-7.548 7.21-9.96-2.945-1.518-6.511-2.444-10.271-2.444-10.494 0-17.544 6.414-17.544 12.404v101.147c0 7.163 7.214 12.166 17.544 12.166 3.934 0 7.449-.752 10.299-2.069-4.502-2.111-7.238-5.693-7.238-10.097z"  fill="#ababab" data-original="#d8dce5" class="" opacity="1"></path></g></svg>
+
+        <p>پرداخت با خطا مواجه شد لطفا دوباره تلاش کنید.</p>
+
+        <span class="time-countdown">10s</span>
+        <a href="{% url 'social:home' %}" class="redirect-url d-none">بازگشت به صفحه اصلی</a>
+    </main>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+  <script>
+    var timeCountdown = document.querySelector('.time-countdown')
+    var seconds = 10
+    setInterval(()=> {
+        if (seconds -1 >=0){
+            seconds --;
+        }
+        timeCountdown.innerHTML = seconds + 's'
+    } , 1000)
+    setTimeout(() => {
+        var link = document.querySelector('.redirect-url')
+        link.click()
+
+    }, 11000);
+  </script>
+{% endblock extra_scripts %}

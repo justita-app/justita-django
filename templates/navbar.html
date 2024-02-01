@@ -1,0 +1,105 @@
+{% load static%}
+
+
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+<title>Vakilline</title>
+
+<!-- Bootstrap core CSS -->
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+
+<!-- Additional CSS Files -->
+<link rel="stylesheet" href="{% static 'assets/css/fontawesome.css'%}">
+<link rel="stylesheet" href="{% static 'assets/css/templatemo-edu-meeting.css'%}">
+<link rel="stylesheet" href="{% static 'assets/css/owl.css'%}">
+<link rel="stylesheet" href="{% static 'assets/css/lightbox.css'%}">
+<link rel="icon" type="image/x-icon" href="{% static 'logo/logogo.png'%}">
+
+<style>
+
+.logo-imgg{
+width: 25%;
+border-top: 20px;
+
+
+}
+
+</style>
+<header class="header-area header-sticky ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav" >
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{% url 'home'%}" >دادگر </a>
+
+					
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+
+                    <ul class="nav">
+                        
+                        
+                        <li ><a href="{% url 'lawyers'%}" >وکلا</a></li>  
+                       
+                        <li  class="has-sub">
+                            <a  href="javascript:void(0)">خدمات</a>
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'homee'%}">پرسش و پاسخ</a></li>
+                                <li><a href="">بلاگ</a></li>
+                                <li><a href="">تنظیم لایحه</a></li>
+                                <li><a href="">درخواست کارشناس رسمی دادگستری</a></li>
+                                <li><a href="{% url 'addlawyer'%}">add lawyer</a></li>
+                                <li><a href="/order/{{user.username}}">My orders</a></li>
+                            </ul>
+                        </li>
+                    
+                       
+                        <li class="scroll-to-section"><a   href="">وکالت آنلاین</a></li>
+
+
+                        
+                       
+                        {% if request.user.is_authenticated %}
+                         <div>
+                             <li class="has-sub">
+                             <a href="javascript:void(0)" > {{user.first_name}} </a>
+                             <ul class="sub-menu">
+                                <li><a href="{%url 'editprofile'%}">حساب کاربری</a></li>
+                                
+                                <li><a href="{% url 'userorders'%}">سفارشات من</a></li>
+                                <li><a href="/order/{{user.username}}">My orders</a></li>
+                                <li><a href="{% url 'logout'%}">خروج</a></li>
+                              </ul>
+                                </li>
+                           </div>
+                           {%endif%}
+                           {% if not request.user.is_authenticated %}
+                        
+                        
+                        <div>
+                            <li >
+                            
+                            
+                            
+                           
+                            <a href="{% url 'login'%}">ورود</a>
+                            
+
+
+                         </li></div>
+                        {%endif%}
+                        
+                        <li ><a  href="{% url 'home'%}" class="active">صفحه اصلی</a></li>
+                    </ul>        
+                    <a class='menu-trigger'>
+                        <span>Menu</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+</header>

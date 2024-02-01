@@ -1,0 +1,43 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">شناسه</th>
+            <th scope="col">کاربر</th>
+            <th scope="col">موضوع</th>
+            <th scope="col">ایجاد شده در</th>
+            <th scope="col">آخرین پیام در</th>
+            <th scope="col">صفحه چت</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for room in support_rooms %}
+        <!-- On tables -->
+            <tr>
+                <td scope="row">#{{room.identity}}</td>
+                <td>{{room.user.get_full_name}}</td>
+                <td>{{room.subject|truncatechars:20}}</td>
+                <td>{{room.created_persian.date}} , {{room.created_persian.time}}</td>
+                <td>{{room.messages.all.last.created_at_persian.date}} , {{room.messages.all.last.created_at_persian.time}}</td>
+                <td>
+                    <a href="{% url 'social:support-room' identity=room.identity %}">رفتن به چت</a>
+                </td>
+  
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock main_content %}
+
+{% block extra_scripts %}
+
+{% endblock extra_scripts %}

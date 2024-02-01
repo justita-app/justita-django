@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}پیامرسان | جاستیتا{% endblock title %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'social/chats/style.css' %}">
+  <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+  <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous">
+{% endblock links %}
+
+{% block content %}
+
+  <div class="messages">
+    <ul >
+    {% if form.errors %}
+        {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+                <li class="message-item error">{{ error }}</li>
+            {% endfor %}
+        {% endfor %}
+        <script>
+            setTimeout(function() {
+            var Message = document.querySelectorAll('.message-item');
+            var index = 0;
+            var interval = setInterval(function() {
+                Message[index].remove();
+                index++;
+                if (index >= Message.length) {
+                    clearInterval(interval);
+                }
+            }, 20);
+        }, 5000);
+        </script>
+    {% endif %}
+    </ul>
+  </div>
+
+  <header>
+    <span onclick="window.history.back()">
+      <svg data-v-19b8e40c="" xmlns="http://www.w3.org/2000/svg" class="back-svg" fill="none" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" class="w-20 h-20 text-gray-600"><path data-v-19b8e40c="" d="M9 18l6-6-6-6"></path></svg>
+    </span>
+
+    <div class="chat-lawyer-info">
+      <img src="/media/team/justita-team.png" alt="پشتیبانی جاستیتا" class="profile-picture">
+      <div class="info-text">
+        <p class="m-0">پشتیبانی</p>
+        <span class="small text-muted">گروه حقوقی جاستیتا</span>
+      </div>
+    </div>
+
+  </header>
+
+  <main class="container chat-container pt-2">
+
+    <div class="message-container">
+
+      <div class="lawyer-message">
+        <img src="/media/team/justita-team.png" alt="پروفایل وکیل" class="profile-picture">
+        <div class="message">
+          <p class="context small m-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز </p>
+          <span class="time x-small">{{created_time}}</span>
+        </div>
+      </div>
+
+      {% for message in messages %}
+      <div class="{% if message.sender == user %}user-message{%else%}lawyer-message{% endif %}">
+        <img src="{% if message.sender == user %}/media/accounts/main/user.png{%else%}/media/team/justita-team.png{% endif %}" alt="پروفایل" class="profile-picture">
+        <div class="message">
+          {% if message.file %}
+          <a class="uploaded-file" href="{{message.file.url}}">
+            <i class="fas fa-file"></i>
+            <span class="x-smal" >{{message.file.name |truncatechars:15}}</span>
+          </a>
+          {% endif %}
+          <p class="context small m-0" dir="auto">{{message.message}}</p>
+          <span class="time x-small">{{message.created_persian_time}}</span>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="send-loading" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(0, 0, 0, 0); display: none;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <circle cx="50" cy="50" fill="none" stroke="#e86e31" stroke-width="6" r="39" stroke-dasharray="183.7831702350029 63.261056745000964">
+        <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="0.7633587786259541s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+      </circle>
+    </svg>
+
+    <div id="message-form">
+      <div class="selected-file" style="display: none;">
+        <i class="fas fa-file"></i>
+        <span class="selected-file_name"></span>
+      </div>
+
+      <button id="selectFile">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-24 h-24 text-gray-600">
+          <path d="M18.08 12.42l-6.18 6.19a4.25 4.25 0 01-6-6l8-8a2.57 2.57 0 013.54 0 2.52 2.52 0 010 3.54l-6.9 6.89A.75.75 0 119.42 14l5.13-5.12a1 1 0 00-1.42-1.42L8 12.6a2.74 2.74 0 000 3.89 2.82 2.82 0 003.89 0l6.89-6.9a4.5 4.5 0 00-6.36-6.36l-8 8A6.25 6.25 0 0013.31 20l6.19-6.18a1 1 0 10-1.42-1.42z"></path>
+        </svg>
+      </button>
+
+      <textarea type="text" id="message-input" placeholder="پیام خود را اینجا بنویسید ...." ></textarea>
+      <input type="file" name="file" id="file-input" class="d-none">
+  
+      <div class="send-section">
+
+        <button id="sendMessage">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-24 h-24 -ml-1" style="transform: scaleX(-1);"><path d="M20.34 9.32l-14-7a3 3 0 00-4.08 3.9l2.4 5.37a1.06 1.06 0 010 .82l-2.4 5.37A3 3 0 005 22a3.14 3.14 0 001.35-.32l14-7a3 3 0 000-5.36zm-.89 3.57l-14 7a1 1 0 01-1.35-1.3l2.39-5.37a2 2 0 00.08-.22h6.89a1 1 0 000-2H6.57a2 2 0 00-.08-.22L4.1 5.41a1 1 0 011.35-1.3l14 7a1 1 0 010 1.78z"></path>
+            </svg>
+        </button>
+      </div>
+  
+    </div>
+
+  </main>
+  
+  {{ identity|json_script:"identity" }}
+{% endblock content %}
+
+{% block extra_scripts %}
+
+  <script>
+    const identity = JSON.parse(document.getElementById('identity').textContent);
+
+    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/support/' + identity + '/');
+
+    const loadingSvg = document.querySelector('.send-loading')
+
+    chatSocket.onmessage = function(e) {
+        var messageContainer = document.querySelector('.message-container')
+        const data = JSON.parse(e.data);
+        var message = data['message']
+        var file_url = data['file_url']
+        var created_time = data['created_at']
+        var from_user = data["from_user"]
+        
+        var message_from = from_user ?  "user-message" : "lawyer-message"
+        var profile = from_user ? "/media/accounts/main/user.png" : '/media/team/justita-team.png' 
+
+        var file = file_url ? `
+          <a class="uploaded-file" href="${file_url}">
+            <i class="fas fa-file"></i>
+            <span class="x-smal" >${file_url.slice(0, 15)}</span>
+          </a>` : ''
+
+        var newMessage = `
+        <div class="${message_from}">
+        <img src="${profile}" alt="" class="profile-picture">
+        <div class="message">
+          ${file}
+          <p class="context small m-0" dir="auto">${message}</p>
+          <span class="time x-small">${created_time}</span>
+        </div>
+      </div>
+        `
+      messageContainer.insertAdjacentHTML('beforeend' , newMessage)
+      loadingSvg.style.display = 'none'
+    };
+
+
+    chatSocket.onclose = function(e) {
+      var errorList = document.querySelector('.messages')
+      var errorMessage = document.createElement('li')
+      errorMessage.innerHTML = "خطا در اتصال به سرور"
+      errorMessage.classList.add('message-item')
+      errorMessage.classList.add('error')
+  
+      errorList.insertAdjacentElement('beforeend' , errorMessage)
+      setTimeout(() => {
+          errorMessage.remove()
+      } , 5000)
+    }
+
+
+    document.querySelector('#message-input').focus();
+
+
+    document.querySelector('#selectFile').onclick = function(e) {
+      const fileInput = document.querySelector('#file-input');
+      fileInput.click()
+    }
+
+
+    document.querySelector('#file-input').onchange = function(e) {
+      var selected_file = document.querySelector('.selected-file')
+      var selected_file_name = document.querySelector('.selected-file_name')
+      selected_file.style.display = 'block'
+      selected_file_name.innerHTML = document.querySelector('#file-input').files[0].name;
+    }
+
+
+    document.querySelector('#sendMessage').onclick = function(e) {
+      loadingSvg.style.display = 'block'
+
+      const messageInputDom = document.querySelector('#message-input');
+      const message = messageInputDom.value;
+
+      const fileInput = document.querySelector('#file-input');
+      const file = fileInput.files[0];
+
+      if (file) {
+          // Read the file as Base64
+          const reader = new FileReader();
+          reader.onloadend = function () {
+              const fileData = {
+                  file_name: file.name,
+                  content: reader.result.split(',')[1],  // Extract the Base64 content
+              };
+
+              // Send the file data and message over WebSocket
+              chatSocket.send(JSON.stringify({
+                  'data': {
+                      'message': message,
+                      'file': fileData,
+                  },
+              }));
+
+              // Clear input fields
+              messageInputDom.value = '';
+              fileInput.value = '';
+              var selected_file = document.querySelector('.selected-file')
+              selected_file.style.display = 'none'
+          };
+
+          reader.readAsDataURL(file);
+      } else {
+          // If no file is selected, send only the message
+          chatSocket.send(JSON.stringify({
+              'data': {
+                  'message': message,
+              },
+          }));
+
+          messageInputDom.value = '';
+      }
+    };
+
+  </script>
+{% endblock extra_scripts %}

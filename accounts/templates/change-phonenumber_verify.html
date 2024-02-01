@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+{% load static %}
+{%include 'support.html'%}
+
+{% block meta %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ورود و ساخت حساب کاربری در اپلیکیشن جاستیتا">
+<meta name="keywords" content="جاستیتا, وکیل, مشاوره حقوقی, مشاوره حقوقی آنلاین , وکیل طلاق , وکیل مهاجرت , وکیل ارزان ">
+{% endblock meta %}
+
+{% block title %} تایید شماره همراه{%endblock title %}
+{% block links %}
+	{{ block.super }}
+	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{% static 'accounts/base/style.css' %}">
+	<link rel="stylesheet" href="{% static 'accounts/sms-verify/style.css' %}">
+{% endblock links %}
+
+{% block content %}
+
+	<div>
+		{% if form.errors %}
+		<ul class="errorlist">
+			{% for field, errors in form.errors.items %}
+				{% for error in errors %}
+					<li class="messages">{{ error }}</li>
+				{% endfor %}
+			{% endfor %}
+		</ul>
+		<script>
+			setTimeout(function() {
+				var errorMessages = document.querySelectorAll('.messages');
+				var index = 0;
+				var interval = setInterval(function() {
+					errorMessages[index].remove();
+					index++;
+					if (index >= errorMessages.length) {
+						clearInterval(interval);
+					}
+				}, 20);
+			}, 5000);
+		</script>
+		{% endif %}
+	</div>
+
+	<div class="container">
+
+		<header>
+			<img src="/media/accounts/logo-main.png" alt="جاستیتا"  class="site-logo">
+		</header>
+		<div class="phone-info w-100">
+			<h6 class="text-right w-100">تغییر شماره تلفن به  : {{phone_number}}</h6>
+			<a href="{% url 'accounts:change-phonenumber' %}" class="d-block w-100 a-link small">تصحیح شماره</a>
+		</div>
+
+		<div class="demonstration-form">
+			<span class="my-2 text-muted">کد پیامک شده</span>
+			<div class="input-field">
+				<input type="number" class="code-input" id="one" />
+				<input type="number" class="code-input" id="two" disabled />
+				<input type="number" class="code-input" id="three" disabled />
+				<input type="number" class="code-input" id="four" disabled />
+			</div>			
+			<button type="button" id="submit-btn" onclick="checkOtpCode(event)">بررسی کد</button>
+		</div>
+
+		<form action="" method="POST" id="mainForm">
+			{%csrf_token%}
+			<input type="text" name="phone_number" value="{{phone_number}}"/>
+			<input type="text" name="code" id="codeInput" value="0000"/>
+		</form>
+
+		<div id="fcom">
+			<p id="timer" style="display: inline;" data-timeout="{{timeout}}">00</p>
+		</div>
+
+		<div id="scom" style="display: none;">
+			<a href="" class="a-link">ارسال مجدد کد</a>
+		</div>
+
+	</div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+
+<script>
+	const inputs = document.querySelectorAll(".code-input"),
+	button = document.querySelector("button");
+
+	// iterate over all inputs
+	inputs.forEach((input, index1) => {
+	input.addEventListener("keyup", (e) => {
+		// This code gets the current input element and stores it in the currentInput variable
+		// This code gets the next sibling element of the current input element and stores it in the nextInput variable
+		// This code gets the previous sibling element of the current input element and stores it in the prevInput variable
+		const currentInput = input,
+		nextInput = input.nextElementSibling,
+		prevInput = input.previousElementSibling;
+
+		// if the value has more than one character then clear it
+		if (currentInput.value.length > 1) {
+		currentInput.value = "";
+		return;
+		}
+		// if the next input is disabled and the current value is not empty
+		//  enable the next input and focus on it
+		if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+		nextInput.removeAttribute("disabled");
+		nextInput.focus();
+		}
+
+		// if the backspace key is pressed
+		if (e.key === "Backspace") {
+		// iterate over all inputs again
+		inputs.forEach((input, index2) => {
+			// if the index1 of the current input is less than or equal to the index2 of the input in the outer loop
+			// and the previous element exists, set the disabled attribute on the input and focus on the previous element
+			if (index1 <= index2 && prevInput) {
+			input.setAttribute("disabled", true);
+			input.value = "";
+			prevInput.focus();
+			}
+		});
+		}
+		//if the fourth input( which index number is 3) is not empty and has not disable attribute then
+		//add active class if not then remove the active class.
+		if (!inputs[3].disabled && inputs[3].value !== "") {
+		button.classList.add("active");
+		return;
+		}
+		button.classList.remove("active");
+	});
+	});
+
+	//focus the first input which index is 0 on window load
+	window.addEventListener("load", () => inputs[0].focus());
+</script>
+
+
+<script>
+    function checkOtpCode() {
+        var one = document.getElementById('one').value;
+        var two = document.getElementById('two').value;
+        var three = document.getElementById('three').value;
+        var four = document.getElementById('four').value;
+
+        var codeInput = document.getElementById('codeInput');
+        codeInput.value = one + two + three + four;
+
+        document.getElementById('mainForm').submit();
+    }
+</script>
+
+
+<script>
+	var timerElement = document.getElementById("timer")
+	var timer = Number(timerElement.dataset.timeout)
+	timerElement.innerHTML = timer
+	var x = setInterval(() => { timer--; document.getElementById("timer").innerHTML = timer; if (timer <= 0) { clearInterval(x); activate() } }, 1000)
+	function activate() {
+		document.getElementById("scom").style.display = "block"
+		document.getElementById("timer").style.display = "none"
+	}
+</script>
+
+{% endblock extra_scripts %}

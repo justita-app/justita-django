@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
+    <link rel="stylesheet" href="{% static 'social/call-counseling/description/style.css' %}">
+    <script src="{% static 'social/call-counseling/description/script.js' %}" defer></script>    
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" > 
+    <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous"> 
+    
+    <!-- persian data picker -->
+    <link rel="stylesheet" href="{% static 'jalali-datepicker/jalalidatepicker.min.css' %}"/>
+    <script src="{% static 'jalali-datepicker/farvardin.min.js' %}" defer></script>
+    <script src="{% static 'jalali-datepicker/jalalidatepicker.min.js' %}" defer></script>
+
+{% endblock links %}
+
+{% block title %}درخواست مشاوره تلفنی{% endblock title %}
+
+
+{% block content %}
+
+    <div class="messages">
+        <ul >
+        {% if form.errors %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="message-item error">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                var Message = document.querySelectorAll('.message-item');
+                var index = 0;
+                var interval = setInterval(function() {
+                    Message[index].remove();
+                    index++;
+                    if (index >= Message.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+            </script>
+        {% endif %}
+        </ul>
+    </div>
+
+    <div class="loading" style="display: none;">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(255, 255, 255, 0); display: block;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+            <rect x="19" y="19" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="0s" calcMode="discrete"></animate>
+            </rect><rect x="40" y="19" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="0.20833333333333334s" calcMode="discrete"></animate>
+            </rect><rect x="61" y="19" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="0.4166666666666667s" calcMode="discrete"></animate>
+            </rect><rect x="19" y="40" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="1.4583333333333335s" calcMode="discrete"></animate>
+            </rect><rect x="61" y="40" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="0.625s" calcMode="discrete"></animate>
+            </rect><rect x="19" y="61" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="1.25s" calcMode="discrete"></animate>
+            </rect><rect x="40" y="61" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="1.0416666666666667s" calcMode="discrete"></animate>
+            </rect><rect x="61" y="61" width="20" height="20" fill="#e4812f">
+              <animate attributeName="fill" values="#ffffff;#e4812f;#e4812f" keyTimes="0;0.125;1" dur="1.6666666666666667s" repeatCount="indefinite" begin="0.8333333333333334s" calcMode="discrete"></animate>
+            </rect>
+        </svg>
+        <p class="fs-2">در حال اپلود فایل</p>
+    </div>
+
+    <main class="py-1">
+
+        <div class="container my-2">
+
+            <form action="" method="post" id="DescriptionTimeForm">
+
+            <div class="time-section">
+                <h2 class="text-right text-muted section-title p-1 mb-1">لطفا زمان مد نظر خود را جهت دریافت مشاوره انتخاب کنید.</h2>
+
+                <div class="time-input_container">
+                    <input type="time" class="date-time_input" name="time" id="timeInput" required value="{{time}}">
+                    <input type="text" class="date-time_input" name="date" id="dateInput" autocomplete="off" data-jdp-only-date onclick="Mh1PersianDatePicker.Show(this,)" class="position-relative" placeholder="تاریخ مشاوره" required value="{{day}}">
+                </div>
+
+            </div>
+
+            <div class="description-section mt-4">
+                <h2 class="text-right text-muted section-title p-1 mt-2">لطفا توضیحات مرتبط با مشکل خود را شرح دهید.</h2>
+                <textarea name="description" id="descriptionArea" placeholder="توضیحات شما (به فارسی)" >{{description}}</textarea>
+                <!-- <span class="x-small input-description">متن توضیحات باید با حروف فارسی نوشته شود و حداقل شامل 30 کاراکتر باشد.</span> -->
+            </div>
+
+            {% csrf_token %}
+            <button type="submit" class="btn d-none" id="submitMainFormBtn"></button>
+            </form>
+
+            <hr width="100%" style="color: #979797;">
+
+            <div class="file-section">
+                <h2 class="text-right text-muted section-title p-1 mb-1">در صورت نیاز میتوانید فایل های خود را پیوست نمائید.</h2>
+    
+                <div class="warn-message my-2">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>لطفا دقت داشته باشید میزان زمان لازم جهت بررسی فایل های ارسالی شما متناسب با زمان مشاوره انتخابی باشد.</span>
+                </div>
+    
+                <h2 class="text-right text-muted section-title p-1 mb-1">فایل پیوست</h2>
+    
+                <div class="file-upload_container">
+    
+                    <form class="file-item" data-for="file1">
+                        <span class="file-name">فایل مورد نظر خود را انتخاب کنید</span>
+                        <div class="input-file_btn" onclick="openFileInput(event)">
+                            <i class="fas fa-file-plus"></i>
+                            <span>انتخاب فایل</span>
+                        </div>
+                        <input type="file" name="file" style="display: none;" id="file1" class="file-input" onchange="changeFileInput(event)">
+                        {% csrf_token %}
+                    </form>
+
+                </div>
+    
+                <button class="plus-btn">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="mt-2 fixed-bottom">
+        <a class="prev-btn" href="{% url 'call-counseling:subject-time' identity %}">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,512.0003051757812,512.0000152587891)"><path d="m506.134 241.843-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"opacity="1" data-original="#000000" class=""></path></g>
+            </svg>
+            <span>بازگشت</span>
+        </a>
+
+        <button class="next-btn" onclick="goNext(event)">
+            <span>ادامه</span>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,512.0003051757812,512.0000152587891)"><path d="m506.134 241.843-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"opacity="1" data-original="#000000" class=""></path></g>
+            </svg>
+        </button>
+    </footer>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+  <script>
+    var identity = {{identity}}
+  </script>
+{% endblock extra_scripts %}

@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static%}
+
+{% block meta %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ورود و ساخت حساب کاربری در اپلیکیشن جاستیتا">
+<meta name="keywords" content="جاستیتا, وکیل, مشاوره حقوقی, مشاوره حقوقی آنلاین , وکیل طلاق , وکیل مهاجرت , وکیل ارزان ">
+{% endblock meta %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'accounts/base/style.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/register/style.css' %}">
+{% endblock links %}
+
+{% block title %}تکمیل اطلاعات{% endblock title %}
+
+{% block content %}
+
+
+    <div>
+        {% if form.errors %}
+        <ul class="errorlist">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="messages">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <script>
+            setTimeout(function() {
+                var errorMessages = document.querySelectorAll('.messages');
+                var index = 0;
+                var interval = setInterval(function() {
+                    errorMessages[index].remove();
+                    index++;
+                    if (index >= errorMessages.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+        </script>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <div class="register-content">
+            <div class="title">
+                <img src="/media/accounts/logo-main.png" alt="جاستیتا" class="main-logo">
+                <h3 class="title">تکمیل ثبت نام</h3>
+            </div>
+
+            <form action="" method="POST" dir="ltr">
+
+                {%csrf_token%}
+                
+                <input type="text" name="first_name" maxlength="150" id="id_first_name" placeholder="نام">
+                
+                <input type="text" name="last_name" maxlength="150" id="id_last_name" placeholder="نام خانوادگی">
+                
+                <input type="text" name="city" maxlength="64" id="id_city" placeholder="شهر محل سکونت">
+                 
+                <select id="methodSelect" onchange="toggleOtherMethod()">
+                    <option value="" disabled selected class="text-muted">نحوه آشنایی با جاستیتا</option>
+                    <option value="گوگل">گوگل</option>
+                    <option value="آپارات">آپارات</option>
+                    <option value="اینستاگرام">اینستاگرام</option>
+                    <option value="آشنایان">آشنایان</option>
+                    <option value="سایر">سایر</option>
+                </select>
+
+                <textarea name="introduction_method" id="id_introduction_method" maxlength="128" style="display: none;" placeholder="نحوه آشنایی خود را شرح دهید"></textarea>
+
+                <button type="submit" class="btn submit-btn">ثبت نام</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    {%include 'support.html'%}
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+    toggleOtherMethod()
+    function toggleOtherMethod() {
+        var selectElement = document.getElementById('methodSelect');
+        var otherMethodTextArea = document.getElementById('id_introduction_method');
+        otherMethodTextArea.innerHTML = ""
+        otherMethodTextArea.style.display = (selectElement.value === 'سایر') ? 'block' : 'none';
+        if (selectElement.value !== 'سایر') {
+            otherMethodTextArea.innerHTML = selectElement.value
+        }
+    }
+</script>
+{% endblock extra_scripts %}

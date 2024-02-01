@@ -1,0 +1,562 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-784WVEJFHN"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-784WVEJFHN');
+    </script>
+    <link rel="alternate" hreflang="en" href="{% url 'base:about_eng' %}">
+    <link rel="alternate" hreflang="fa" href="{% url 'base:about' %}">
+    <meta charset="utf-8">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'logo/logogo.png'%}">
+    <title>about justita group</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="keywords" content="وکیل, مشاوره حقوقی, مشاوره حقوقی آنلاین , وکیل طلاق , وکیل مهاجرت , وکیل ارزان ">
+    <meta name="description"
+        content="گروه حقوقی جاستیتا، بنیان گذاری شده در سال 1401 توسط آقای ابوالفضل صمدیان و محمد خسرونوبری با هدف ارائه خدمات وکیل خوب به جامعه">
+    <meta name="author" content="Samadian">
+
+    <link id="bootstrap" href="{%static 'about/css/bootstrap.min.css'%}" rel="stylesheet" type="text/css" />
+    <link id="bootstrap-grid" href="{%static 'about/css/bootstrap-grid.min.css'%}" rel="stylesheet" type="text/css" />
+    <link id="bootstrap-reboot" href="{%static 'about/css/bootstrap-reboot.min.css'%}" rel="stylesheet"
+        type="text/css" />
+
+    <link href="{%static 'about/css/style.css'%}" rel="stylesheet" type="text/css">
+
+    <link id="colors" href="{%static 'about/css/colors/scheme-01.css'%}" rel="stylesheet" type="text/css">
+    <link href="{%static 'about/css/coloring.css'%}" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet"
+        type="text/css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'newcss/css/font-awesome.css'%}">
+    <link rel="icon" type="image/x-icon" href="{% static 'logo/logogo.png'%}">
+
+
+
+</head>
+<style>
+    .back-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px;
+        background-color: #ffab00;
+        color: #fff;
+        cursor: pointer;
+        z-index: 9999;
+        border-radius: 15px;
+        box-shadow: 0 0 0 rgba(255, 171, 0, 0.7);
+        animation: pulse 2s infinite;
+        border: none;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 171, 0, 0.7);
+        }
+
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 20px rgba(255, 171, 0, 0);
+        }
+
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 171, 0, 0);
+        }
+    }
+</style>
+
+
+<body style="text-align: left;font-family: Vazirmatn, sans-serif;">
+    <button class="back-btn" onclick="goBack()">BACK</button>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <div id="wrapper">
+
+        <!-- header begin -->
+
+        <!-- header close -->
+        <!-- content begin -->
+        <div class="no-bottom no-top" id="content">
+            <div id="top"></div>
+            <!-- section begin -->
+            <section id="subheader" class="jarallax text-white">
+                <img width="600" height="400" src="{%static 'about/images/team/webp/justita-wall.webp'%}"
+                    class="jarallax-img" alt="گروه حقوقی جاستیتا">
+                <div class="center-y relative text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="spacer-single"></div>
+                                <br><br><br><br>
+                            </div>
+                            <div class="clearfix"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- section close -->
+            <section aria-label="section" data-bgcolor="#ffffff">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-5">
+                            <span class="p-title" style="font-size:15px ; letter-spacing: 0;"></span><br>
+                            <h2>Justita group</h2>
+                            <p>
+                                Justita Group is a prestigious firm that boasts a team of top-tier attorneys who are
+                                experts in various practice areas. With a commitment to providing the highest quality
+                                legal services, Justita has established specialized departments in each practice area to
+                                ensure that clients receive tailored and effective legal advice. Whether it's legal,
+                                criminal, family, property, accounting, banking, tax, bankruptcy, liquidation,
+                                intellectual property, labor, insurance, administrative court, contracts, or companies,
+                                Justita has a department with experienced attorneys and legal specialists to meet every
+                                legal need. At Justita, we pride ourselves on our dedication to excellence and our
+                                unwavering commitment to achieving the best possible outcomes for our clients.
+
+                            </p>
+                        </div>
+                        <div class="col-md-6 offset-md-1">
+                            <div class="de-images">
+
+                                <img width="600" height="400" class="di-small-2"
+                                    src="{%static 'about/images/team/webp/d2.webp'%}" alt="گروه حقوقی جاستیتا" />
+                                <img width="600" height="400" class="di-big img-fluid"
+                                    src="{%static 'about/images/team/webp/justita-office2.webp'%}"
+                                    alt="عکس دفتر 2 جاستیتا" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section data-bgcolor="#111111" class="text-light">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 offset-lg-7">
+
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist" style="font-size:15px ;">
+                                <li class="nav-item" style="padding:2px ;">
+                                    <a style="border: 1px solid #eaa636 ;" class="nav-link" id="pills-profile-tab"
+                                        data-toggle="pill" href="#pills-profile" role="tab"
+                                        aria-controls="pills-profile" aria-selected="false"> Scope of activity</a>
+                                </li>
+                                <li class="nav-item" style="padding:2px ;">
+                                    <a style="border: 1px solid #eaa636 ;" class="nav-link active" id="pills-home-tab"
+                                        data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home"
+                                        aria-selected="true"> Obligation,Expertise,Experience </a>
+                                </li>
+
+                                <li class="nav-item" style="padding:2px ;">
+                                    <a style="border: 1px solid #eaa636 ;" class="nav-link" id="pills-contact-tab"
+                                        data-toggle="pill" href="#pills-contact" role="tab"
+                                        aria-controls="pills-contact" aria-selected="false">Lawyers</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="pills-tabContent">
+                                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                    aria-labelledby="pills-home-tab">
+                                    <p>
+
+                                        Obligation: At Justita, we take our obligation to our clients very seriously. We
+                                        believe that every client deserves our utmost attention, respect, and commitment
+                                        to achieving the best possible outcome for their legal matter. Our attorneys
+                                        understand the gravity of the situations our clients face and take a proactive
+                                        approach to ensure their rights and interests are protected.
+                                    </p>
+                                    <p>Expertise: Our team of attorneys is highly experienced and well-versed in their
+                                        respective practice areas. We pride ourselves on our expertise in the law and
+                                        our ability to provide sound legal advice and guidance to our clients. Our
+                                        attorneys stay up-to-date with the latest legal developments and trends,
+                                        ensuring that our clients receive the most effective legal representation. </p>
+                                    <p>Experience: Justita has a proven track record of success in handling complex
+                                        legal matters. With decades of combined experience, our attorneys have the
+                                        skills and knowledge to navigate the legal system and achieve favorable outcomes
+                                        for our clients. We draw on our experience to develop creative legal strategies
+                                        tailored to each client's unique needs and goals. At Justita, we believe that
+                                        our experience sets us apart and enables us to provide the highest quality legal
+                                        services to our clients. </p>
+                                </div>
+                                <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                    aria-labelledby="pills-profile-tab">
+                                    <p>
+                                        Justita Group is a modern firm that utilizes technology to provide legal
+                                        services to clients across the globe. We are not limited to a specific
+                                        geographical region and have the ability to offer our legal services to clients
+                                        everywhere. Our use of technology
+                                        enables us to communicate with clients in real-time, share legal documents
+                                        securely, and collaborate with our team of attorneys from anywhere in the world.
+                                        This approach allows us to deliver efficient and effective legal services to
+                                        clients, regardless of their location. At Justita, we are committed to staying
+                                        at the forefront of legal innovation and utilizing technology to enhance the
+                                        legal services we offer to our clients.
+                                        <br><br><br><br><br><br>
+
+                                    </p>
+                                </div>
+                                <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                                    aria-labelledby="pills-contact-tab">
+
+                                    <p>At Justita Group, we are committed to delivering exceptional legal services to
+                                        our clients. We achieve this by partnering with highly skilled and experienced
+                                        attorneys, who are carefully selected for their expertise in their respective
+                                        practice areas. Our team is comprised of top-tier legal professionals who share
+                                        our commitment to excellence, and work tirelessly to provide our clients with
+                                        the best possible legal representation. By partnering with only the best, we
+                                        ensure that our clients receive the highest level of service and achieve
+                                        successful outcomes in their legal matters.
+                                        <br><br><br><br><br>
+
+
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jarallax image-container col-md-6 pull-right">
+                    <img width="600" height="400" src="{%static 'about/images/team/webp/justit-office.webp'%}"
+                        class="jarallax-img" alt="عکس دفتر جاستیتا">
+                </div>
+            </section>
+            <section aria-label="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2>Partners</h2>
+                            <div class="small-border"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".2s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/webp/mohamad-nobari-justita.webp'%}"
+                                        class="fp-image img-fluid" alt="محمد جواد خسرونوبری وکیل جاستیتا">
+                                </div>
+                                <h4>Mohammad Nobari</h4>
+                                member of Iran Central Bar Association
+                                <p>license number : <a
+                                        href="https://search.icbar.org/Lawyer/28213/%D9%85%D8%AD%D9%85%D8%AF%D8%AC%D9%88%D8%A7%D8%AF_%D8%AE%D8%B3%D8%B1%D9%88%D9%86%D9%88%D8%A8%D8%B1%DB%8C">28213</a>
+                                </p>
+
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".2s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/alireza-atashzaran.JPG'%}"
+                                        class="fp-image img-fluid" alt="علیرضا آتش زران وکیل جاستیتا">
+                                </div>
+                                <h4> Alireza Atashzaran</h4>
+                                member of Iran Central Bar Association
+                                <p>license number : <a
+                                        href="https://search.icbar.org/Lawyer/17331/%D8%B9%D9%84%DB%8C%D8%B1%D8%B6%D8%A7_%D8%A2%D8%AA%D8%B4_%D8%B2%D8%B1%D8%A7%D9%86">17331</a>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".4s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/webp/arghavan-mansuri.webp'%}"
+                                        class="fp-image img-fluid" alt="ارغوان منصوری وکیل جاستیتا">
+                                </div>
+                                <h4>Arghavan Mansuri </h4>
+                                member of Iran Central Bar Association
+                                <p>license number : <a
+                                        href="https://search.icbar.org/Lawyer/30386/%D8%A7%D8%B1%D8%BA%D9%88%D8%A7%D9%86__%D9%85%D9%86%D8%B5%D9%88%D8%B1%DB%8C_">30386</a>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".6s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/webp/atmish-justita-lawyer.webp'%}"
+                                        class="fp-image img-fluid" alt="آتنمیش جهانشاهی وکیل جاستیتا">
+                                </div>
+                                <h4>Atmish Jahanshahi </h4>
+                                member of Iran Central Bar Association
+                                <p>license number : <a
+                                        href="https://search.icbar.org/Lawyer/20249/%D8%A2%D8%AA%D9%85%DB%8C%D8%B4_%D8%AC%D9%87%D8%A7%D9%86%D8%B4%D8%A7%D9%87%DB%8C">20249</a>
+                                </p>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".6s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/webp/shahab-justita-lawyer.webp'%}"
+                                        class="fp-image img-fluid" alt="نیلوفر شهاب وکیل جاستیتا">
+                                </div>
+                                <h4>Niloofar Shahab </h4>
+                                member of Iran Central Bar Association
+                                <p>license number : <a
+                                        href="https://search.icbar.org/Lawyer/30220/%D9%86%DB%8C%D9%84%D9%88%D9%81%D8%B1__%D8%B4%D9%87%D8%A7%D8%A8_">30220</a>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section data-bgcolor="#111111" class="text-light">
+                <div class="container">
+                    <div class="row align-items-center">
+                        At Justita Group, we take a business-oriented approach to the practice of law. This means that
+                        we view our legal
+                        services as an essential component of our clients' legal needs and strive to provide practical,
+                        cost-effective, and personalized legal solutions. Our approach is designed to provide our
+                        clients with services that is tailored to their specific legal needs. We pride
+                        ourselves on our ability to combine legal expertise with a business perspective, enabling us to
+                        offer our clients a valuable and distinctive service. This approach has helped us to establish a
+                        reputation as a leading provider of legal services, with a commitment to delivering
+                        high-quality, effective, and reliable legal solutions.
+                    </div>
+                </div>
+
+            </section>
+
+
+            <section aria-label="section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h2> Managing members</h2>
+                            <div class="small-border"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".2s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+                                            <div class="overlay-text">
+                                                <h1>Abolfazl (Ashkan) Samadian is CEO and co-founder of Justita. he
+                                                    graduated Physics from Amirkabir University of technology. he also
+                                                    has an investment banking background</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/Abolfazl-samadian-CEO.webp'%}"
+                                        class="fp-image img-fluid"
+                                        alt="Abolfazl Samadian is the CEO and Co-founder of justita">
+                                </div>
+                                <a href="https://blog.justita.app/abolfazl-samadian/">
+                                    <h4>Abolfazl Samadian</h4>
+                                </a>
+                                CEO and co-founder and board-member
+                                <div>
+                                    <a href="mailto:samadian@justita.app">samadian@justita.app</a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".2s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400"
+                                        src="{%static 'about/images/team/webp/mohamad-nobari-justita.webp'%}"
+                                        class="fp-image img-fluid" alt="محمد نوبری جاستیتا">
+                                </div>
+                                <h4 style="">Mohammad Nobari</h4>
+                                chairman and co-founder <div>
+                                    <a href="mailto:nobari@justita.app">nobari@justita.app</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-6 mb30 wow fadeInRight" data-wow-delay=".2s">
+                            <div class="f-profile text-center">
+                                <div class="fp-wrap f-invert">
+                                    <div class="fpw-overlay">
+                                        <div class="fpwo-wrap">
+
+                                        </div>
+                                    </div>
+                                    <div class="fpw-overlay-btm"></div>
+                                    <img width="600" height="400" src="{%static 'about/images/team/def.png'%}"
+                                        class="fp-image img-fluid" alt="نادر نوبری جاستیتا">
+                                </div>
+                                <h4 style="">Nader Nobari</h4>
+                                board-member <div>
+                                    <a href="mailto:n.khosronobari@justita.app">n.khosronobari@justita.app</a>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section id="section-text" data-bgcolor="#111111" class="text-light" style="text-align:center ;">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-4 col-md-12 wow fadeInRight" data-wow-delay=".2s">
+
+                        </div>
+                        <div class="col-lg-4 p-lg-5  mb-sm-30 wow fadeInRight" data-wow-delay=".4s">
+
+                            <img src="{%static 'logo/1.png'%}" style="width:60% !important ; margin-top: 35px;"
+                                class="white-img" alt="لوگو جاستیتا">
+                        </div>
+                        <div class="col-lg-4 wow fadeInRight" data-wow-delay=".6s">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <!-- content close -->
+
+        <!-- footer begin -->
+
+        <!-- footer close -->
+        <div id="preloader">
+            <div class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Javascript Files
+    ================================================== -->
+    <script src="{%static 'about/js/jquery.min.js'%}"></script>
+    <script src="{%static 'about/js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'about/js/wow.min.js'%}"></script>
+    <script src="{%static 'about/js/jquery.isotope.min.js'%}"></script>
+    <script src="{%static 'about/js/easing.js'%}"></script>
+    <script src="{%static 'about/js/owl.carousel.js'%}"></script>
+    <script src="{%static 'about/js/validation.js'%}"></script>
+    <script src="{%static 'about/js/jquery.magnific-popup.min.js'%}"></script>
+    <script src="{%static 'about/js/enquire.min.js'%}"></script>
+    <script src="{%static 'about/js/jquery.stellar.min.js'%}"></script>
+    <script src="{%static 'about/js/jquery.plugin.js'%}"></script>
+    <script src="{%static 'about/js/typed.js'%}"></script>
+    <script src="{%static 'about/js/jarallax.js'%}"></script>
+    <script src="{%static 'about/js/jquery.countTo.js'%}"></script>
+    <script src="{%static 'about/js/jquery.countdown.js'%}"></script>
+    <script src="{%static 'about/js/designesia.js'%}"></script>
+    <script>
+
+        const fpwOverlays = document.querySelectorAll('.fpw-overlay');
+
+        fpwOverlays.forEach(fpwOverlay => {
+            const overlayText = fpwOverlay.querySelector('.overlay-text');
+
+            fpwOverlay.addEventListener('click', () => {
+                fpwOverlay.classList.toggle('active');
+                overlayText.classList.toggle('active');
+            });
+
+            overlayText.addEventListener('click', event => {
+                event.stopPropagation();
+            });
+
+            document.addEventListener('click', () => {
+                fpwOverlay.classList.remove('active');
+                overlayText.classList.remove('active');
+            });
+        });
+
+
+
+    </script>
+
+    <style>
+        .fpwo-wrap {
+            position: relative;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        .fpw-overlay.active .overlay-text {
+            display: block;
+        }
+
+        .fpw-overlay.active .fp-image {
+            filter: blur(5px);
+        }
+    </style>
+
+
+
+</body>
+
+</html>

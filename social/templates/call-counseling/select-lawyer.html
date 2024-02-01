@@ -1,0 +1,347 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
+    <link rel="stylesheet" href="{% static 'social/call-counseling/select-lawyer/style.css' %}">
+    <script src="{% static 'social/call-counseling/select-lawyer/script.js' %}" defer></script>
+{% endblock links %}
+
+{% block title %}درخواست مشاوره تلفنی{% endblock title %}
+
+
+{% block content %}
+
+    <div class="messages">
+        <ul >
+        {% if form.errors %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="message-item error">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                var Message = document.querySelectorAll('.message-item');
+                var index = 0;
+                var interval = setInterval(function() {
+                    Message[index].remove();
+                    index++;
+                    if (index >= Message.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+            </script>
+        {% endif %}
+        </ul>
+    </div>
+
+    <main>
+        <header class="py-3">
+            <h1 class="text-center fs-6">انتخاب وکیل برای مشاوره تلفنی</h1>
+        </header>
+        <div class="container">
+
+            <div class="col-12 col-lg-5 lawyer-box">
+                <div class="main-info">
+                    
+                    <div class="information">
+                        <img src="/media/team/Alireza_atashzaran.webp" alt="" class="profile-picture">
+                        <div class="info">
+                            <p class="lawyer-name">علیرضا آتش زران</p>
+                            <p class="position small">وکیله پایه یک کانون وکلای مرکز</p>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+
+                        <div class="select-lawyer {% if selected_lawyer == 'Alireza_Atashzaran' %}active{% endif %}">
+                            <button class="btn select-btn" data-lawyerName="Alireza_Atashzaran">انتخاب وکیل</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
+                                <g>
+                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
+                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="pricing">
+                            <span class="price-text small text-muted">قیمت از</span>
+                            <p class="price">{{price_from}} تومن</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="lawyer-footer p-2">
+                    <div class="accordion-item">
+                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingOne">
+                            <p class="m-0 small">شماره پروانه : ١٧٣٣١</p>
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                +اطلاعات بیشتر
+                            </button>
+                        </div>
+
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body py-1">
+                                <div>
+                                    <span class="text-muted small">درصد رضایت موکلین : </span>
+                                    <span class="small green-color">93%</span>
+                                    <span class="small">درصد</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5 lawyer-box">
+                <div class="main-info">
+
+                    <div class="information">
+                        <img src="/media/team/Arghavan_mansuri.webp" alt="" class="profile-picture">
+                        <div class="info">
+                            <p class="lawyer-name">ارغوان منصوری</p>
+                            <p class="position small">وکیله پایه یک کانون وکلای مرکز</p>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+
+                        <div class="select-lawyer {% if selected_lawyer == 'Arghavan_Mansuri' %}active{% endif %}">
+                            <button class="btn select-btn" data-lawyerName="Arghavan_Mansuri">انتخاب وکیل</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
+                                <g>
+                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
+                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="pricing">
+                            <span class="price-text small text-muted">قیمت از</span>
+                            <p class="price">{{price_from}} تومن</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="lawyer-footer p-2">
+                    <div class="accordion-item">
+                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingTwo">
+                            <p class="m-0 small">شماره پروانه : 30386</p>
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                                +اطلاعات بیشتر
+                            </button>
+                        </div>
+
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                            <div class="accordion-body py-1">
+                                <div>
+                                    <span class="text-muted small">درصد رضایت موکلین : </span>
+                                    <span class="small green-color">100%</span>
+                                    <span class="small">درصد</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5 lawyer-box">
+                <div class="main-info">
+
+                    <div class="information">
+                        <img src="/media/team/Atmish_Jahanshahi.webp" alt="" class="profile-picture">
+                        <div class="info">
+                            <p class="lawyer-name">آتمیش جهانشاهی</p>
+                            <p class="position small">وکیله پایه یک کانون وکلای مرکز</p>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+
+                        <div class="select-lawyer {% if selected_lawyer == 'Atmish_Jahanshahi' %}active{% endif %}">
+                            <button class="btn select-btn" data-lawyerName="Atmish_Jahanshahi">انتخاب وکیل</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
+                                <g>
+                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
+                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="pricing">
+                            <span class="price-text small text-muted">قیمت از</span>
+                            <p class="price">{{price_from}} تومن</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="lawyer-footer p-2">
+                    <div class="accordion-item">
+                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingThree">
+                            <p class="m-0 small">شماره پروانه : 20249</p>
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+                                +اطلاعات بیشتر
+                            </button>
+                        </div>
+
+                        <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                            <div class="accordion-body py-1">
+                                <div>
+                                    <span class="text-muted small">درصد رضایت موکلین : </span>
+                                    <span class="small green-color">100%</span>
+                                    <span class="small">درصد</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5 lawyer-box">
+                <div class="main-info">
+
+                    <div class="information">
+                        <img src="/media/team/Mohammad_nobari.webp" alt="" class="profile-picture">
+                        <div class="info">
+                            <p class="lawyer-name">محمدجواد خسرونوبری</p>
+                            <p class="position small">وکیله پایه یک کانون وکلای مرکز</p>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+
+                        <div class="select-lawyer {% if selected_lawyer == 'Mohammad_Nobari' %}active{% endif %}">
+                            <button class="btn select-btn" data-lawyerName="Mohammad_Nobari">انتخاب وکیل</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
+                                <g>
+                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
+                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="pricing">
+                            <span class="price-text small text-muted">قیمت از</span>
+                            <p class="price">{{price_from}} تومن</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="lawyer-footer p-2">
+                    <div class="accordion-item">
+                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingFour">
+                            <p class="m-0 small">شماره پروانه : 28213</p>
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                                +اطلاعات بیشتر
+                            </button>
+                        </div>
+
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                            <div class="accordion-body py-1">
+                                <div>
+                                    <span class="text-muted small">درصد رضایت موکلین : </span>
+                                    <span class="small green-color">100%</span>
+                                    <span class="small">درصد</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-5 lawyer-box mb-5 pb-5">
+                <div class="main-info">
+
+                    <div class="information">
+                        <img src="/media/team/niloofar_shahab.webp" alt="" class="profile-picture">
+                        <div class="info">
+                            <p class="lawyer-name">نیلوفر شهاب</p>
+                            <p class="position small">وکیله پایه یک کانون وکلای مرکز</p>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+
+                        <div class="select-lawyer {% if selected_lawyer == 'Niloofar_Shahab' %}active{% endif %}">
+                            <button class="btn select-btn" data-lawyerName="Niloofar_Shahab">انتخاب وکیل</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
+                                <g>
+                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
+                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="pricing">
+                            <span class="price-text small text-muted">قیمت از</span>
+                            <p class="price">{{price_from}} تومن</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="lawyer-footer p-2">
+                    <div class="accordion-item">
+                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingOne">
+                            <p class="m-0 small">شماره پروانه : 30220</p>
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                +اطلاعات بیشتر
+                            </button>
+                        </div>
+
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body py-1">
+                                <div>
+                                    <span class="text-muted small">درصد رضایت موکلین : </span>
+                                    <span class="small green-color">100%</span>
+                                    <span class="small">درصد</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <form action="" method="post" style="display: none;" id="lawyerForm">
+            {% csrf_token %}
+            <input type="text" name="lawyer_name" style="display: none;" id="lawyerNameInput">
+        </form>
+    </main>
+
+    <footer class="mt-2 fixed-bottom">
+        
+        <button class="next-btn" onclick="goNext(event)">
+            <span>ادامه</span>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,512.0003051757812,512.0000152587891)"><path d="m506.134 241.843-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"opacity="1" data-original="#000000" class=""></path></g>
+            </svg>
+        </button>
+    </footer>
+{% endblock content %}

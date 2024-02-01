@@ -1,0 +1,103 @@
+
+
+name: Django CD
+
+
+env:
+  REPOSITORY: git@github.com:${{github.repository}}.git
+  PROJECT_NAME : ${{ github.event.repository.name }}
+  WORK_DIR : /home/justita_django_app
+  DOCKER_HUB_URL : docker.io
+
+
+#Need in Secret {HOST, USERNAME, PRIVATE_KEY, PORT, DOCKER_PASSWORD, DOCKER_USERNAME}
+
+
+
+on:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  Clone:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Clone
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          mkdir -p ${{env.WORK_DIR}}
+          cd ${{env.WORK_DIR}}
+          git clone ${{env.REPOSITORY}}
+          cd ${{env.PROJECT_NAME}}
+          
+          git checkout master 
+          git pull origin master 
+          git status
+    
+
+  Build:
+    needs: Clone
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        env: EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, SECRET_KEY
+        script: |
+          cd ${{env.WORK_DIR}}/${{env.PROJECT_NAME}}
+          
+          echo " ------------- Login to Dockerhub -------------"
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login ${{ env.DOCKER_HUB_URL }} -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          
+          echo " ------------- docker webserver justita_django_app image -------------"
+          docker compose -f docker-compose.webserver.yml build --pull 
+          
+          echo " ------------- docker build justita_django_app image -------------"
+          docker compose build --pull 
+
+  Deploy:
+    needs: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.PRIVATE_KEY }}
+        port: ${{ secrets.PORT }}
+        env: EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, SECRET_KEY
+        script: |
+          cd ${{env.WORK_DIR}}/${{env.PROJECT_NAME}}
+          
+          echo " ------------- docker up webserver container -------------"
+          docker compose -f docker-compose.webserver.yml up -d --force-recreate --no-build
+
+          echo " ------------- docker up justita_django_app container -------------"
+          SECRET_KEY="${{ secrets.SECRET_KEY }}"  \
+          EMAIL_HOST_USER="${{ secrets.EMAIL_HOST_USER }}" \
+          EMAIL_HOST_PASSWORD="${{ secrets.EMAIL_HOST_PASSWORD }}" \
+          API_KEY_FAST_FOREX="${{ secrets.API_KEY_FAST_FOREX }}" \
+          API_KEY_TRONGRID="${{ secrets.API_KEY_TRONGRID }}" \
+          PRIMARY_TRON_WALLET_ADDRESS="${{ secrets.PRIMARY_TRON_WALLET_ADDRESS }}" \
+          PRIMARY_TRON_WALLET_PRIVATE_KEY="${{ secrets.PRIMARY_TRON_WALLET_PRIVATE_KEY }}" \
+          docker compose up -d --force-recreate --no-build
+    
+          echo "------------- docker prune old image -------------"
+          docker container prune --force
+          docker image prune --force
+          docker volume prune --force
+
+          echo "------------- docker restart -------------"
+          docker restart $(docker ps -q)
+        

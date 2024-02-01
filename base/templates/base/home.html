@@ -1,0 +1,599 @@
+
+{% load static%}
+
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="مشاوره حقوقی تلفنی, مشاوره حقوقی آنلاین, مشاوره تلفنی با وکیل ,مشاوره آنلاین با وکیل , مشاوره رایگان با وکیل , مشاوره حقوقی رایگان ">
+    <meta name="author" content="Samadian">
+    <title>جاستیتا - خدمات مشاوره با وکیل</title>
+    <meta name="description" content="ارائه خدمات مشاوره با وکیل، از جمله مشاوره حقوقی تلفنی و آنلاین، وکالت آنلاین و مشاوره حضوری در وب اپلیکیشن جاستیتا">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="language" content="Persian">
+
+    <!-- favico -->
+    <link rel="icon" type="image/x-icon" href="{% static 'V3/logo/favicon.png'%}">
+
+    <!-- open graph face book-->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://justita.app">
+    <meta property="og:title" content="جاستیتا - خدمات مشاوره با وکیل">
+    <meta property="og:description" content="ارائه خدمات مشاوره با وکیل، از جمله مشاوره حقوقی تلفنی و آنلاین، وکالت آنلاین و مشاوره حضوری در وب اپلیکیشن جاستیتا">
+    <meta property="og:image" content="{% static 'V3\homepage\images\main_banner.webp'%}">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://www.justita.app">
+    <meta property="twitter:title" content="جاستیتا - خدمات مشاوره با وکیل">
+    <meta property="twitter:description" content="ارائه خدمات مشاوره با وکیل، از جمله مشاوره حقوقی تلفنی و آنلاین، وکالت آنلاین و مشاوره حضوری در وب اپلیکیشن جاستیتا">
+    <meta property="twitter:image" content="{% static 'V3\homepage\images\main_banner.webp'%}">
+    <!-- Apple Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="{% static 'V3/logo/favicon.png'%}">
+    <link rel="apple-touch-startup-image" href="{% static 'V3\homepage\images\main_banner.webp'%}">
+    <meta name="apple-mobile-web-app-title" content="Justita">
+
+
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'V3\homepage\css\style.css' %}" />
+    
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+
+
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light py-1 fixed-top"
+      dir="ltr"
+      style="background-color: white"
+      
+    >
+      <div class="container">
+        <a href="{%url 'base:home'%}" class="navbar-brand" style="width: 30%;"
+          ><img
+          style="width: 90%;"
+            class="p-0 navbarlogo"
+            src="{% static 'V3\homepage\images\justita_logo.png'%}"
+            alt="گروه حقوقی جاستیتا - لوگو"
+        /></a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navmenu"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto text-center">
+            <li class="nav-item">
+              <a href="https://blog.justita.app/" class="nav-link">بلاگ</a>
+            </li>
+            <li class="nav-item">
+              <a href="#itemsSection" class="nav-link">خدمات</a>
+            </li>
+            <li class="nav-item">
+              <a href="/social" class="nav-link">وب اپلیکیشن</a>
+            </li>
+            <li class="nav-item">
+              <a href="{%url 'base:home'%}" class="nav-link">صفحه اصلی</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- NAVBAR END -->
+
+    <!-- HERO -->
+    <section id="heroSection" class="py-0 text-center text-sm-start">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Left half with text -->
+          <div class="col-sm-6 text-center p-3 mb-3">
+            <h1 class="py-4 headings1">
+              مشاوره حقوقی آنلاین و مشاوره حقوقی تلفنی، وکیل آنلاین
+            </h1>
+            <a href="/social/">
+
+            <div style="font-weight: 600" class="button btn btn-lg w-75">
+              دریافت مشاوره
+            </div></a>
+          </div>
+
+          <!-- Right half with image -->
+          <div class="col-sm-6 p-0 d-none d-sm-block">
+            <img
+              class="img-fluid rounded w-100"
+              src="{% static 'V3\homepage\images\main_banner.webp'%}"
+              alt="گروه حقوقی جاستیتا - بنر سایت"
+              style="object-fit: cover; height: 100%"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERO END -->
+
+    <!-- ITEMS -->
+    <section id="itemsSection" class="px-5 pt-5 pb-4 mb-5">
+      <div>
+        <h2 class="text-center my-3 pb-3">
+          جاستیتا: یک وب اپلیکیشن برای تمام نیاز های حقوقی
+        </h2>
+        <div class="row text-center g-4">
+        
+          <div class="col-lg-2 col-md-3 col-4">
+            <a href="{% url 'base:ccl'%}">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex">
+                <img
+                  src="media/social/services/call_counceling_logo.webp"
+                  class="cardicon card-img-top  mx-auto"
+                  alt="مشاوره تلفنی با وکیل"
+                />
+                <h3 class="card-text px-1 py-2">مشاوره حقوقی تلفنی</h3>
+              </div>
+            </div>
+          </a>
+          </div>
+       
+
+          <div class="col-lg-2 col-md-3 col-4">
+            
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex">
+                <img
+                src="/media/social/services/online_counceling_logo.webp"
+                  class="cardicon card-img-top mx-auto"
+                  alt="چت با وکیل"
+                />
+                <h3 class="card-text px-1 py-2">مشاوره حقوقی آنلاین</h3>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-md-3 col-4">
+            <a href="{%url 'base:online-atterney'%}">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex position-relative">
+                <img
+                  src="/media/social/services/online_attorney_logo.webp"
+                  class="cardicon card-img-top mx-auto"
+                  alt="وکالت آنلاین"
+                /><span
+                  class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger p-2"
+                >
+                  اقتصادی
+                </span>
+                <h3 class="card-text px-1 py-3">وکالت آنلاین</h3>
+              </div>
+            </div>
+          </a>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex">
+                <img
+                  src="/media/social/services/free_councel_logo.webp"
+                  class="cardicon card-img-top mx-auto"
+                  alt="مشاوره رایگان با وکیل"
+                />
+                <h3 class="card-text px-1 py-2">مشاوره حقوقی رایگان</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body d-md-flex">
+                <img
+                  src="/media/social/services/complaint_logo.webp"
+                  class="cardicon card-img-top mx-auto"
+                  alt="تنظیم شکوائیه"
+                />
+                <h3 class="card-text px-1 py-2">تنظیم شکوائیه</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex">
+                <img
+                  src="/media/social/services/contract_logo.webp"
+                  class="cardicon card-img-top  mx-auto"
+                  alt="تنظیم قرارداد"
+                />
+                <h3 class="card-text px-1 py-3 h-100">تنظیم قرارداد</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex position-relative">
+                <img
+                  src="/media/social/services/startups_lawyer.webp"
+                  class="cardicon card-img-top  mx-auto"
+                  alt="وکالت استارت آپ ها"
+                /><span
+                  class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger p-2"
+                >
+                  بزودی
+                </span>
+                <h3 class="card-text px-1 py-2">وکالت استارت آپ ها</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex position-relative">
+                <img
+                  src="/media/social/services/issu_company.webp"
+                  class="cardicon card-img-top mx-auto"
+                  alt="ثبت شرکت ها"
+                />
+                <span
+                  class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger p-2"
+                >
+                  بزودی
+                </span>
+                <h3 class="card-text px-1 py-3">ثبت شرکت ها</h3>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-4">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="my-card-body card-body d-md-flex position-relative">
+                <img
+                  src="/media/social/services/live_counceling_logo.webp"
+                  class="cardicon card-img-top mx-auto"
+                  alt="مشاوره حضوری"
+                />
+                <span
+                  class="position-absolute top-0 start-0 translate-middle badge rounded-pill bg-danger p-2"
+                >
+                  فقط تهران
+                </span>
+                <h3 class="card-text px-1 py-2">مشاوره حضوری</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ITEMS END -->
+
+    <!-- slider -->
+    <!-- <section>
+      <div
+        id="carouselExampleIndicators"
+        class="p-sm-1 p-md-3 p-lg-5 carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="https://web-cdn.snapp.ir/snapp-website/images/homepage/slider/Market.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://web-cdn.snapp.ir/snapp-website/images/homepage/slider/Market.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-item">
+            <img
+              src="https://web-cdn.snapp.ir/snapp-website/images/homepage/slider/Market.jpg"
+              class="d-block w-100"
+              alt="..."
+            />
+          </div>
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- slider end -->
+    <!-- Services -->
+    <section class="mt-5 text-dark px-0">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg">
+            <img class="img-fluid" src="{%static 'V3/homepage/images/online-attorney.webp'%}" alt="وکالت آنلاین، جاستیتا" />
+          </div>
+          <div class="col-md px-4 w-100 my-3">
+            <h2 class="mb-3">
+              وکالت آنلاین: پاسخی به نیاز های حقوقی تمامی اقشار جامعه
+            </h2>
+            <p>
+              وکالت آنلاین خدمت نوین ارائه شده توسط گروه حقوقی جاستیتا می باشد.
+              در وکالت آنلاین، امکان بهره مندی شما از خدمات و دانش برترین وکلای
+              ایران فراهم آمده. وکلای مجموعه به صورت آنلاین وکالت پرونده شما را
+              می پذیرند. در صورتی که پرونده شما در جریان است با دریافت فایل "اخذ
+              رونوشت" و مراجعه به مراجع ذیصلاح رونوشت پرونده خود را دریافت و در
+              پنل وکالت آنلاین بارگذاری می نمایید و در صورت در جریان نبودن
+              پرونده، وکیل شما را راهنمایی خواهد کرد. پس از ثبت پرونده شما در
+              وکالت آنلای ن جاستیتا، کد رهگیری شما صادر می شود و با در دست داشتن
+              کدی که اشاره شد و مراجعه به دفاتر خدمات قضایی و ثبت نمونه امضا
+              وکالت پرونده شما در دستان وکلای مجرب جاستیتا است.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Services end -->
+    <!-- More services -->
+    <section class="p-5 brandintItems">
+      <div class="">
+        <div class="row text-center g-5 justify-content-around">
+          <div class="col-lg-4 col-md-6 col-sm-6 mx-1 px-0 py-3" style="border-radius: 20px; background-color: #ffe3cc;">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="card-body px-0" style="width: 100%">
+                <img
+                  src="{%static 'V3/homepage/images/call_counselin_with_lawyer.webp'%}"
+                  class="card-img-top w-75 mx-auto rounded"
+                  alt="مشاوره حقوقی تلفنی با وکیل"
+                />
+                <h2 class="h3 my-3">مشاوره حقوقی تلفنی</h2>
+                <p class="card-text mb-2 px-3">
+                  مشاوره تلفنی با وکیل راهی آسان و مقرون به صرفه برای دریافت
+                  مشاوره حقوقی از وکیل متخصص است. این خدمت به شما این امکان را
+                  می دهد که با وکیل متخصص در مورد موضوع حقوقی، از جمله مسائل
+                  کیفری، مدنی، خانواده و ... مشورت کنید.
+                </p>
+                <a href="{%url 'call-counseling:home'%}">
+                <button class="btn service-btn py-2 mt-2">
+                  دریافت مشاوره تلفنی از وکلای برتر
+                </button>
+              </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 px-0 py-3" style="border-radius: 20px; background-color: #ffe3cc;">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="card-body px-0" style="width: 100%">
+                <img
+                  src="{%static 'V3/homepage/images/online_counselin_with_lawyer.webp'%}"
+                  class="card-img-top w-75 mx-auto"
+                  alt="مشاوره حقوق آنلاین با وکیل"
+                />
+                <p class="h3 my-3">مشاوره حقوقی آنلاین</p>
+                <p class="card-text mb-2 px-3">
+                  مشاوره حقوقی آنلاین به شما این امکان را می دهد که به صورت برخط
+                  در اپلیکشن جاستیتا با وکیل مورد انتخابتان تا زمان برطرف شدن
+                  مشکل حقوقی خود در ارتباط باشید. می توانید مشاوره را از هر
+                  مکانی با یک دستگاه متصل به اینترنت دریافت کنید.
+                </p>
+                <a href="{%url 'online-counseling:home'%}">
+                <button class="btn service-btn py-2 mt-2">
+                  دریافت مشاوره حقوقی آنلاین از وکلای برتر
+                </button>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-sm-6 px-0 py-3"style="border-radius: 20px; background-color: #ffe3cc;">
+            <div class="text-dark mx-auto" style="width: auto">
+              <div class="card-body px-0" style="width: 100%">
+                <img
+                  src="{%static 'V3/homepage/images/online_lawyer.webp'%}"
+                  class="card-img-top w-75 mx-auto"
+                  alt="وکیل آنلاین"
+                />
+                <p class="h3 my-3">مشاوره حقوقی رایگان</p>
+                <p class="card-text mb-2 px-3">
+                  مشاوره حقوقی رایگان در وب اپلیکیشن جاستیتا به شما این امکان را
+                  می دهد تا به صورت آنلاین و بدون پرداخت هزینه، پرسش خود را با
+                  وکلای جاستیتا مطرح کنید.
+                </p>
+                <a href="{%url 'social:legal-panel'%}">
+                <button class="btn service-btn py-2 mt-2">
+                  دریافت مشاوره حقوقی رایگان
+                </button>
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- More services END -->
+
+    <!-- VIDEO SECTION -->
+    <section class="py-3 mt-3 text-center" style="background-color: #f2f5f8">
+      <div class="container">
+        <h2 class="my-2">از بهترین وکلای ایران مشاوره بگیر</h2>
+
+        <p class="w-100 my-3">
+          جاستیتا بر این باور است که بر خلاف رویه کنونی، هر موضوع حقوقی نیازمند بهره گیری از خبرگان موضوع مربوطه می باشد و در راستای تحقق این آرمان، با بهره گیری از متخصصین در زمینه های مختلف حقوقی، اقدام به خدمت رسانی به جامعه می نماید.
+
+        </p>
+        <br />
+        <img
+          class="img-fluid"
+          src="{%static 'V3/homepage/images/last_banner.webp'%}"
+          alt="وکلای جاستیتا"
+        />
+      </div>
+    </section>
+
+    <!-- VIDEO SECTION END -->
+    <!-- FOOTER -->
+    <footer
+      class="text-center text-lg-start text-white"
+      style="background-color: #1c2331"
+    >
+      <!-- Section: Social media -->
+      <div
+        class="d-flex justify-content-center p-4"
+        style="background-color: rgba(255, 166, 0, 0.845)"
+      >
+        <div>
+          <a href="https://www.instagram.com/justita_official/" class="text-white m-2">
+            <i class="bi-instagram p-2"></i>
+          </a>
+          <a href="https://wa.me/982177871787" class="text-white m-2">
+            <i class="bi-whatsapp p-2"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/justita-group/" class="text-white m-2">
+            <i class="bi-linkedin p-2"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UCatCz0xitLrpNBGD5Fx6kxA" class="text-white m-2">
+            <i class="bi-youtube p-2"></i>
+          </a>
+        </div>
+        <!-- Right -->
+      </div>
+
+      <div>
+        <div class="container text-center mt-1">
+          <!-- Grid row -->
+          <div class="row mt-3">
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-5">
+              <!-- Content -->
+              <div class="text-uppercase fw-bold mb-1">گروه حقوقی جاستیتا</div>
+              <hr
+                class="mt-0 d-inline-block mx-auto"
+                style="width: 90px; background-color: rgb(255, 166, 0); height: 4px"
+              />
+              <p class="px-1">
+                گروه حقوقی جاستیتا گروه حقوقی جاستیتا متشکل از وکلای مجرب و
+                متخصص در حوزه های مختلف با ارائه خدمات شایسته، نسبت به رفع
+                نیازهای حقوقی جامعه اقدامات مقتضی را صورت می دهد.
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-5">
+              <!-- Links -->
+              <div class="text-uppercase fw-bold mb-1">خدمات</div>
+              <hr
+                class="mt-0 d-inline-block mx-auto"
+                style="width: 90px; background-color: rgba(255, 166, 0, 0.845); height: 4px"
+              />
+              <p class="mt-0">
+                <a href="{%url 'base:ccl'%}" class="text-white">مشاوره حقوقی تلفنی</a>
+              </p>
+              <p>
+                <a href="#!" class="text-white">مشاوره حقوقی آنلاین</a>
+              </p>
+              <p>
+                <a href="{%url 'base:online-atterney'%}" class="text-white">وکالت آنلاین</a>
+              </p>
+              <p>
+                <a href="#!" class="text-white">مشاوره حقوقی حضوری</a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-5">
+              <!-- Links -->
+              <div class="text-uppercase fw-bold mb-1">دسترسی ها</div>
+              <hr
+                class="mt-0 d-inline-block mx-auto"
+                style="width: 90px; background-color: rgba(255, 166, 0, 0.845); height: 4px"
+              />
+              <p>
+                <a href="{% url 'base:home'%}" class="text-white">صفحه اصلی</a>
+              </p>
+              <p>
+                <a href="{% url 'social:home'%}" class="text-white">وب اپلیکیشن</a>
+              </p>
+              <p>
+                <a href="https://blog.justita.app/" class="text-white">بلاگ</a>
+              </p>
+              <p>
+                <a href="#!" class="text-white">پشتیبانی</a>
+              </p>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0">
+              <!-- Links -->
+              <h6 class="text-uppercase fw-bold">راه های ارتباطی</h6>
+              <hr
+                class="mt-0 d-inline-block mx-auto"
+                style="width: 90px; background-color: rgba(255, 166, 0, 0.845); height: 4px"
+              />
+              <a href="https://maps.app.goo.gl/xoMaguGVnwYjbTZq5">
+                <p>تهران، ولیعصر، بعد از پارک ساعی، پلاک 254، واحد 5</p>
+              </a>
+              <a href="mailto:info@justita.app"> <p>info@justita.app</p></a>
+
+              <a href="call:+982177871787"><p>021-77871787</p></a>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+      </div>
+      <!-- Section: Links  -->
+
+      <!-- Copyright -->
+      <div
+        class="text-center p-3"
+        style="font-size: small; background-color: rgba(0, 0, 0, 0.2)"
+      >
+        کلیه حقوق مادی معنوی این وبسابت متعلق به گروه حقوقی جاستیتا می باشد
+      </div>
+      <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

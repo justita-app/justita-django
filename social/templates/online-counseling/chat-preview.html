@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}پیامرسان | جاستیتا{% endblock title %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'social/chats/style.css' %}">
+{% endblock links %}
+
+{% block content %}
+  <header>
+    <a href="{% url 'social:home' %}">
+      <svg data-v-19b8e40c="" xmlns="http://www.w3.org/2000/svg" class="back-svg" fill="none" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" class="w-20 h-20 text-gray-600"><path data-v-19b8e40c="" d="M9 18l6-6-6-6"></path></svg>
+    </a>
+
+    <div class="chat-lawyer-info">
+      <img src="{{lawyer_profile}}" alt="{{lawyer}}" class="profile-picture">
+      <div class="info-text">
+        <p class="m-0">{{lawyer}}</p>
+        <span class="small text-muted">وکیله پایه یک کانون وکلای مرکز</span>
+      </div>
+    </div>
+
+  </header>
+
+  <main class="container chat-container pt-2">
+
+    <div class="lawyer-message">
+      <img src="{{lawyer_profile}}" alt="" class="profile-picture">
+      <div class="message">
+        <p class="context fs-6">سلام، من {{lawyer}} هستم. از طریق این گفتگو می‌توانید مشکل و یا مسئله حقوقی خود را مطرح و راهکار مربوطه را دریافت کنید.</p>
+        <span class="time small">{{created_time}}</span>
+      </div>
+    </div>
+
+
+    <div class="payment-required position-relative small">
+      <p class="text-primary">کاربر عزیز، جهت شروع گفتگوی آنلاین با متخصص مربوطه لازم است تا ابتدا هزینه مشاوره آنلاین با این متخصص را پرداخت فرمایید. با استفاده از دکمه زیر می‌توانید جهت پرداخت اقدام فرمایید.</p>
+      <p class="small">هزینه ی مشاوره : {{payment_aount}} تومان</p>
+      <a href="{% url 'online-counseling:start-payment' identity=identity %}" class="go-payment_btn">پرداخت هزینه</a>
+    </div>
+
+    <form action="" id="message-form" class="disabled">
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-24 h-24 text-gray-600">
+          <path d="M18.08 12.42l-6.18 6.19a4.25 4.25 0 01-6-6l8-8a2.57 2.57 0 013.54 0 2.52 2.52 0 010 3.54l-6.9 6.89A.75.75 0 119.42 14l5.13-5.12a1 1 0 00-1.42-1.42L8 12.6a2.74 2.74 0 000 3.89 2.82 2.82 0 003.89 0l6.89-6.9a4.5 4.5 0 00-6.36-6.36l-8 8A6.25 6.25 0 0013.31 20l6.19-6.18a1 1 0 10-1.42-1.42z"></path>
+        </svg>
+      </button>
+      <textarea type="text" class="message-input" placeholder="پیام خود را اینجا بنویسید ...." disabled></textarea>
+      <input type="file" name="file" id="file_input" class="d-none">
+  
+
+      <button>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-24 h-24 -ml-1" style="transform: scaleX(-1);"><path d="M20.34 9.32l-14-7a3 3 0 00-4.08 3.9l2.4 5.37a1.06 1.06 0 010 .82l-2.4 5.37A3 3 0 005 22a3.14 3.14 0 001.35-.32l14-7a3 3 0 000-5.36zm-.89 3.57l-14 7a1 1 0 01-1.35-1.3l2.39-5.37a2 2 0 00.08-.22h6.89a1 1 0 000-2H6.57a2 2 0 00-.08-.22L4.1 5.41a1 1 0 011.35-1.3l14 7a1 1 0 010 1.78z"></path>
+          </svg>
+      </button>
+
+    </form>
+
+  </main>
+{% endblock content %}

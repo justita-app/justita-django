@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
+    <link rel="stylesheet" href="{% static 'social/call-counseling/detail/style.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" > 
+    <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous"> 
+
+{% endblock links %}
+
+{% block title %}درخواست مشاوره تلفنی{% endblock title %}
+
+
+{% block content %}
+
+    <div class="messages">
+        <ul >
+        {% if form.errors %}
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="message-item error">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+            <script>
+                setTimeout(function() {
+                var Message = document.querySelectorAll('.message-item');
+                var index = 0;
+                var interval = setInterval(function() {
+                    Message[index].remove();
+                    index++;
+                    if (index >= Message.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+            </script>
+        {% endif %}
+        </ul>
+    </div>
+
+    <div class="container p-4">
+        <div class="main-box">
+            <h1 class="fs-6 title">خلاصه درخواست</h1>
+
+            <div class="information-box">
+                <div class="info-item">
+                    <span class="small">شماره درخواست :</span>
+                    <span class="small">{{identity}}</span>
+                </div>
+                <hr>
+                <div class="lawyer-info">
+                    <img src="{{lawyer_picture}}" alt="" class="lawyer-profile_picture">
+                    <div class="info">
+                        <p class="lawyer-name small m-0">{{lawyer}}</p>
+                        <p class="position x-small m-0">وکیله پایه یک کانون وکلای مرکز</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="info-item">
+                    <span class="small">موضوع :</span>
+                    <span class="small">{{subject}}</span>
+                </div>
+                <hr>
+                {% if client != '' %}
+                <div class="info-item">
+                    <span class="small">موکل :</span>
+                    <span class="small">{{client}}</span>
+                </div>
+                {% endif %}
+                <hr>
+                <div class="info-item">
+                    <span class="small">زمان مشاوره:</span>
+                    <span class="small">{{reservation_time}} , {{reservation_day}}</span>
+                </div>
+                <hr>
+                <div class="info-item">
+                    <span class="small">خدمت :</span>
+                    <span class="small">مشاوره حقوقی {{call_time}} دقیقه ای</span>
+                </div>
+                <hr>
+                <div class="info-item">
+                    <span class="small">مبلغ قابل پرداخت :</span>
+                    <span class="small">{{price}}</span>
+                </div>
+
+            </div>
+                
+        </div>
+            
+        <a href="{% url 'call-counseling:start-payment' identity %}" class="go-payment_btn my-4">
+            <span>پرداخت نهایی</span>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g transform="matrix(-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,512.0003051757812,512.0000152587891)"><path d="m506.134 241.843-.018-.019-104.504-104c-7.829-7.791-20.492-7.762-28.285.068-7.792 7.829-7.762 20.492.067 28.284L443.558 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h423.557l-70.162 69.824c-7.829 7.792-7.859 20.455-.067 28.284 7.793 7.831 20.457 7.858 28.285.068l104.504-104 .018-.019c7.833-7.818 7.808-20.522-.001-28.314z"opacity="1" data-original="#000000" class=""></path></g>
+            </svg>
+        </a>
+    </div>
+
+{% endblock content %}
+
+{% block extra_scripts %}
+{% endblock extra_scripts %}
