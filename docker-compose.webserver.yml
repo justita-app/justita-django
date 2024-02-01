@@ -47,7 +47,7 @@ services:
     networks:
       - default
 
-    #Dynamic Configuration
+    #Dynamic Configuration!!
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web_net"
