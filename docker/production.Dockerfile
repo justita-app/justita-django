@@ -4,6 +4,7 @@ FROM python:3.11
 
 # Installing all python dependencies
 ADD requirements/ requirements/
+COPY requirements.txt .
 RUN python -m pip install -r requirements.txt && pip install ipython==8.2.0 && pip install gunicorn==20.1.0
 
 ENV HOME=/app
@@ -23,7 +24,7 @@ EXPOSE 8000
 
 
 # Install pip requirements
-COPY requirements.txt .
+
 COPY . ${APP_HOME}
 
 
