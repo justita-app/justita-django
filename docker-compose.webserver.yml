@@ -26,7 +26,7 @@ services:
       - "--providers.docker.endpoint=unix:///var/run/docker.sock"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=web_net"
-      - "--entrypoints.http.address=:80"
+      - "--entrypoints.http.address=:8080"
       - "--entrypoints.https.address=:2053"
       - "--entryPoints.ws.address=:8081"
       - "--entryPoints.wss.address=:8083"
@@ -37,7 +37,7 @@ services:
 
       - "--providers.file.filename=/traefik/config.yml"
     ports:
-      - 80:80
+      - 8080:8080
       - 2053:2053
     volumes:
       - /etc/localtime:/etc/localtime:ro
