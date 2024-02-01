@@ -19,14 +19,11 @@ RUN mkdir -p /app && \
     python -m pip install --upgrade pip && \
     mkdir ${APP_HOME} ${APP_HOME}/logs
 
-
-
-
-# Set the working directory to /app
-WORKDIR /app
-
-# Copy the contents of the static folder to the Django app's static folder
-COPY static/* justita_django_app/static/
-
-
+WORKDIR ${APP_HOME}
 EXPOSE 8000
+
+
+COPY . ${APP_HOME}
+
+
+
