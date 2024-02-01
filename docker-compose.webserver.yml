@@ -26,8 +26,8 @@ services:
       - "--providers.docker.endpoint=unix:///var/run/docker.sock"
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=web_net"
-      - "--entrypoints.http.address=:8080"
-      - "--entrypoints.https.address=:2053"
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
       - "--entryPoints.ws.address=:8081"
       - "--entryPoints.wss.address=:8083"
 
@@ -37,8 +37,8 @@ services:
 
       - "--providers.file.filename=/traefik/config.yml"
     ports:
-      - 8080:8080
-      - 2053:2053
+      - 80:80
+      - 443:443
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -47,7 +47,7 @@ services:
     networks:
       - default
 
-    #Dynamic Configuration!!
+    #Dynamic Configuration
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web_net"
@@ -62,7 +62,7 @@ services:
       - "traefik.http.routers.traefik-secure.tls=true"
       - "traefik.http.routers.traefik-secure.tls.options=default"
       - "traefik.http.routers.traefik-secure.tls.certresolver=mycert"
-      - "traefik.http.services.traefik.loadbalancer.server.port=8123"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
 
 
   nginx:
@@ -90,10 +90,7 @@ services:
       - "traefik.http.routers.nginx_backend-secure.tls.options=default"
       - "traefik.http.routers.nginx_backend-secure.tls.certresolver=mycert"
       - "traefik.http.routers.nginx_backend-secure.service=nginx_backend-secure"
-      - "traefik.http.services.nginx_backend-secure.loadbalancer.server.port=8080"
-
-    ports:
-      - 8080:8080
+      - "traefik.http.services.nginx_backend-secure.loadbalancer.server.port=80"
 
 
 
