@@ -1,0 +1,36 @@
+:root{
+    --brand-color:#f16a58;
+}
+
+@font-face {
+    font-family: vazirmatn;
+    src: url("../fonts/vazri/Vazir-Medium.ttf");
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: vazirmatn;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    direction: rtl;
+}
+
+a{
+    text-decoration: none;
+}
+
+li {
+    list-style: none;
+}
+
+.x-small {
+    font-size: 0.77rem;
+}

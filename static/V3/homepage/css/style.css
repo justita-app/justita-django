@@ -1,0 +1,73 @@
+* {
+  font-family: "Noto Sans Arabic", sans-serif;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-weight: 600;
+}
+p {
+  font-size: large;
+}
+body::before {
+  display: block;
+  content: "";
+  height: 60px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.brandintItems {
+  margin-top: 1rem;
+}
+@media (min-width: 992px) {
+  .brandintItems {
+    margin-top: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .navbarlogo {
+display: none;
+  }
+}
+#heroSection {
+  background-color: rgba(206, 134, 0, 0.845);
+  color: whitesmoke;
+}
+#heroSection .button {
+  background-color: rgb(255, 255, 255);
+  color: rgb(175, 114, 0);
+}
+.myimages {
+  max-width: 50%;
+  height: 10%;
+}
+#itemsSection {
+  background-color: #f2f5f8;
+}
+.my-card-body {
+  background-color: rgb(255, 255, 255);
+  border-radius: 15px;
+  font-weight: 600;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 0.5rem;
+}
+.my-card-body h3 {
+  font-size: 14px;
+}
+.cardicon {
+  border-radius: 15px;
+}
+.headings1 {
+  font-weight: 600;
+}
+.service-btn {
+  background-color: rgba(206, 134, 0, 0.845);
+  color: #f2f5f8;
+  font-weight: 600;
+}

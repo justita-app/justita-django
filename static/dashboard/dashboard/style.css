@@ -1,0 +1,46 @@
+.table {
+    min-width: 820px;
+}
+
+tr th {
+    font-weight: normal;
+}
+
+tbody tr td {
+    font-size: smaller;
+}
+
+.detail-btn {
+    background-color: transparent;
+    font-size: smaller;
+    font-weight: normal;
+    border: none;
+}
+
+.badge {
+    font-weight: normal !important;
+    font-size: smaller;
+}
+
+.btn-close {
+    margin-right: auto !important;
+    margin-left: 0px !important;
+}
+
+.info {
+    margin: 0 0 20px 0;
+}
+
+.change-status {
+    background-color: #fff;
+    border: solid 1px rgb(194, 194, 194);
+    border-radius: 5px;
+    padding: 8px 10px;
+}
+
+@media (max-width:778px) {
+    thead tr th {
+        font-size: smaller;
+        font-weight: normal;
+    }
+}

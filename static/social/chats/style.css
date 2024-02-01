@@ -1,0 +1,196 @@
+body{
+    padding: 100px 0;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 14px 5px;
+    box-shadow: 0 0 5px 1px #c7c7c7;
+    column-gap: 5px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.messages {
+    position: fixed;
+    max-width: 800px;
+    width: 100%;
+    top: 85px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+}
+
+.messages .message-item {
+    margin: 10px 5px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: right;
+}
+
+.messages .error {
+    background-color: rgb(223, 89, 89);
+    color: #fff;
+}
+
+.messages .success {
+    background-color: rgb(145, 201, 93);
+    color: #ffffff;
+}
+
+.back-svg {
+    width: 25px;
+}
+
+.payment-required {
+    background-color: inherit;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.closed-chat {
+    background-color: inherit;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.go-payment_btn {
+    display: inline-block;
+    padding: 10px;
+    background-color: var(--brand-color);
+    color: #fff;
+    border-radius: 4px;
+}
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.chat-lawyer-info {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+}
+
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    row-gap: 1rem;
+}
+
+.lawyer-message {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    margin-bottom: 8px;
+    column-gap: 4px;
+    margin: 10px 0;
+}
+
+.lawyer-message .message{
+    padding: 10px;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #e7e7e7;
+}
+
+.user-message {
+    display: flex;
+    align-items: flex-end;
+    column-gap: 4px;
+    margin: 10px 0;
+}
+
+.user-message .message{
+    padding: 10px;
+    border-top-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    background-color: #f99463;
+}
+
+.uploaded-file{
+    color: #515151;
+    border-bottom: solid 1px #777;
+    font-size: small;
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+.send-loading
+{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  width: 100px;
+}
+
+#message-form {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    height: 80px;
+    box-shadow: 0 0 2px 1px #cbcbcb;
+    padding-top: 5px;
+    background: #fff;
+}
+
+#message-form.disabled {
+    opacity: 0.3;
+}
+
+#message-form #message-input {
+    font-size: small;
+    width: inherit;
+    height: 100%;
+    resize: none;
+    padding: 5px 2px;
+    border-radius: 10px;
+    border: none;
+    background: #fff3ef;
+}
+
+#message-form #message-input:focus {
+    outline: none;
+}
+
+#message-form button{
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+}
+
+#message-form svg {
+    width: 25px;
+    height: 25px;
+    fill: #7b7b7b;
+}
+
+.selected-file {
+    position: absolute;
+    top: -26px;
+    right: 0px;
+    background: #e6e6e6;
+    padding: 0 10px;
+    border-top-left-radius: 4px;
+}
