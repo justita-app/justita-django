@@ -134,7 +134,7 @@
 <script>
     const identity = JSON.parse(document.getElementById('identity').textContent);
 
-    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/contract/' + identity + '/');
+    const chatSocket = new WebSocket('wss://' + window.location.host + '/ws/contract/' + identity + '/');
 
     const loadingSvg = document.querySelector('.send-loading')
 

@@ -133,7 +133,7 @@
     const identity = JSON.parse(document.getElementById('identity').textContent);
     const lawyer_profile = JSON.parse(document.getElementById('lawyer_profile').textContent);
 
-    const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/legal-panel/' + identity + '/');
+    const chatSocket = new WebSocket('wss://' + window.location.host + '/ws/legal-panel/' + identity + '/');
 
     const loadingSvg = document.querySelector('.send-loading')
 

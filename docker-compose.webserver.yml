@@ -27,7 +27,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       - "--providers.docker.network=web_net"
       - "--entrypoints.http.address=:80"
-      - "--entrypoints.https.address=:443"
+      - "--entrypoints.https.address=:2053"
       - "--entryPoints.ws.address=:8081"
       - "--entryPoints.wss.address=:8083"
 
