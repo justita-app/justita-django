@@ -22,7 +22,7 @@ cp .env.example .env
 
 4- spin off docker compose
 ```
-docker-compose -f docker-compose.dev.yml up -d
+docker compose -f docker-compose.dev.yml up -d
 ```
 
 5- Create tables
