@@ -39,7 +39,7 @@
   </div>
 
   <header>
-    <span onclick="window.history.back()">
+    <span onclick="window.location.href = '{% url 'social:support' %}'">
       <svg data-v-19b8e40c="" xmlns="http://www.w3.org/2000/svg" class="back-svg" fill="none" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" class="w-20 h-20 text-gray-600"><path data-v-19b8e40c="" d="M9 18l6-6-6-6"></path></svg>
     </span>
 
@@ -60,7 +60,13 @@
       <div class="lawyer-message">
         <img src="/media/team/justita-team.png" alt="پروفایل وکیل" class="profile-picture">
         <div class="message">
-          <p class="context small m-0">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز </p>
+          <p class="context small m-0">
+        
+            کاربر گرامی، لطفا شرح مختصری از مشکل خود را ارسال نمایید. در صورت درخواست بازگشت وجه، جزئیات سفارش را ذکر کنید.
+            
+         
+          
+          </p>
           <span class="time x-small">{{created_time}}</span>
         </div>
       </div>

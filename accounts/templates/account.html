@@ -10,7 +10,7 @@
 {% block content %}
 
     <header>
-        <span onclick="window.history.back()">
+        <span onclick="window.location.href = '{% url 'social:home' %}'">
             <img src="/media/accounts/main/back-arrow.png" alt="برگشت" , class="back-arrow">
         </span>
         <span class="fs-5">حساب کاربری</span>
