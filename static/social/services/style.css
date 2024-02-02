@@ -152,7 +152,7 @@
 
 @media (max-width:540px) {
     .service-item {
-        padding: 5px;
+        padding: 1px;
         gap: 3px;
     }
     .guide-consultation_icon img{
@@ -160,11 +160,11 @@
         height: 10px;
     }
     .service-item .service-title{
-        font-size: x-small;
+        font-size: 12px;
     }
 
     .service-item .service-title span{
-        font-size: 10px;
+        font-size: 12px;
     }
 }
 
