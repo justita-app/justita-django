@@ -4,7 +4,7 @@
 
 #descriptionArea {
     width: 100%;
-    min-height: 220px;
+    min-height: 100px;
     border: solid 1px var(--brand-color);
     border-radius: 4px;
     padding: 4px 10px;
