@@ -15,6 +15,7 @@
 
         
         {% block bootstrap %}
+        <link rel="manifest" href="{%static 'manifest.json'%}">
         <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.min.css' %}">
         <script rel="stylesheet" href="{% static 'bootstrap/jquery-3.7.0.slim.min.js' %}" defer></script>
         <script rel="stylesheet" href="{% static 'bootstrap/bootstrap.bundle.min.js' %}" defer></script>
@@ -51,6 +52,17 @@
         {% block extra_scripts %}
           
         {% endblock extra_scripts %}
+        <script>
+            if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("{%static 'js/serviceworker.js'%}")
+             .then((reg) => console.log("service reged"))
+                 .catch((err) => console.log(`error: ${err}`));
+                   });
+                    }
+      
+          </script>
     </body>
 
 </html>

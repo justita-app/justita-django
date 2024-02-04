@@ -1,0 +1,33 @@
+{
+    "short_name": "جاستیتا",
+    "name": "پیامرسان حقوقی جاستیتا",
+    "icons": [
+      {
+        "src": "/static/android-chrome-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "/static/android-chrome-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192"
+      },
+      {
+        "src": "/static/android-chrome-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#f16a58",
+    "display": "standalone",
+    "scope": "/social",
+    "scope_url": "justita.app/social",
+    "start_url": "/social",
+    "intent_filters": {
+      "scope_url_scheme": "https",
+      "scope_url_host": "justita.app/social",
+      "scope_url_path": "/scial"
+    },
+    "orientation": "portrait",
+    "theme_color": "#FFFFFF"
+  }
