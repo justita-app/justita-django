@@ -1,3 +1,5 @@
+let deferredPrompt; // Declare deferredPrompt variable globally
+
 const cacheName = "V1";
 const cacheAssets = [
   "/social",
@@ -20,38 +22,55 @@ const cacheAssets = [
   "/media/social/services/contract_logo.webp",
   "/media/social/services/call_counceling_logo.webp",
   "/static/base/style.css",
-]
+];
 
 // Call install
 self.addEventListener("install", (e) => {
-  
-
   e.waitUntil(
     caches.open(cacheName)
-    .then((cache) => {
-      cache.addAll(cacheAssets);
-    }).then(() => {
-      
-      self.skipWaiting()
-    })
+      .then((cache) => {
+        return cache.addAll(cacheAssets);
+      })
+      .then(() => {
+        self.skipWaiting();
+      })
+      .catch((error) => {
+        console.error('Service Worker install failed:', error);
+      })
   );
 });
 
 // Call activate
-
-self.addEventListener('activate',e => {
-e.waitUntil(
-  caches.keys().then(cacheNames =>{
-    return Promise.all(
-      cacheNames.map((cache) => {
-      if(cache!== cacheName){
-        return caches.delete(cache);
-      }
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== cacheName) {
+            return caches.delete(cache);
+          }
+        })
+      );
     })
-    )
-  })
-)
+  );
+});
 
+// Call fetch
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    fetch(e.request)
+      .then((res) => {
+        // Make a clone of the response
+        const resClone = res.clone();
+        // Open cache
+        caches.open(cacheName)
+          .then((cache) => {
+            // Add the response to cache
+            cache.put(e.request, resClone);
+          });
+        return res;
+      })
+      .catch(() => caches.match(e.request).then(res => res))
+  );
+});
 
-
-})
