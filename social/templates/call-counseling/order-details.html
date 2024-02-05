@@ -72,7 +72,13 @@
                 <hr>
                 <div class="info-item">
                     <span class="small">زمان مشاوره:</span>
-                    <span class="small">{{reservation_time}} , {{reservation_day}}</span>
+                    <span class="small">
+                        {{reservation_day}}
+                        ساعت
+                        <span class="time_details" class>{{reservation_time}}</span>
+                         
+                        
+                         </span>
                 </div>
                 <hr>
                 <div class="info-item">
@@ -83,7 +89,8 @@
                 <hr>
                 <div class="info-item">
                     <span class="small">مبلغ قابل پرداخت :</span>
-                    <span class="small">{{price}}</span>
+                    
+                    <span class="small price">{{price}}</span>
                 </div>
 
             </div>
@@ -97,6 +104,68 @@
         </a>
     </div>
 
+    <script>
+        // Function to format numbers into price format
+        function formatPrice(price) {
+            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    
+        // Function to update the HTML with formatted prices
+        function updatePrices() {
+            // Get all elements with class 'price' (assuming this is where prices are displayed)
+            var priceElements = document.getElementsByClassName('price');
+            
+            // Loop through each element
+            for (var i = 0; i < priceElements.length; i++) {
+                // Get the raw price value
+                var rawPrice = parseFloat(priceElements[i].innerText);
+                
+                // Format the price and update the HTML
+                priceElements[i].innerText = formatPrice(rawPrice + " تومان ");
+            }
+        }
+        
+        // Call updatePrices() when the document is ready
+        document.addEventListener("DOMContentLoaded", function() {
+            updatePrices();
+        });
+    </script>
+<script>
+    // Function to remove seconds from a time string
+    function removeSeconds(time) {
+        // Split the time string into hours, minutes, and seconds
+        var timeComponents = time.split(':');
+        
+        // Remove the last element (seconds) from the array
+        timeComponents.pop();
+        
+        // Join the remaining components back into a string
+        return timeComponents.join(':');
+    }
+    
+    // Function to update time details
+    function updateTimeDetails() {
+        // Get all elements with class 'time_details'
+        var timeElements = document.getElementsByClassName('time_details');
+        
+        // Loop through each element
+        for (var i = 0; i < timeElements.length; i++) {
+            // Get the original time string
+            var originalTime = timeElements[i].innerText;
+            
+            // Remove seconds from the time string
+            var formattedTime = removeSeconds(originalTime);
+            
+            // Update the HTML with the formatted time
+            timeElements[i].innerText = formattedTime;
+        }
+    }
+    
+    // Call updateTimeDetails() when the document is ready
+    document.addEventListener("DOMContentLoaded", function() {
+        updateTimeDetails();
+    });
+</script>
 {% endblock content %}
 
 {% block extra_scripts %}

@@ -161,8 +161,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 PRICING = {
-    '20' : '20000',
-    '30' : '200000',
+    '20' : '100000',
+    '30' : '175000',
     '45' : '200000' ,
     'online' : '20000'
 }
