@@ -159,11 +159,11 @@ header {
 }
 
 #message-form #message-input {
-    font-size: small;
+    font-size: 16px;
     width: inherit;
     height: 100%;
     resize: none;
-    padding: 5px 2px;
+    padding: 5px 5px;
     border-radius: 10px;
     border: none;
     background: #fff3ef;

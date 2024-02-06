@@ -57,6 +57,11 @@ self.addEventListener('activate', (e) => {
 
 // Call fetch
 self.addEventListener('fetch', (e) => {
+  
+  if (e.request.method !== 'GET') {
+    return; // Ignore POST requests, do not cache them
+  }
+
   e.respondWith(
     fetch(e.request)
       .then((res) => {
@@ -73,4 +78,3 @@ self.addEventListener('fetch', (e) => {
       .catch(() => caches.match(e.request).then(res => res))
   );
 });
-

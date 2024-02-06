@@ -3,14 +3,14 @@
 
 <html lang="fa">
     <head>
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-11479492634"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PWD3WQVMF6"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'AW-11479492634');
+  gtag('config', 'G-PWD3WQVMF6');
 </script>
 
         {% block basemeta %}
@@ -61,17 +61,7 @@
         {% block extra_scripts %}
           
         {% endblock extra_scripts %}
-        <script>
-            if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker
-            .register("{%static 'js/serviceworker.js'%}")
-             .then((reg) => console.log("service reged"))
-                 .catch((err) => console.log(`error: ${err}`));
-                   });
-                    }
-      
-          </script>
+
     </body>
 
 </html>

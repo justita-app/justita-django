@@ -164,7 +164,7 @@ PRICING = {
     '20' : '100000',
     '30' : '175000',
     '45' : '200000' ,
-    'online' : '20000'
+    'online' : '40000'
 }
 
 ZARINPALMERCHANTID = env('MERCHANT')
