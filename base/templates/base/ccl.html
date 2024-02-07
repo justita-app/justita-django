@@ -2,15 +2,7 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
   <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNJFWWHVVL"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-DNJFWWHVVL');
-</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="keywords" content="مشاوره حقوقی تلفنی, مشاوره حقوقی با وکیل تلفنی, مشاوره تلفنی با وکیل ,مشاوره با وکیل , مشاوره رایگان با وکیل , مشاوره حقوقی رایگان ">
@@ -56,6 +48,15 @@
       rel="stylesheet"
       href="{% static 'V3\homepage\css\servicestyles.css' %}"
     />
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DSBT2JYDJQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-DSBT2JYDJQ');
+</script>
   
        
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -64,6 +65,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@500;600&display=swap"
       rel="stylesheet"
     />
+
   </head>
 
   <body>
@@ -119,8 +121,11 @@
           <!-- Left half with text -->
           <div class="col-sm-6 text-center p-3 mb-3">
             <h1 class="py-4 headings1">مشاوره حقوقی تلفنی</h1>
+            <p style="font-size: smaller;" class="px-2">
+              جهت دریافت مشاوره تلفنی از وکلای مجرب، پس از ورود، از لیست وکلای مجموعه فرد مورد نظر را انتخاب نماید سپس تاریخ و ساعت مشاوره را تعیین کنید.
+            </p>
             <a href="{% url 'call-counseling:home' %}">
-            <div style="font-weight: 600" class="button btn btn-lg w-75">دریافت مشاوره تلفنی با وکیل</div></a>
+            <div style="font-weight: 600" class="button btn btn-lg w-75">ورود و دریافت مشاوره</div></a>
           </div>
 
           <!-- Right half with image -->
@@ -139,9 +144,21 @@
     <!-- HERO END -->
 
     <!-- ITEMS -->
-    <section id="itemsSection" class="px-5 pt-5 pb-4 mb-5">
+    <section id="itemsSection" class="px-5 pt-3 pb-4 mb-5">
       <div class="container">
+        <div class="d-flex justify-content-center mt-2 mb-3 " >
+          <div class="d-flex ustify-content-center m-0 p-0 appbadges">
+            <a href="{%url 'social:home'%}" class="mx-2" style="width: 45%;">
+            <img class="img-fluid mx-2 " src="{%static 'V3/logo/justita-pwa.png'%}" >
+          </a>
+          <a href="{%url 'social:home'%}" class="mx-2" style="width: 45%;">
+            <img class="img-fluid" src="{%static 'V3/logo/direct-badge.png'%}">
+          </a>
+          </div>
+        </div>
+     
         <h2 class="text-center my-2 pb-3">سایر خدمات مشاوره</h2>
+      
         <div class="row text-center g-4 justify-content-center">
           <div class="col-lg-2 col-md-3 col-4">
             <div class="text-dark mx-auto" style="width: auto">
@@ -156,7 +173,7 @@
             </div>
           </div>
           <div class="col-lg-2 col-md-3 col-4">
-            <a href="{%url 'base:online-atterney'%}">
+            <a href="{%url 'social:home'%}">
             <div class="text-dark mx-auto" style="width: auto">
               <div class="my-card-body card-body position-relative">
                 <img
@@ -185,19 +202,95 @@
               </div>
             </div>
           </div>
+          <p>پس از ورود به وب اپلیکشن جاستیتا، می توانید خدمت مورد نظر خود را از لیست خدمات انتخاب کنید.</p>
         </div>
+        
       </div>
+      
     </section>
     <!-- ITEMS END -->
+
+       <!-- pros and cons -->
+       <section class="p-5 brandintItems">
+        <div class="">
+          <h2>مزایای مشاوره حقوقی تلفنی جاستیتا</h2>
+          <div class="row text-center g-5 justify-content-around">
+            <div class="col-lg-4 col-md-6 col-sm-6 px-0">
+              <div class="text-dark mx-auto" style="width: auto">
+                <div class="card-body px-0" style="width: 100%">
+                  <img
+                    src="{% static 'V3/homepage/images/2.png'%}"
+                    class="card-img-top w-75 mx-auto rounded"
+                    alt="آیکون دسترسی آسان و سریع"
+                  />
+                  <h3 class="h3 mt-1">دسترسی آسان و سریع</h3>
+                  <p class="card-text mb-2 px-3">
+                    با استفاده از این روش، افراد می‌توانند به سرعت و با هزینه
+                    کمتری به مشاوره حقوقی دسترسی پیدا کنند. علاوه بر این، این روش
+                    برای افرادی که در مناطق دورافتاده زندگی می‌کنند یا وقت کافی
+                    برای مراجعه به دفتر وکالت ندارند، بسیار مفید است. همچنین، این
+                    روش برای افرادی که نیاز به مشاوره فوری دارند، مناسب است و
+                    می‌تواند به آنها کمک کند تا در مواقع اضطراری به یک وکیل مجرب
+                    دسترسی پیدا کنند.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 px-0">
+              <div class="text-dark mx-auto" style="width: auto">
+                <div class="card-body px-0" style="width: 100%">
+                  <img
+                    src="{% static 'V3/homepage/images/3.png'%}"
+                    class="card-img-top w-75 mx-auto"
+                    alt="آیکون کاهش هزینه ها"
+                  />
+                  <h3 class="h3 mt-1">کاهش هزینه‌ها</h3>
+                  <p class="card-text mb-2 px-3">
+                    هزینه مشاوره تلفنی با وکیل متخصص به مراتب کمتر از مشاوره حضوری
+                    می باشد. چراکه هم وکیل و هم موکل زمان کمتری را برای ملاقات صرف
+                    می کنند و همچنین در هزینه های حمل و نقل و تجملات صرفه جویی می
+                    شود.
+                  </p>
+                </div>
+              </div>
+            </div>
+  
+            <div class="col-lg-4 col-md-6 col-sm-6 px-0">
+              <div class="text-dark mx-auto" style="width: auto">
+                <div class="card-body px-0" style="width: 100%">
+                  <img
+                    src="{% static 'V3/homepage/images/1.png'%}"
+                    class="card-img-top w-75 mx-auto"
+                    alt="تنوع در انتخاب مشاور آیکون"
+                  />
+                  <h3 class="h3 mt-1">تنوع در انتخاب مشاور</h3>
+                  <p class="card-text mb-2 px-3">
+                    استفاده از مشاوره تلفنی حقوقی به افراد این امکان را می‌دهد که
+                    از بین مشاوران حقوقی مختلف انتخاب کنند و با آن‌ها تماس بگیرند.
+                    این امر به افراد این امکان را می‌دهد که مشاور حقوقی مناسبی را
+                    برای مسئله خود انتخاب کنند و با او در تماس باشند، بدون اینکه
+                    نیاز به رفتن به محل کار یا دفتر مشاور حقوقی داشته باشند.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- pros and cons END -->
 
     <!-- Into -->
     <section class="my-6">
       <div class="container">
         <div class="row g-2 justify-content-around">
           <div class="p-4 text-white col-md-6">
-            <div class="intro-cards">
+            <div class="intro-cards" style="background: none ;">
               <img src="{% static 'V3/homepage/images/talt_to_lawyer_on_phone.webp'%}" class="img-fluid" />
+              <a href="{% url 'call-counseling:home' %}" class="d-flex justify-content-center p-4 ">
+                <div style="font-weight: 600; color: rgb(255, 255, 255);
+                background-color: rgb(175, 114, 0);" class="button btn btn-lg w-75">دریافت مشاوره تلفنی با وکیل</div></a>
             </div>
+            
           </div>
           <div class="p-4 text-white col-md-6">
             <div class="intro-cards d-flex row text-center">
@@ -253,77 +346,10 @@
     </section>
     <!-- intro end -->
 
-    <!-- pros and cons -->
-    <section class="p-5 brandintItems">
-      <div class="">
-        <h2>مزایای مشاوره حقوقی تلفنی جاستیتا</h2>
-        <div class="row text-center g-5 justify-content-around">
-          <div class="col-lg-4 col-md-6 col-sm-6 px-0">
-            <div class="text-dark mx-auto" style="width: auto">
-              <div class="card-body px-0" style="width: 100%">
-                <img
-                  src="{% static 'V3/homepage/images/2.png'%}"
-                  class="card-img-top w-75 mx-auto rounded"
-                  alt="آیکون دسترسی آسان و سریع"
-                />
-                <h3 class="h3 mt-1">دسترسی آسان و سریع</h3>
-                <p class="card-text mb-2 px-3">
-                  با استفاده از این روش، افراد می‌توانند به سرعت و با هزینه
-                  کمتری به مشاوره حقوقی دسترسی پیدا کنند. علاوه بر این، این روش
-                  برای افرادی که در مناطق دورافتاده زندگی می‌کنند یا وقت کافی
-                  برای مراجعه به دفتر وکالت ندارند، بسیار مفید است. همچنین، این
-                  روش برای افرادی که نیاز به مشاوره فوری دارند، مناسب است و
-                  می‌تواند به آنها کمک کند تا در مواقع اضطراری به یک وکیل مجرب
-                  دسترسی پیدا کنند.
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 px-0">
-            <div class="text-dark mx-auto" style="width: auto">
-              <div class="card-body px-0" style="width: 100%">
-                <img
-                  src="{% static 'V3/homepage/images/3.png'%}"
-                  class="card-img-top w-75 mx-auto"
-                  alt="آیکون کاهش هزینه ها"
-                />
-                <h3 class="h3 mt-1">کاهش هزینه‌ها</h3>
-                <p class="card-text mb-2 px-3">
-                  هزینه مشاوره تلفنی با وکیل متخصص به مراتب کمتر از مشاوره حضوری
-                  می باشد. چراکه هم وکیل و هم موکل زمان کمتری را برای ملاقات صرف
-                  می کنند و همچنین در هزینه های حمل و نقل و تجملات صرفه جویی می
-                  شود.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6 col-sm-6 px-0">
-            <div class="text-dark mx-auto" style="width: auto">
-              <div class="card-body px-0" style="width: 100%">
-                <img
-                  src="{% static 'V3/homepage/images/1.png'%}"
-                  class="card-img-top w-75 mx-auto"
-                  alt="تنوع در انتخاب مشاور آیکون"
-                />
-                <h3 class="h3 mt-1">تنوع در انتخاب مشاور</h3>
-                <p class="card-text mb-2 px-3">
-                  استفاده از مشاوره تلفنی حقوقی به افراد این امکان را می‌دهد که
-                  از بین مشاوران حقوقی مختلف انتخاب کنند و با آن‌ها تماس بگیرند.
-                  این امر به افراد این امکان را می‌دهد که مشاور حقوقی مناسبی را
-                  برای مسئله خود انتخاب کنند و با او در تماس باشند، بدون اینکه
-                  نیاز به رفتن به محل کار یا دفتر مشاور حقوقی داشته باشند.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- pros and cons END -->
+ 
 
     <!-- realted post -->
-    <section style="background-color: rgba(255, 166, 0, 0.271);">
+    <section class="bg-light mt-4">
       <div class="container">
         <div class="row">
           <div class="col-md-6 my-auto">
