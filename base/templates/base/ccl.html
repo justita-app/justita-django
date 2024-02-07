@@ -131,7 +131,7 @@
           <!-- Right half with image -->
           <div class="col-sm-6 p-0 d-none d-sm-block">
             <img
-              loading="lazy"
+              
               class="img-fluid rounded w-100"
               src="{% static 'V3/homepage/images/lawyer_call_counseling.webp'%}"
               alt="وکیل در حال مشاوره تلفنی"
@@ -149,10 +149,10 @@
       <div class="container">
         <div class="d-flex justify-content-center mt-2 mb-3 " >
           <div class="d-flex ustify-content-center m-0 p-0 appbadges">
-            <a href="{%url 'social:home'%}" class="mx-2" style="width: 45%;">
+            <a href="{%url 'social:home'%}" class="mx-2" style="width: 65%;">
             <img alt="وب اپلیکشن" class="img-fluid mx-2 " src="{%static 'V3/logo/justita-pwa.png'%}" >
           </a>
-          <a href="{%url 'social:home'%}" class="mx-2" style="width: 45%;">
+          <a href="{%url 'social:home'%}" class="mx-2" style="width: 65%;">
             <img alt="اپ اندروید" class="img-fluid" src="{%static 'V3/logo/direct-badge.png'%}">
           </a>
           </div>
@@ -286,7 +286,7 @@
         <div class="row g-2 justify-content-around">
           <div class="p-4 text-white col-md-6">
             <div class="intro-cards" style="background: none ;">
-              <img src="{% static 'V3/homepage/images/talt_to_lawyer_on_phone.webp'%}" class="img-fluid" />
+              <img loading="lazy" alt="نقاشی دیجیتال وکیل پشت میز" src="{% static 'V3/homepage/images/talt_to_lawyer_on_phone.webp'%}" class="img-fluid" />
               <a href="{% url 'call-counseling:home' %}" class="d-flex justify-content-center p-4 ">
                 <div style="font-weight: 600; color: rgb(255, 255, 255);
                 background-color: rgb(175, 114, 0);" class="button btn btn-lg w-75">دریافت مشاوره تلفنی با وکیل</div></a>
