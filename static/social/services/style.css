@@ -103,6 +103,7 @@
     direction: rtl;
     text-align: right;
     font-size: medium;
+    box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
 }
 
 .quick-order_icon svg{
@@ -144,7 +145,7 @@
     }
 
     .text-lorem {
-        font-size: small;
+        font-size: medium;
     }
     
 }
@@ -184,7 +185,7 @@
         font-size: 8px;
     }
     .text-lorem {
-        font-size: x-small;
+        font-size: 12px;
     }
 
 }
