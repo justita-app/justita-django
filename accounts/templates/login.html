@@ -58,7 +58,7 @@
 
                 {%csrf_token%}
 
-                <label for="phoneNumberInput">شماره تلفن</label>
+                <label for="phoneNumberInput"> شماره تلفن همراه</label>
                 <input type="text" maxlength="13" class="input" name="phone_number" id="phoneNumberInput" placeholder="0912*******">
 
                 <button type="submit" class="btn submit-btn">ورود</button>
@@ -68,5 +68,15 @@
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector("form").addEventListener("submit", function() {
+                document.querySelector("button[type='submit']").disabled = true;
+                document.querySelector("button[type='submit']").innerHTML = "لطفا صبر کنید";
+
+            });
+        });
+    </script>
     
 {% endblock content %}

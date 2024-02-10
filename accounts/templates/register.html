@@ -96,5 +96,14 @@
             otherMethodTextArea.innerHTML = selectElement.value
         }
     }
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("form").addEventListener("submit", function() {
+            document.querySelector("button[type='submit']").disabled = true;
+            document.querySelector("button[type='submit']").innerHTML = "در حال انتقال لطفا صبر کنید";
+        });
+    });
 </script>
 {% endblock extra_scripts %}
