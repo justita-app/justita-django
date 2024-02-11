@@ -167,6 +167,28 @@
         updateTimeDetails();
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".go-payment_btn").addEventListener("click", function(event) {
+        
+
+          
+            var anchorElement = document.querySelector(".go-payment_btn");
+   
+
+          
+            anchorElement.innerHTML = "در حال انتقال لطفا صبر کنید";
+            anchorElement.style.backgroundColor="white"
+            anchorElement.style.color="rgb(0 223 159)"
+            anchorElement.style.border= "1px solid rgb(0 223 159)"
+
+            
+
+  
+        });
+    });
+</script>
+
 {% endblock content %}
 
 {% block extra_scripts %}
