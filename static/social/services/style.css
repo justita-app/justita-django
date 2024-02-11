@@ -124,6 +124,10 @@
     .service-item .service-title {
         font-size: medium;
     }
+    lawyer-box{
+        width: 40%;
+       }
+        
 }
 
 
@@ -147,7 +151,7 @@
     .text-lorem {
         font-size: medium;
     }
-    
+ 
 }
 
 
@@ -185,4 +189,124 @@
         font-size: 8px;
     }
    
+}
+
+
+/* lawyer carddddddddddds */
+*{
+    color: #353a39;
+}
+
+main{
+    grid-row: 1;
+}
+
+.container {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.lawyer-box{
+    border-radius: 4px;
+    border: solid 1px #e9e9e9;
+    background-color: #fff;
+    width: 60%;
+    padding: 0;
+
+
+
+    
+}
+
+
+
+.main-info{
+    padding: 5px;
+    margin: 5px 0 5px 0;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    column-gap: 10px;
+}
+
+.information .lawyer-name{
+    font-size: medium;
+    margin:6px 0 1px 0;
+    text-align: center;
+}
+
+.information .position{
+    font-size: 0.72rem;
+    color: #848b8e;
+    margin: 0;
+}
+
+.lawyer-box .profile-picture{
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+
+}
+
+.section-body {
+    display: flex;
+    margin: 1rem 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+.select-btn {
+    border-radius: 35px;
+    padding: 5px 8px;
+    border: solid 1px #ff863e;
+    background-color: #fee;
+    color: rgb(253, 74, 4);
+    font-size: small;
+    margin: 0.2rem 0 0.2rem 0;
+}
+
+.select-btn:hover{
+    transition: all 0.3s;
+    color: #fff;
+    background-color: #dd604f;
+}
+
+.selected-icon {
+    width: 25px;
+    height: 25px;
+}
+
+.lawyer-footer {
+    background-color: #fffaf8;
+}
+
+.more-info_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+.more-info_button {
+    font-size: .875em;
+    color: #f2635c !important;
+    width: fit-content;
+}
+
+.lawyers-row {
+    margin: 20px 0;
+    box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
+    overflow: hidden;
+
 }
