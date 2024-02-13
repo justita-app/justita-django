@@ -8,16 +8,30 @@
 
 {% block main_content %}
     <div class="banner">
-        <a href="{% url 'call-counseling:home' %}">
-        <img src="/media/social/services/app_banner.webp" alt="بنر یک"  class="banner-img">
-         </a>
+        <div style="background-color: #294D6A;" class="first-div">
+
+            <div style="width: 75%;" class="fcp-text">
+                <h1>خدمات آنلاین و تلفنی وکالت</h1>
+                <h2 class="mt-1 mt-lg-4 me-3">مشاوره حقوقی تلفنی با وکلا برتر</h2>
+                <h2 class="mt-0 me-3">مشاوره حقوقی آنلاین تخصصی</h2>
+               
+            </div>
+
+
+            
+                <img style="width: 25%;" class="img-fluid p-1" alt="آیکون وکیل تلفنی" src="/media/social/services/phonecall-counseling-logo-fcp.webp">
+            
+            
+           
+        </div>
+        
     </div>
 
     <div class="services-container">
         
         <div class="service-item col-4 col-lg-3 " onclick="window.location.href = '{% url 'call-counseling:home' %}'">
             <div class="img-icon bg-primary">
-                <img src="/media/social/services/call_counceling_logo.webp" alt="مشاوره تلفنی" class="service-thumbnail">
+                <img src="/media/social/services/call_counceling_logo.webp" alt="مشاوره حقوقی تلفنی" class="service-thumbnail">
             </div>
 
             <a href="{% url 'call-counseling:home' %}" class="service-link"><p class="service-title">مشاوره تلفنی </p></a>
@@ -25,7 +39,7 @@
 
         <div class="service-item col-4 col-lg-3 "  onclick="window.location.href = '{% url 'online-counseling:home' %}'">
             <div class="img-icon bg-primary">
-                <img src="/media/social/services/online_counceling_logo.webp" alt="مشاوره آنلاین" class="service-thumbnail">
+                <img src="/media/social/services/online_counceling_logo.webp" alt="مشاوره حقوقی آنلاین" class="service-thumbnail">
             </div>
 
             <a href="{% url 'online-counseling:home' %}" class="service-link"><p class="service-title">مشاوره آنلاین </p></a>
@@ -34,14 +48,12 @@
 
         <div class="service-item col-4 col-lg-3 "  onclick="window.location.href = '{% url 'social:legal-panel' %}'">
             <div class="img-icon bg-primary">
-                <img src="/media/social/services/online_attorney_logo.webp" alt="وکالت آنلاین" class="service-thumbnail">
+                <img src="/media/social/services/online_attorney_logo.webp" alt="وکیل آنلاین" class="service-thumbnail">
             </div>
 
             <a href="{% url 'social:legal-panel' %}" class="service-link">
                 <p class="service-title">وکالت آنلاین</p>
-                <button type="button" class="btn guide-consultation_icon" data-bs-toggle="modal" data-bs-target="#Description">
-                    <img src="/media/social/main/question-icon.svg" alt="راهنما">
-                </button>
+             
             </a>
             
         </div>
@@ -118,7 +130,7 @@
 
     <div class="mt-4 mb-1 px-3">
         <h2>
-            مشاورین برتر
+وکیل آنلاین
         </h2>
     </div>
     <div class="lawyers-row">
@@ -132,6 +144,7 @@
 
                 <div class="information">
                     <img src="/media/team/Mohammad_nobari.webp" alt="محمدجواد خسرونوبری" class="profile-picture">
+                    
                     <div class="info">
                         <p class="lawyer-name">محمدجواد خسرونوبری</p>
                         <p class="position small">وکیل پایه یک کانون وکلای مرکز</p>
@@ -226,7 +239,8 @@
         
         <img loading="lazy" src="/media/social/services/online_attorney_banner.webp" alt="بنر دو"  class="banner-img">
     </div>
-    
+
+ 
 
     <div class="text-lorem bg-light p-3 rounded mb-3">
    
@@ -248,16 +262,25 @@
     </div>
     <div class="text-lorem mb-3 bg-light p-3 rounded">
    
-        <h2 style="font-weight: 500;">مشاوره حقوقی آنلاین
+        <h2 style="font-weight: 600;">مشاوره حقوقی آنلاین
         </h2>
         <p class="px-1">
             مشاور حقوقی آنلاین در واقع نوعی از ارائه خدمات حقوقی در بستر اینترنت می‌باشد. در عصر حاضر به جهت رواج اپلیکیشن‌های ارتباطی و پیام‌رسان‌ها و به طور کلی به جهت سهولت دسترسی به اینترنت برخلاف گذشته استفاده از خدمات حقوقی به صورت آنلاین نیز گسترش یافته است. گروه حقوقی جاستیتا با استفاده از این مهم بستری را فراهم آورده تا کاربران به صورت آنلان با وکیل های مجموعه به صورت 24 ساعته ارتباط و مشاوره بگیرند.
         </p>
     </div>
+    <div class="text-lorem bg-light p-3 rounded mb-3">
+   
+        <h3 style="font-weight: 500; ">مشاوره آنلاین حقوقی 24 ساعته</h3>
+        <p class="px-1">
+      کاربران گرامی می توانند خدمت مشاوره حقوقی آنلاین را از لیست خدمات وب اپلیکیشن انتخاب کنند و بدون محدودیت زمانی و 24 ساعته نسبت به طرح پرسش حقوقی خود از وکیل آنلاین مورد انتخاب اقدام نمایند.
+        </p>
+
+    </div>
+    
     <div class="text-lorem mb-3 bg-light p-3 rounded">
    
         <h3 style="font-weight: 500;">
-        مزایای مشاوره حقوقی آنلاین جاستیتا
+        سایر مزایای مشاوره حقوقی آنلاین جاستیتا
         </h3>
         <p class="px-1">
             دسترسی هرچه سریع‌تر به وکیل آنلاین و
@@ -286,7 +309,7 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="DescriptionLabel">پنل وکالت آنلاین</h5>
+            <h4 class="modal-title" id="DescriptionLabel">پنل وکالت آنلاین</h4>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -306,9 +329,10 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="quickActionLabel">سفارش سریع</h5>
+            <h5 class="modal-title" id="quickActionLabel">مشاوره تلفنی و آنلاین فوری</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="margin: 0;"></button>
             </div>
+            <p class="px-3">جهت ثبت سفارش مشاوره فوری و 24 ساعته در شبکه های اجتماعی، گزینه مورد نظر خود را انتخاب نمایید</p>
             <div class="modal-body text-center" >
                 <li class="my-2 quick-order_icon d-flex justify-content-around">
                     <a href="tel:+982177871787" class="d-inline-block btn btn-outline-primary w-50 d-flex justify-content-between align-items-center">

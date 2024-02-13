@@ -6,6 +6,7 @@
         "src": "/static/android-chrome-144x144.png",
         "sizes": "144x144",
         "type": "image/png"
+        
       },
       {
         "src": "/static/android-chrome-192x192.png",
@@ -16,6 +17,19 @@
         "src": "/static/android-chrome-512x512.png",
         "type": "image/png",
         "sizes": "512x512"
+      },
+      {
+        "src": "/static/android-chrome-192x192.png",
+        "type": "image/png",
+        "sizes": "192x192",
+        "purpose": "maskable"
+      },
+      {
+        "src": "/static/android-chrome-512x512.png",
+        "type": "image/png",
+        "sizes": "512x512",
+        "purpose": "maskable"
+
       }
     ],
     "background_color": "#f16a58",
