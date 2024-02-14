@@ -8,7 +8,6 @@
   
     <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
     <link rel="stylesheet" href="{% static 'social/call-counseling/done/style.css' %}">
-    <!-- Event snippet for chat order conversion page -->
 
 
     
@@ -30,7 +29,6 @@
 
 
         <p class="px-1" style="text-align: center;">پرداخت شما با موفقیت انجام شد، وکیل مورد انتخاب در ساعت {{time}} روز {{day}} باشما تماس خواهد گرفت.</p>
-        <span class="time-countdown">10s</span>
 
         <a href="{% url 'social:orders' %}" class="redirect-url px-4" style="text-align: center;">لیست سفارشات</a>
     </main>
@@ -38,18 +36,5 @@
 {% endblock content %}
 
 {% block extra_scripts %}
-  <script>
-    var timeCountdown = document.querySelector('.time-countdown')
-    var seconds = 10
-    setInterval(()=> {
-        if (seconds -1 >=0){
-            seconds --;
-        }
-        timeCountdown.innerHTML = seconds + 's'
-    } , 1000)
-    setTimeout(() => {
-        var backurlLink = document.querySelector('.redirect-url')
-        backurlLink.click()
-    }, 11000);
-  </script>
+
 {% endblock extra_scripts %}
