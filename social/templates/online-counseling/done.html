@@ -5,14 +5,11 @@
 {% block links %}
     <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
     <link rel="stylesheet" href="{% static 'social/call-counseling/done/style.css' %}">
-<!-- Event snippet for chat order conversion page -->
-<script>
-    gtag('event', 'conversion', {'send_to': 'AW-11164596369/u-CmCLSGr5AZEJHx2Msp'});
-  </script>
+
   
 {% endblock links %}
 
-{% block title %}درخواست مشاوره تلفنی{% endblock title %}
+{% block title %}درخواست مشاوره تلفنی-پرداخت موفق{% endblock title %}
 
 
 {% block content %}
@@ -26,27 +23,14 @@
             </g>
         </svg>
 
-        <p>پرداخت شما با موفقیت انجام شد ، اکنون میتوانید با وکیل مورد نظر گفتگو ی خود را ادامه دهید.</p>
+        <p class="px-1" style="text-align: center;">پرداخت شما با موفقیت انجام شد ، اکنون می توانید با وکیل مورد نظر مکاله خود را شروع کنید .</p>
 
-        <span class="time-countdown">10s</span>
-        <a href="{% url 'social:online-counseling-chat' identity=identity %}" class="redirect-url d-none">رفتن به صفحه گفت و گو</a>
+        
+        <a href="{% url 'social:online-counseling-chat' identity=identity %}" class="redirect-url px-4" style="text-align: center;">شروع گفت و گو با وکیل</a>
     </main>
 
 {% endblock content %}
 
 {% block extra_scripts %}
-  <script>
-    var timeCountdown = document.querySelector('.time-countdown')
-    var seconds = 10
-    setInterval(()=> {
-        if (seconds -1 >=0){
-            seconds --;
-        }
-        timeCountdown.innerHTML = seconds + 's'
-    } , 1000)
-    setTimeout(() => {
-        var backurlLink = document.querySelector('.redirect-url')
-        backurlLink.click()
-    }, 11000);
-  </script>
+ 
 {% endblock extra_scripts %}
