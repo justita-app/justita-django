@@ -61,7 +61,7 @@
                 <label for="phoneNumberInput"> شماره تلفن همراه</label>
                 <input type="text" maxlength="13" class="input" name="phone_number" id="phoneNumberInput" placeholder="0912*******">
 
-                <button type="submit" class="btn submit-btn">ورود</button>
+                <button type="submit" class="btn submit-btn" id="login-btn" >ورود</button>
 
             </form>
 
@@ -69,5 +69,13 @@
 
     </div>
 
-    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelector("form").addEventListener("submit", function() {
+                document.querySelector("button[type='submit']").disabled = true;
+                document.querySelector("button[type='submit']").innerHTML = "در حال انتقال لطفا صبر کنید";
+            });
+        });
+    </script>
+
 {% endblock content %}

@@ -165,4 +165,14 @@
 	}
 </script>
 
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		document.querySelector("form").addEventListener("submit", function() {
+			document.querySelector("button[id='submit-btn']").disabled = true;
+			document.querySelector("button[id='submit-btn']").innerHTML = "در حال انتقال لطفا صبر کنید";
+		});
+	});
+</script>
+
 {% endblock extra_scripts %}
