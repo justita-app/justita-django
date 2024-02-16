@@ -3,11 +3,7 @@
 {%include 'support.html'%}
 
 {% block meta %}
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>کد احراز پیامکی</title>
-<meta name="description" content="ورود و ساخت حساب کاربری در اپلیکیشن جاستیتا">
-<meta name="keywords" content="جاستیتا, وکیل, مشاوره حقوقی, مشاوره حقوقی آنلاین , وکیل طلاق , وکیل مهاجرت , وکیل ارزان ">
 {% endblock meta %}
 
 {% block links %}
@@ -48,7 +44,21 @@
 
 		<header>
 			<img src="/media/accounts/logo-main.png" alt="جاستیتا"  class="site-logo">
+
+			<div style="padding: 10px 10px; color: #e96800;font-size: small;background-color: #ffe3cc;border-radius: 4px;">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+					<path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+				  </svg>
+				
+				<span>لطفا از رفرش صفحه خودداری نمایید.</span>
+			</div>
+
+
 		</header>
+
+
+	 
+
 		<div class="phone-info w-100">
 			<h6 class="text-right w-100" style="font-size: 0.75rem;">کد تایید 4 رقمی به شماره  {{phone_number}} ارسال شد. </h6>
 			<a href="{% url 'accounts:login' %}" class="d-block w-100 a-link small">تصحیح شماره</a>
@@ -72,7 +82,7 @@
 		</form>
 
 		<div id="fcom">
-			<p id="timer" style="display: inline;" data-timeout="{{timeout}}">00</p>
+			<p id="timer" style="display: inline;" data-timeout="{{timeout}}">00</p> ثانیه تا ارسال مجدد
 		</div>
 
 		<div id="scom" style="display: none;">
@@ -161,10 +171,9 @@
 	var x = setInterval(() => { timer--; document.getElementById("timer").innerHTML = timer; if (timer <= 0) { clearInterval(x); activate() } }, 1000)
 	function activate() {
 		document.getElementById("scom").style.display = "block"
-		document.getElementById("timer").style.display = "none"
+		document.getElementById("fcom").style.display = "none"
 	}
 </script>
-
 
 <script>
 	document.addEventListener("DOMContentLoaded", function() {

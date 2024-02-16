@@ -6,9 +6,7 @@
     <link rel="stylesheet" href="{% static 'social/call-counseling/base/style.css' %}">
     <link rel="stylesheet" href="{% static 'social/call-counseling/description/style.css' %}">
     <script src="{% static 'social/call-counseling/description/script.js' %}" defer></script>    
-    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" > 
-    <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous"> 
-    
+  
     <!-- persian data picker -->
     <link rel="stylesheet" href="{% static 'jalali-datepicker/jalalidatepicker.min.css' %}"/>
     <script src="{% static 'jalali-datepicker/farvardin.min.js' %}" defer></script>
@@ -101,7 +99,10 @@
                 <h2 class="text-right text-muted section-title p-1 mb-1">در صورت نیاز میتوانید فایل های خود را پیوست نمائید.</h2>
     
                 <div class="warn-message my-2">
-                    <i class="fas fa-exclamation-triangle"></i>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                      </svg>
                     <span>لطفا دقت داشته باشید میزان زمان لازم جهت بررسی فایل های ارسالی شما متناسب با زمان مشاوره انتخابی باشد.</span>
                 </div>
     
@@ -112,7 +113,10 @@
                     <form class="file-item" data-for="file1">
                         <span class="file-name">فایل مورد نظر خود را انتخاب کنید</span>
                         <div class="input-file_btn" onclick="openFileInput(event)">
-                            <i class="fas fa-file-plus"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                                <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5z"/>
+                                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1"/>
+                              </svg>
                             <span>انتخاب فایل</span>
                         </div>
                         <input type="file" name="file" style="display: none;" id="file1" class="file-input" onchange="changeFileInput(event)">
@@ -122,7 +126,9 @@
                 </div>
     
                 <button class="plus-btn">
-                    <i class="fas fa-plus"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                      </svg>
                 </button>
             </div>
 
