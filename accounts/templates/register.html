@@ -58,7 +58,7 @@
                 
                 <input type="text" name="city" maxlength="64" id="id_city" placeholder="شهر محل سکونت">
                  
-                <select id="methodSelect" onchange="toggleOtherMethod()">
+                <select id="methodSelect" onchange="toggleOtherMethod()" required>
                     <option value="" disabled selected class="text-muted">نحوه آشنایی با جاستیتا</option>
                     <option value="گوگل">گوگل</option>
                     <option value="آپارات">آپارات</option>
@@ -67,7 +67,7 @@
                     <option value="سایر">سایر</option>
                 </select>
 
-                <textarea name="introduction_method" id="id_introduction_method" maxlength="128" style="display: none;" placeholder="نحوه آشنایی خود را شرح دهید"></textarea>
+                <textarea name="introduction_method" id="id_introduction_method" maxlength="128" style="display: none;" placeholder="نحوه آشنایی خود را شرح دهید" required></textarea>
 
                 <button type="submit" class="btn submit-btn">ثبت نام</button>
 
