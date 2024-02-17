@@ -40,9 +40,75 @@
 
     <main>
         <header class="py-3">
-            <h1 class="text-center fs-6 px-2">لطفا وکیل مورد نظر خود را انتخاب نمایید و سپس دکمه ادامه را بزنید.</h1>
+            <h1 class="text-center fs-6 px-3">لطفا از لیست زیر وکیل مورد نظر خود را انتخاب نمایید سپس دکمه "ادامه" را در پایین صفحه بزنید.</h1>
+
         </header>
         <div class="container">
+            <div class="col-12 col-lg-5 lawyer-box">
+                <div class="main-info">
+
+                    <div class="information">
+                        <img src="/media/team/Mohammad_nobari.webp" alt="" class="profile-picture">
+                        <div class="info">
+                            <p class="lawyer-name">محمد جواد خسرونوبری</p>
+                            <p class="position small">وکیل پایه یک کانون وکلای مرکز</p>
+                        </div>
+                    </div>
+
+                    <div class="section-body">
+
+                        <div class="select-lawyer {% if selected_lawyer == 'Mohammad_Nobari' %}active{% endif %}">
+                            <button class="btn select-btn" data-lawyerName="Mohammad_Nobari" >انتخاب وکیل</button>
+                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
+                                <g>
+                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
+                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
+                                    </g>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="pricing">
+                            <span class="price-text small text-muted">قیمت از</span>
+                            <p class="price">{{price_from}} تومن</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="lawyer-footer p-2">
+                    <div class="accordion-item">
+                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingFour">
+                            <p class="m-0 small">شماره پروانه : 28213</p>
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                                +اطلاعات بیشتر
+                            </button>
+                        </div>
+
+                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                            <div class="accordion-body py-1">
+                                <div>
+                                    <span class="text-muted small">درصد رضایت موکلین: </span>
+                                    <span class="small green-color">100%</span>
+                                    <span class="small">درصد</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <div>
+                                    <span class="text-muted small">تعداد مشاوره انجام شده:</span>
+                                    <span class="small green-color">1096</span>
+                                </div>
+                                <hr color="#010110" class="my-1">
+                                <div>
+                                    <span class="text-muted small">مدرک تحصیلی: </span>
+                                    <span class="small green-color">کارشناسی ارشد</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="col-12 col-lg-5 lawyer-box">
                 <div class="main-info">
@@ -90,11 +156,14 @@
                             <div class="accordion-body py-1">
                                 <div>
                                     <span class="text-muted small">درصد رضایت موکلین : </span>
-                                    <span class="small green-color">100%</span>
+                                    <span class="small green-color">97%</span>
                                     <span class="small">درصد</span>
                                 </div>
                                 <hr color="#010110" class="my-1">
-                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                                <div>
+                                    <span class="text-muted small">مدرک تحصیلی: </span>
+                                    <span class="small green-color">کارشناسی ارشد</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -147,11 +216,14 @@
                             <div class="accordion-body py-1">
                                 <div>
                                     <span class="text-muted small">درصد رضایت موکلین : </span>
-                                    <span class="small green-color">100%</span>
+                                    <span class="small green-color">95%</span>
                                     <span class="small">درصد</span>
                                 </div>
                                 <hr color="#010110" class="my-1">
-                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                                <div>
+                                    <span class="text-muted small">مدرک تحصیلی: </span>
+                                    <span class="small green-color">کارشناسی ارشد</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -204,73 +276,21 @@
                             <div class="accordion-body py-1">
                                 <div>
                                     <span class="text-muted small">درصد رضایت موکلین : </span>
-                                    <span class="small green-color">100%</span>
+                                    <span class="small green-color">95%</span>
                                     <span class="small">درصد</span>
                                 </div>
                                 <hr color="#010110" class="my-1">
-                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-lg-5 lawyer-box">
-                <div class="main-info">
-
-                    <div class="information">
-                        <img src="/media/team/Mohammad_nobari.webp" alt="" class="profile-picture">
-                        <div class="info">
-                            <p class="lawyer-name">محمد جواد خسرونوبری</p>
-                            <p class="position small">وکیل پایه یک کانون وکلای مرکز</p>
-                        </div>
-                    </div>
-
-                    <div class="section-body">
-
-                        <div class="select-lawyer {% if selected_lawyer == 'Mohammad_Nobari' %}active{% endif %}">
-                            <button class="btn select-btn" data-lawyerName="Mohammad_Nobari">انتخاب وکیل</button>
-                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;display:none;" xml:space="preserve">
-                                <g>
-                                    <g data-name="15-Checked"><circle cx="208.52" cy="288.5" r="176.52" fill="#b0ef8f" opacity="1" data-original="#b0ef8f" class=""></circle>
-                                        <path fill="#009045" d="m210.516 424.937-2.239-3.815c-34.2-58.27-125.082-181.928-126-183.17l-1.311-1.781 30.963-30.6 98.012 68.439c61.711-80.079 119.283-135.081 156.837-167.2C407.859 71.675 434.6 55.5 434.87 55.345l.608-.364H488l-5.017 4.468C353.954 174.375 214.1 418.639 212.707 421.093z" opacity="1" data-original="#009045"></path>
-                                    </g>
-                                </g>
-                            </svg>
-                        </div>
-
-                        <div class="pricing">
-                            <span class="price-text small text-muted">قیمت از</span>
-                            <p class="price">{{price_from}} تومن</p>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div class="lawyer-footer p-2">
-                    <div class="accordion-item">
-                        <div class="accordion-header more-info_section" id="panelsStayOpen-headingFour">
-                            <p class="m-0 small">شماره پروانه : 28213</p>
-                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
-                                +اطلاعات بیشتر
-                            </button>
-                        </div>
-
-                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
-                            <div class="accordion-body py-1">
                                 <div>
-                                    <span class="text-muted small">درصد رضایت موکلین : </span>
-                                    <span class="small green-color">100%</span>
-                                    <span class="small">درصد</span>
+                                    <span class="text-muted small">مدرک تحصیلی: </span>
+                                    <span class="small green-color">کارشناسی ارشد</span>
                                 </div>
-                                <hr color="#010110" class="my-1">
-                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+           
 
             <div class="col-12 col-lg-5 lawyer-box">
                 <div class="main-info">
@@ -318,11 +338,14 @@
                             <div class="accordion-body py-1">
                                 <div>
                                     <span class="text-muted small">درصد رضایت موکلین : </span>
-                                    <span class="small green-color">100%</span>
+                                    <span class="small green-color">93%</span>
                                     <span class="small">درصد</span>
                                 </div>
                                 <hr color="#010110" class="my-1">
-                                <a href="#" class="small">اطلاعات بیشتر در مورد وکیل</a>
+                                <div>
+                                    <span class="text-muted small">مدرک تحصیلی: </span>
+                                    <span class="small green-color">کارشناسی ارشد</span>
+                                </div>
                             </div>
                         </div>
                     </div>
