@@ -6,8 +6,8 @@
 {% block meta %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="خدمات آنلاین و تلفنی وکالت">
-    <meta name="keywords" content="جاستیتا, وکیل, مشاوره حقوقی, مشاوره حقوقی آنلاین , وکیل طلاق , وکیل مهاجرت , وکیل ارزان ">
+    <meta name="robots" content="noindex">
+   
 {% endblock meta %}
 
 {% block baselinks %}
@@ -17,7 +17,7 @@
 
 
 {% block content %}
-<div class="main">
+<div class="main" style="overflow: hidden;">
 
     {% block header %}
     <header>
@@ -54,7 +54,7 @@
     </header>
     {% endblock header %}
 
-    <section class="content">
+    <section class="content" style="overflow: auto;">
         {% block main_content %}
           
         {% endblock main_content %}
@@ -106,6 +106,15 @@
                     </g>
                 </svg>
                 <span>پشتیبانی</span>
+            </a>
+        </li>
+        <li class="sidbar-menu_item {% if request.resolver_match.url_name == 'users' %}active{% endif %}">
+            <a href="{% url 'dashboard:users' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" style="padding: 2px;">
+                    <path d="M12,12A6,6,0,1,0,6,6,6.006,6.006,0,0,0,12,12ZM12,2A4,4,0,1,1,8,6,4,4,0,0,1,12,2Z"></path>
+                    <path d="M12,14a9.01,9.01,0,0,0-9,9,1,1,0,0,0,2,0,7,7,0,0,1,14,0,1,1,0,0,0,2,0A9.01,9.01,0,0,0,12,14Z"></path>
+                </svg>
+                <span>کاربران</span>
             </a>
         </li>
         

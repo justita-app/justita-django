@@ -1,0 +1,19 @@
+
+
+<script>
+const rows = document.querySelectorAll("tr");
+let selectedCount = 0;
+
+for (const row of rows) {
+  const link = row.querySelector("a[href*='/change/']");
+  const checkbox = row.querySelector("input[type='checkbox']");
+
+  if (link && checkbox && link.textContent.trim() === "کاربر ناشناس") {
+    checkbox.checked = true;
+    selectedCount++;
+  }
+}
+
+console.log("Number of selected checkboxes:", selectedCount);
+
+</script>

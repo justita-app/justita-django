@@ -1,0 +1,217 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+  <h1> لیست کاربران({{users.count}})</h1>
+<p>  {{users_joined_today_count}} کاربر جدید</p>
+
+
+
+  <table class="table table-striped" id="userTable">
+    <thead>
+      <tr>
+        <th scope="col">شماره همراه</th>
+        <th scope="col">نام و نام خانوادگی</th>
+        <th scope="col">تاریخ عضویت 
+            <button onclick="sortTable('asc')" style="border: none; background: none;" class="p-0 my-0 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5"/>
+                </svg>
+            </button>
+            <button onclick="sortTable('desc')" style="border: none; background: none;" class="p-0 my-0 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/>
+              </svg>
+            </button>
+
+        </th>
+       
+        <th style="width: 5%;">شهر</th>
+        <th style="width: 10%;">آشنایی</th>
+        <th>سفارشات</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td><a href="{%url 'base:home'%}admin/accounts/user/{{user.id}}">{{user}}</a></td>
+          <td>{{user.first_name}} {{user.last_name}}</td>
+       
+          <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
+          
+<td style="width: 5%;">{{user.city}}</td>
+<td style="width: 10%;">{{user.introduction_method}}</td>
+<td>
+
+      
+    <div class="cllorders">
+            {% for call_counseling in call_counselings %}
+    
+            
+            {% if user == call_counseling.client %}    
+            <button class="py-1 btn {% if call_counseling.amount_paid != None%}btn-success{%else%}btn-danger{%endif%} " style="font-size: smaller;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{call_counseling.id}}">تلفنی {{call_counseling.id}}</button>
+    
+         
+            <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{call_counseling.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdrop{{call_counseling.id}}_Label">جزئیات سفارش</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="p-3" style="border-radius: 15px;">   
+                            <li>شناسه :<span><a href="{%url 'base:home'%}admin/social/callcounseling/{{call_counseling.id}}"> {{call_counseling.identity}}</a> </span></li>
+                            <li>وکیل : <span>{{call_counseling.get_lawyer_display}}</span> </li>
+                            <li>زمان درخواستی : <span>{{call_counseling.persian_reserve_day}} </span><span class="timeElement"> {{call_counseling.persian_reserve_time}} </span> </li>
+                            <li>سرویس : <span class="ordertype">{{call_counseling.call_time}}</span> دقیقه ای </li>
+                            <li>ساعت ثبت : <span>{{call_counseling.created_at|time:"H:i"}}</span></li>
+                
+                        </ul>   
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+          {% endif %}
+    
+          {% endfor %}
+    
+    
+    
+      
+        </div>
+    
+        {% for online in online_counselings %}
+        {% if user == online.client %}  
+        <button class="my-1 py-1 btn {% if call_counseling.amount_paid != None%}btn-success{%else%}btn-danger{%endif%} " style="font-size: smaller;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{online.id}}">آنلاین {{online.id}}</button>
+    
+        <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{online.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdrop{{online.id}}_Label">جزئیات سفارش</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="p-3" style="border-radius: 15px;">   
+                        <li>شناسه :<span><a target="_blank" href="{%url 'base:home'%}admin/social/onlinecounseling/{{online.id}}"> {{online.identity}}</a> </span></li>
+                        <li>وکیل : <span>
+                            {{online.lawyer}}
+                        </span> </li>
+                        <li>تاریخ ثبت : <span>{{online.created_at}}</span></li>
+               
+                    </ul>   
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    
+        {%endif%}
+            
+      
+    
+        
+    
+    
+    {% endfor %}
+                    </td>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+
+  <script>
+    function sortTable(order) {
+        console.log("Sorting table in", order, "order.");
+        
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("userTable");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[2].innerText;
+                y = rows[i + 1].getElementsByTagName("td")[2].innerText;
+                console.log("Comparing", x, "and", y);
+                if (order === 'asc') {
+                    if (x > y) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (order === 'desc') {
+                    if (x < y) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                console.log("Switching rows.");
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+    
+    
+    </script>
+    <script>
+        // Function to remove seconds from a time string
+        function removeSeconds(time) {
+            // Split the time string into hours, minutes, and seconds
+            var timeComponents = time.split(':');
+            
+            // Remove the last element (seconds) from the array
+            timeComponents.pop();
+            
+            // Join the remaining components back into a string
+            return timeComponents.join(':');
+        }
+        
+        // Function to update time details
+        function updateTimeDetails() {
+            // Get all elements with class 'time_details'
+            var timeElements = document.getElementsByClassName('timeElement');
+            
+            // Loop through each element
+            for (var i = 0; i < timeElements.length; i++) {
+                // Get the original time string
+                var originalTime = timeElements[i].innerText;
+                
+                // Remove seconds from the time string
+                var formattedTime = removeSeconds(originalTime);
+                
+                // Update the HTML with the formatted time
+                timeElements[i].innerText = formattedTime;
+            }
+        }
+        
+        // Call updateTimeDetails() when the document is ready
+        document.addEventListener("DOMContentLoaded", function() {
+            updateTimeDetails();
+        });
+    </script>
+    <script>
+        function fixOrderType() {
+        var ordertypeElement = document.querySelector('.ordertype');
+        if(ordertypeElement.textContent == "20"){ordertypeElement.textContent = "10"}
+        if(ordertypeElement.textContent == "30"){ordertypeElement.textContent = "20"}
+        if(ordertypeElement.textContent == "45"){ordertypeElement.textContent = "30"}
+    }
+    fixOrderType();
+    </script>
+{% endblock main_content %}

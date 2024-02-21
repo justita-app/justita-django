@@ -1,7 +1,7 @@
 from django.shortcuts import render , HttpResponse , redirect
 from django.http import HttpResponseForbidden
 from social.models import ( CallCounseling , OnlineCounselingRoom , OnlineCounselingRoomMessage , FreeCounselingRoom , FreeCounselingRoomMessage
-    , ComplaintRoom , ComplaintRoomMessage, ContractRoom , ContractRoomMessage , LegalPanel , LegalPanelMessage, SupportRoom)
+    , ComplaintRoom , ComplaintRoomMessage, ContractRoom , ContractRoomMessage , LegalPanel , LegalPanelMessage, SupportRoom , OnlineCounseling)
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from social.utils import day_to_string_persian , customize_datetime_format
@@ -9,7 +9,8 @@ from django.db.models import Max, Case , When , F
 from itertools import chain
 from operator import attrgetter
 from django.db import models
-
+from accounts.models import User
+from datetime import datetime
 
 @login_required
 def dashboardView(request) :
@@ -159,3 +160,27 @@ def ChatRoomsView(request) :
     }
 
     return render(request , 'chat-rooms.html' , args)
+
+@login_required
+def UsersView(request):
+    if not request.user.is_superuser :
+        return HttpResponseForbidden('شما نمیتوانید وارد این قسمت شوید.')
+    users = User.objects.all()
+    call_counselings = CallCounseling.objects.all()
+
+    online_counseling_chats = OnlineCounseling.objects.all()
+    # complaint_chats = ComplaintRoom.objects.all()
+    # contract_chats = ContractRoom.objects.all()
+    # legal_panle_chats = LegalPanel.objects.all()
+    today = datetime.now().date()
+    users_joined_today_count = User.objects.filter(date_joined__date=today).count()
+
+    context = {
+        'users': users,
+        'call_counselings': call_counselings,
+        'online_counselings':online_counseling_chats,
+        'users_joined_today_count':users_joined_today_count
+    }
+
+    return render(request, 'user-list.html', context)
+    
