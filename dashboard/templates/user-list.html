@@ -80,7 +80,7 @@
     
         {% for online in online_counselings %}
         {% if user == online.client %}  
-        <button class="mx-1 p-0 btn {% if call_counseling.amount_paid != None%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{online.id}}">آنلاین {{online.id}}</button>
+        <button class="mx-1 p-0 btn {% if online.amount_paid != None%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{online.id}}">آنلاین {{online.id}}</button>
     
         <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{online.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
             <div class="modal-dialog">
@@ -193,7 +193,7 @@ function sortTable(column, sort_asc) {
         function fixOrderType() {
         var ordertypeElement = document.querySelector('.ordertype');
         if(ordertypeElement.textContent == "20"){ordertypeElement.textContent = "10"}
-        if(ordertypeElement.textContent == "30"){ordertypeElement.textContent = "20"}
+        if(ordertypeElement.textContent == "30"){ordertypeElement.textContent = "15"}
         if(ordertypeElement.textContent == "45"){ordertypeElement.textContent = "30"}
     }
     fixOrderType();

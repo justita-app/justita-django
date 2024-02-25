@@ -39,5 +39,38 @@
 {% endblock main_content %}
 
 {% block extra_scripts %}
+<script>
+        
+    const  table_rowss = document.querySelectorAll('tbody tr');
+    const  table_headings = document.querySelectorAll('thead th');
+    table_headings.forEach((head, i) => {
+let sort_asc = true;
+head.onclick = () => {
+
+
+    
+ 
+    head.classList.toggle('asc', sort_asc);
+    sort_asc = head.classList.contains('asc') ? false : true;
+
+    sortTable(i, sort_asc);
+}
+})
+function sortTable(column, sort_asc) {
+[...table_rowss].sort((a, b) => {
+    let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
+        second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+    return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
+})
+    .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+}
+
+</script>
+  <style>
+    th {
+        cursor: pointer;
+    }
+</style>
 
 {% endblock extra_scripts %}
