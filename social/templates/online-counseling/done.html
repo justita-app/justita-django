@@ -14,6 +14,7 @@
 
 {% block content %}
 
+
     <main class="p-5">
         <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" class="selected-icon" viewBox="0 0 520 520" style="enable-background:new 0 0 512 512;" xml:space="preserve">
             <g>
@@ -26,9 +27,10 @@
       
    
         <p class="px-1" style="text-align: center;">پرداخت شما با موفقیت انجام شد ، اکنون می توانید با وکیل مورد نظر مکاله خود را شروع کنید .</p>
+        <p class="text-dark">شماره تماس پشتیبانی : 77871787-021</p>
 
         
-        <a href="{% url 'social:online-counseling-chat' identity=identity %}" class="redirect-url px-4" style="text-align: center;">شروع گفت و گو با وکیل</a>
+        <a href="{% url 'social:online-counseling-chat' identity=identity %}" class="redirect-url px-4 btn btn-primary" style="text-align: center;">شروع گفت و گو با وکیل</a>
   
    
    

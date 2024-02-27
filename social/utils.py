@@ -34,6 +34,7 @@ def send_call_counseilng_payment_verified(phone_number , name , date , time) :
     sms = Client("B-mILNC5m_lJcyISEqGz-WD53wV7W2FaMsrPIyJHZd8=")
     try :
         x = sms.send_pattern("f7q7x3dl55xcxsg", "3000505", phone_number, {'name':name , 'date' : date , 'time' : time})
+        y = sms.send_pattern("xv33omtffdcjv7j", "3000505", "09124276467", {'order':'مشاوره تلفنی' })
     except Error as e: # ippanel sms error
         print(f"Error handled => code: {e.code}, message: {e.message}")
         if e.code == ResponseCode.ErrUnprocessableEntity.value:
@@ -47,6 +48,8 @@ def send_online_counseilng_payment_verified(phone_number , name , lawyer) :
     sms = Client("B-mILNC5m_lJcyISEqGz-WD53wV7W2FaMsrPIyJHZd8=")
     try :
         x = sms.send_pattern("cq1ssbazik9ow5r", "3000505", phone_number, {'name' : name , 'lawyer' : lawyer})
+        y = sms.send_pattern("3ej5t4uawmr0hwn", "3000505", "09124276467", {'lawyer' : lawyer, 'order':'مشاوره آنلاین' })
+
     except Error as e: # ippanel sms error
         print(f"Error handled => code: {e.code}, message: {e.message}")
         if e.code == ResponseCode.ErrUnprocessableEntity.value:
@@ -62,6 +65,7 @@ def send_new_message_available_onlin_counseling(phone_number , name , link):
     print(phone_number , link , name)
     try :
         x = sms.send_pattern("u9ugni8uq9z2y1f", "3000505", phone_number, {'name' : name , 'link' : link})
+
     except Error as e: # ippanel sms error
         print(f"Error handled => code: {e.code}, message: {e.message}")
         if e.code == ResponseCode.ErrUnprocessableEntity.value:
