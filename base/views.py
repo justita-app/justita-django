@@ -51,3 +51,6 @@ def immigration(request):
 
 def ccl(request):
     return render(request , 'base/ccl.html')
+
+def tos(request):
+    return render(request , 'base/tos.html')

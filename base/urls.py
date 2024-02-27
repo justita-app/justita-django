@@ -12,6 +12,7 @@ urlpatterns = [
 
     path('online-attorney',views.online_attorney ,name="online-atterney"),
     path('call-counseling-lawyer' , views.ccl , name="ccl"),
+    path('terms-of-service' , views.tos , name="tos"),
 
     # need to fix 
  
