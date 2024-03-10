@@ -75,12 +75,23 @@
             <span class="x-smal" >{{message.file.name |truncatechars:15}}</span>
           </a>
           {% endif %}
+          {% if message.message|slice:":4" == "link" %}
+          
+          <script>
+           
+            var parts = '{{ message.message }}'.split('_');
+            console.log('<a href="' + parts[1] + '" class="context small m-0" dir="auto">' + parts[2] + '</a>');
+            document.write('<a href="' + parts[1] + '" class="context small m-0" dir="auto">' + parts[2] + '</a>');
+          </script>
+          {% else %}
+
           <p class="context small m-0" dir="auto">{{message.message}}</p>
           <span class="time x-small">{{message.created_persian_time}}</span>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
-
+      
     </div>
     
     <svg xmlns="http://www.w3.org/2000/svg" class="send-loading" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: rgba(0, 0, 0, 0); display: none;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">

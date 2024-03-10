@@ -9,18 +9,17 @@
 }
 
 .chat-lawyer_profile {
-    width: 40px;
-    height: 40px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
 }
 
 .chat-item {
     display: flex;
+    flex-direction: row-reverse;
     gap: 10px;
-    padding: 10px 12px;
-    margin: 10px;
+    padding: 5px 6px;
     border: solid 1px #eee;
-    box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
     border-radius: 5px;
     position: relative;
     justify-content: space-between;
@@ -32,14 +31,33 @@
 
 .chat-item .left-side { 
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
+}
+.right-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    font-size: smaller;
+}
+.lawyer-name{
+    margin-right: 0.45rem;
+    margin-bottom: 0;
+    font-weight: 700;
+}
+.service-name{
+    margin-right: 0.55rem;
+    margin-bottom: 0;
+
 }
 
 .marked-icon {
     position: absolute;
     top: 2px;
-    left: 2px;
+    right: 2px;
     cursor: pointer;
     color: #dbd700;
 }
