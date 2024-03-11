@@ -29,6 +29,9 @@ class Lawyer(User):
     licence_type = models.CharField(max_length=100, null=True, blank=True)
     last_degree = models.CharField(max_length=100, null=True, blank=True)
 
+    def get_name(self):
+        return f"{self.first_name} {self.last_name}"
+
     class Meta:
         verbose_name = _("lawyer")
         verbose_name_plural = _("lawyers")

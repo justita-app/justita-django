@@ -12,9 +12,9 @@ class LawyerVerificationForm(ModelForm) :
         def clean(self, *args, **kwargs):
             super().clean(*args, **kwargs)
 
-            if not self.cleaned_data['licence_type'] in ['attorneys-icbar-first', 'attorneys-judiciary-first',
-                                                         'attorneys-judiciary-second', 'trainee-icbar', 'Trainee-judiciary'
-                                                         'judiciary_official_expert', 'legal-expert']:
+            if not self.cleaned_data['licence_type'] in ['وکیل پایه یک کانون وکلای دادگستری', 'وکیل پایه یک مرکز وکلای قوه‌قضاییه',
+                                                         'وکیل پایه دو مرکز وکلای قوه‌قضاییه', 'کارآموز وکالت کانون وکلای دادگستری',
+                                                         'کاراموز وکالت مرکز وکلای قوه‌قضاییه', 'کارشناس رسمی دادگستری', 'کارشناس حقوقی']:
                 self.cleaned_data['licence_type'] = None
 
 class LawyerPersonalForm(ModelForm) :

@@ -12,6 +12,7 @@ from social.payment import send_request , verify_paument
 from django.core import serializers
 from django.utils import timezone
 import json , datetime
+from lawyers.models import Lawyer
 
 
 lawyer_pictures = {
@@ -44,6 +45,7 @@ def CallCounselingSelectLawyerView(request, identity):
     if not CallCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
+    lawyers = Lawyer.objects.filter(verified=True).all()
     if request.method == 'POST' :
         form = CounselingSelectLawyerForm(request.POST)
         if form.is_valid():
@@ -60,6 +62,7 @@ def CallCounselingSelectLawyerView(request, identity):
         'form' : form,
         'selected_lawyer' : CallCounseling.objects.get(identity=identity).lawyer,
         'price_from' : int(settings.PRICING.get('20')),
+        'lawyers' : lawyers,
     }
 
     return render(request , 'call-counseling/select-lawyer.html' , args)

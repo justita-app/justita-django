@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from social.utils import day_to_string_persian , customize_datetime_format , send_online_counseilng_payment_verified
 from social.payment import send_request , verify_paument
 from social.models import OnlineCounselingRoom
+from lawyers.models import Lawyer
 
 
 lawyer_pictures = {
@@ -41,6 +42,7 @@ def OnlineCounselingSelectLawyerView(request, identity):
     if not OnlineCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
+    lawyers = Lawyer.objects.filter(verified=True).all()
     if request.method == 'POST' :
         form = CounselingSelectLawyerForm(request.POST)
         if form.is_valid():
@@ -57,6 +59,7 @@ def OnlineCounselingSelectLawyerView(request, identity):
         'form' : form,
         'selected_lawyer' : OnlineCounseling.objects.get(identity=identity).lawyer,
         'price_from' : int(settings.PRICING.get('online')),
+        'lawyers' : lawyers,
     }
 
     return render(request , 'online-counseling/select-lawyer.html' , args)

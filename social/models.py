@@ -4,6 +4,7 @@ from accounts.utils import random_digit
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from social.utils import customize_datetime_format , day_to_string_persian
+from lawyers.models import Lawyer
 import datetime
 
 
@@ -38,6 +39,7 @@ class CallCounseling(models.Model) :
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True )
     client = models.ForeignKey(get_user_model() ,verbose_name="موکل", blank=True , null=True , on_delete=models.SET_NULL)
     lawyer = models.CharField(verbose_name="وکیل" , max_length=64 , choices=lawyer_choices , blank=True)
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_call_counseling')
     subject = models.CharField(verbose_name="موضوع" , max_length=32 , blank=True , default='سایر')
     call_time = models.CharField(verbose_name="مدت زمان تماس" , max_length=3 , choices=time_choices , blank=True , default='30')
     description = models.TextField(verbose_name="توضیحات" , blank=True)
@@ -121,6 +123,7 @@ class OnlineCounseling(models.Model):
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
     client = models.ForeignKey(get_user_model() ,verbose_name="موکل", blank=True , null=True , on_delete=models.SET_NULL)
     lawyer = models.CharField(verbose_name="وکیل" , max_length=64 , choices=lawyer_choices , blank=True)
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_online_counseling')
     payment_status = models.CharField(verbose_name="وضعیت پرداخت" , max_length=16 , choices=payment_status_choices , default="undone" , blank=True)
     payment_id = models.CharField(verbose_name="شناسه پرداخت" , max_length=64 , blank=True)
     ref_id = models.CharField(verbose_name="شماره تراکنش", max_length=32 , blank=True , null=True)
@@ -158,6 +161,7 @@ class OnlineCounselingRoom(models.Model):
         ('closed' , "بسته"),
     )
 
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_online_counseling_room')
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
     online_counseling = models.OneToOneField(verbose_name="مشاوره آنلاین" , to=OnlineCounseling , on_delete=models.CASCADE , related_name="room")
     status = models.CharField(verbose_name="وضعیت", max_length=16 , choices=status_choices , default='open')
@@ -392,6 +396,7 @@ class LegalPanel(models.Model) :
     )
 
 
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_legal_panel')
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
     client = models.ForeignKey(to=get_user_model() , verbose_name="موکل" , null=True , on_delete=models.SET_NULL)
     lawyer = models.CharField(verbose_name="وکیل" , max_length=64 , choices=lawyer_choices , blank=True , default='None')

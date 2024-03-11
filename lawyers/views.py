@@ -154,6 +154,8 @@ class UpdateStatus(APIView):
 @lawyer_only
 @login_required
 def councilView(request) :
+    lawyer = Lawyer.objects.filter(username=request.user.username).first()
+
     if request.method == 'POST' :
         data = request.POST
         identity = data.get('identity' , None)
@@ -166,7 +168,7 @@ def councilView(request) :
             call_counseling_object.save()
             print(call_counseling_object.status)
 
-    call_counseling = CallCounseling.objects.annotate(
+    call_counseling = CallCounseling.objects.filter(lawyer_model=lawyer).annotate(
     has_reservation=Case(
         When(Reservation_day__isnull=False, Reservation_time__isnull=False, then=1),
         default=0,
@@ -184,6 +186,8 @@ def councilView(request) :
 @lawyer_only
 @login_required
 def ChatRoomsView(request) :
+    lawyer = Lawyer.objects.filter(username=request.user.username).first()
+
     if request.method == 'POST' :
         data = request.POST
         print(data)
@@ -211,16 +215,16 @@ def ChatRoomsView(request) :
             print(my_object.status)
             return redirect('dashboard:chats')
 
-    online_counseling_chats = OnlineCounselingRoom.objects.annotate(last_message_created_at=Max('messages__created_at'))
-    free_counseling_chats = FreeCounselingRoom.objects.annotate(last_message_created_at=Max('messages__created_at'))
-    complaint_chats = ComplaintRoom.objects.annotate(last_message_created_at=Max('messages__created_at'))
-    contract_chats = ContractRoom.objects.annotate(last_message_created_at=Max('messages__created_at'))
-    legal_panle_chats = LegalPanel.objects.annotate(last_message_created_at=Max('messages__created_at'))
+    online_counseling_chats = OnlineCounselingRoom.objects.filter(online_counseling=OnlineCounseling.objects.filter(lawyer_model=lawyer).first()).annotate(last_message_created_at=Max('messages__created_at'))
+    # free_counseling_chats = FreeCounselingRoom.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
+    # complaint_chats = ComplaintRoom.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
+    # contract_chats = ContractRoom.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
+    legal_panle_chats = LegalPanel.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
 
     
 
     all_chats = sorted(
-        chain(online_counseling_chats, free_counseling_chats , complaint_chats , contract_chats , legal_panle_chats),
+        chain(online_counseling_chats, legal_panle_chats),
         key=attrgetter('created_at'),
         reverse=True
     )
