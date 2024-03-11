@@ -1,0 +1,122 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/personal-data/style.css' %}">
+
+{% endblock links %}
+
+{% block main_content %}
+
+
+<header>
+    <a href="{% url 'lawyers:settings' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+    </a>
+    <span class="fs-5">اطلاعات هویتی</span>
+</header>
+
+<div class="settings-list p-2 mt-3">
+
+    <p class="text-danger">{% if form.instance.verified %}.اطلاعات حساب شما ثبت شده است و دیگر قادر به تغییر آن نیستید{% endif %}</p>
+
+    <form action="" method="post" id="information-form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="نام" value="{{form.first_name.initial}}">
+            <label class="form_label" for="first_name">نام</label>
+        </div>
+    
+        <div class="form-floating">
+            <input type="text" class="form-control " id="last_name" name="last_name" placeholder="نام خانوادگی" value="{{form.last_name.initial}}">
+            <label class="form_label" for="last_name">نام خانوادگی</label>
+        </div>
+    
+        <div class="form-floating">
+            <input type="text" class="form-control" id="phone-num" name="username" placeholder="شماره همراه " value="{{form.username.initial}}">
+            <label class="form_label" for="phone-num">شماره همراه</label>
+        </div>
+    
+        <div class="form-floating">
+            <input type="text" class="form-control" id="city-located" name="city" placeholder="شهر محل سکونت" value="{{form.city.initial}}">
+            <label class="form_label" for="city-located">شهر محل سکونت</label>
+        </div>
+    
+        <div class="form-floating">
+            <input type="text" class="form-control" style="height: 100px;" id="address" name="address" placeholder="آدرس" value="{{form.address.initial}}">
+            <label class="form_label" for="office-address">آدرس </label>
+        </div>
+    
+        <div class="form-floating">
+            <textarea type="text" class="form-control" style="height: 100px;" id="bio" name="bio" placeholder=" بیوگرافی شامل سوابق تحصیلی کاری و ... به منظور نمایش برای کاربران">{{form.bio.initial}}</textarea>
+            <label class="form_label" for="bio"> بیوگرافی</label>
+        </div>
+
+        <div class="form-floating">
+            <select class="form-select" id="genderSelect" aria-label="Floating label select example">
+                <option value="M" {% if form.instance.gender == 'M' %}selected{% endif %}>آقا</option>
+                <option value="F" {% if form.instance.gender == 'F' %}selected{% endif %}>خانم</option>
+
+            </select>
+            <label for="licence-type">جنسیت</label>
+            <input type="hidden" id="gender" name="gender">
+        </div>
+    </form> 
+
+</div>
+
+<div class="footer text-center m-3">
+    <button class="btn btn-primary mx-2 my-1 w-75" style="font-size: large;" onclick="formSubmit()">ثبت</button>
+</div>
+
+
+<script>
+function Dropdowns(){
+    var genderSelect = document.getElementById('genderSelect')
+    var genderInput = document.getElementById('gender')
+    genderInput.value = genderSelect.value
+}
+function formSubmit(){
+    Dropdowns()
+    var form = document.getElementById('information-form')
+    form.submit()
+}
+function openFileInput(event) {
+    var fileInput = event.currentTarget.nextElementSibling;
+    fileInput.click();
+}
+
+function changeFileInput(event) {
+    var fileInput = event.currentTarget;
+    var fileName = fileInput.files[0].name;
+    var fileNameSpan = fileInput.parentElement.querySelector('.file-name');
+    
+    if (fileName.length > 10) {
+        fileName = fileName.substring(0, 10) + '...';
+    }
+    
+
+}
+var formElement = document.querySelector('.file-item');
+if (formElement.classList.contains('ff-is-valid')) {
+    document.querySelector('.file-item').innerHTML= `
+        <span class="file-name">عکس روی کارت ملی</span>
+        <div class="input-file_btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                <path xmlns="http://www.w3.org/2000/svg" fill="#198754" d="M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z"></path>
+            </svg>
+        </div>
+    `;
+} else {
+    console.log('The form is not valid');
+    }
+
+
+</script>
+{% endblock main_content %}
+

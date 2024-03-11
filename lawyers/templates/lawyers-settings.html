@@ -1,0 +1,75 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+
+<header>
+    <a href="{% url 'lawyers:lawyers' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+    </a>
+    <span class="fs-5">حساب کاربری</span>
+    </header>
+    
+<div class="hero p-2">
+   <div class="">
+    
+    <div class="d-flex mt-2 align-items-center flex-column"> 
+        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/Mohammad_nobari.webp{% endif %}" alt="" class="profile-picture p-1 d-inline">
+        <h1 class="mt-2 mx-1 d-inline">
+            {{ request.user.first_name }} {{ request.user.last_name }}
+        </h1>
+    </div>
+    
+   </div>
+</div>
+
+<div class="settings-list p-2 mt-3">
+    <div class="row settings-row ">
+        <div class="col-9 labels">اطلاعات هویتی</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:verification' %}">ویرایش</a></div>
+    </div>
+    <div class="row settings-row">
+        <div class="col-9 labels">اطلاعات شخصی</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:personal-settings' %}">ویرایش</a></div>
+    </div>
+    <div class="row settings-row">
+        <div class="col-9 labels">تنظیمات حساب و قیمت ها</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:pricings' %}">ویرایش</a></div>
+    </div>
+    <div class="row settings-row">
+        <div class="col-9 labels">مالی</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:financial' %}">نمایش</a></div>
+    </div>
+    <div class="row settings-row">
+        <div class="col-9 labels">کد معرفی شما</div>
+        <div class="col-3 text-center"><a href="#">{{ lawyer.introduction_code }}</a></div>
+    </div>
+
+</div>
+
+<div class="settings-list p-2 mt-3">
+    <div class="settings-row ">
+        <a href="{% url 'accounts:logout' %}">
+            <div class="col-9 labels text-danger">
+                <svg class="mx-2" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
+                  خروج از حساب
+            </div>
+        </a>
+        
+    </div>
+
+
+</div>
+
+{% endblock main_content %}

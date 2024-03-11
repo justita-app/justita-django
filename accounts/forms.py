@@ -3,8 +3,10 @@ from django import forms
 from django.forms import HiddenInput, ModelForm , Form
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.utils.crypto import get_random_string
 from accounts.validators import phonenumber_validator , validate_code
 from accounts.models import SmsVerificationCode
+from lawyers.models import Lawyer
 import re
 
 
@@ -51,6 +53,10 @@ class UserLoginForm(Form):
         return cleaned_data
 
 
+class LawyerLoginForm(UserLoginForm):
+    pass
+
+
 class RegisterForm(ModelForm):
     
     class Meta:
@@ -82,6 +88,41 @@ class RegisterForm(ModelForm):
         # Make the 'username' and 'city' fields not required
         self.fields['username'].required = False
         self.fields['city'].required = False
+
+
+class LawyerRegisterForm(ModelForm):
+    class Meta:
+        model = Lawyer
+        fields = ['username', 'first_name', 'last_name', 'city', 'introduction_method', 'subset_introduction_code', 'agreement_signed']
+
+        labels = {
+            'username' : 'شماره تلفن' ,
+            'first_name': 'نام',
+            'last_name': 'نام خانوادگی',
+            'city': 'شهر',
+            'introduction_method': 'نحوه آشنایی',
+            'subset_introduction_code': 'کد معرفی',
+        }
+        error_messages = {
+            'first_name': {
+                'required': 'وارد کردن نام اجباری است',
+            },
+            'last_name': {
+                'required': 'وارد کردن نام خانوادگی اجباری است',
+            },
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(LawyerRegisterForm, self).__init__(*args, **kwargs)
+
+        self.instance.introduction_code = get_random_string(length=6) # Not safe, change it later
+
+        self.fields['agreement_signed'].required = True
+
+        # Make the 'username' and 'city' and 'subset_introduction_code' fields not required
+        self.fields['username'].required = False
+        self.fields['city'].required = False
+        self.fields['subset_introduction_code'].required = False
 
 
 class ChangeInformationForm(ModelForm) :

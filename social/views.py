@@ -51,8 +51,6 @@ def OrdersView(request):
                 'created_at': customize_datetime_format(order.created_at),
                 'amount_paid': order.amount_paid,
                 'service_name': 'درخواست مشاوره تلفنی' if isinstance(order, CallCounseling) else 'درخواست مشاوره آنلاین',
-                'identity': order.identity,
-                'lawyer' : order.get_lawyer_display,
             }
             for order in all_orders
         ]

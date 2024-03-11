@@ -1,0 +1,41 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+
+<header>
+    <a href="{% url 'lawyers:settings' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+    </a>
+    <span class="fs-5">حساب کاربری</span>
+    </header>
+
+<div class="settings-list p-2 mt-3">
+    <p>موجودی: {{ lawyer.balance }} تومان</p>
+    <div class="box rounded">
+        <div class="box-title p-2">
+                    
+            تراکنش ها    
+    </div>
+    <ul class="mt-3">
+        <p>مبلغ | شماره ی شبا | تاریخ پرداخت</p>
+        {% for transaction in transactions %}
+        <li>{{ transaction.transaction_date }} | {{ transaction.IBAN_number }} | {{ transaction.amount }}</li>
+            <p></p>
+            <hr>
+        {% endfor %}
+    </ul>
+    
+
+</div>
+
+
+{% endblock main_content %}

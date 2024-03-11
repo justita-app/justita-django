@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% load static%}
+
+{% block meta %}
+<title>ثبت نام به عنوان وکیل</title>
+{% endblock meta %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'accounts/base/style.css' %}">
+  <link rel="stylesheet" href="{% static 'accounts/register/style.css' %}">
+{% endblock links %}
+
+
+{% block content %}
+
+
+    <div>
+        {% if form.errors %}
+        <ul class="errorlist">
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li class="messages">{{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        <script>
+            setTimeout(function() {
+                var errorMessages = document.querySelectorAll('.messages');
+                var index = 0;
+                var interval = setInterval(function() {
+                    errorMessages[index].remove();
+                    index++;
+                    if (index >= errorMessages.length) {
+                        clearInterval(interval);
+                    }
+                }, 20);
+            }, 5000);
+        </script>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <div class="register-content">
+            <div class="title">
+                <img src="/media/accounts/logo-main.png" alt="جاستیتا" class="main-logo">
+                <h3 class="title">تکمیل ثبت نام به عنوان وکیل</h3>
+            </div>
+
+            <form action="" method="POST" dir="ltr">
+
+                {%csrf_token%}
+                
+                <input type="text" name="first_name" maxlength="150" id="id_first_name" placeholder="نام" required>
+                
+                <input type="text" name="last_name" maxlength="150" id="id_last_name" placeholder="نام خانوادگی" required>
+                
+                <input type="text" name="city" maxlength="64" id="id_city" placeholder="شهر محل سکونت">
+                 
+                <input type="text" name="subset_introduction_code" maxlength="6" id="id_subset_introduction_code" placeholder="کد معرفی">
+                
+                <select id="methodSelect" onchange="toggleOtherMethod()" required>
+                    <option value="" disabled selected class="text-muted">نحوه آشنایی با جاستیتا</option>
+                    <option value="گوگل">گوگل</option>
+                    <option value="آپارات">آپارات</option>
+                    <option value="اینستاگرام">اینستاگرام</option>
+                    <option value="آشنایان">آشنایان</option>
+                    <option value="سایر">سایر</option>
+                </select>
+
+                <textarea name="introduction_method" id="id_introduction_method" maxlength="128" style="display: none;" placeholder="نحوه آشنایی خود را شرح دهید" required></textarea>
+
+                <div>
+                    <label for="agreement_signed"><a href="{% url 'base:tos' %}" target="_blank">توافق نامه را قبول میکنم</a></label>
+                    <input type="checkbox" name="agreement_signed" id="id_agreement_signed">
+                </div>
+
+                <button type="submit" class="btn submit-btn">ثبت نام</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+   
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script>
+    toggleOtherMethod()
+    function toggleOtherMethod() {
+        var selectElement = document.getElementById('methodSelect');
+        var otherMethodTextArea = document.getElementById('id_introduction_method');
+        otherMethodTextArea.innerHTML = ""
+        otherMethodTextArea.style.display = (selectElement.value === 'سایر') ? 'block' : 'none';
+        if (selectElement.value !== 'سایر') {
+            otherMethodTextArea.innerHTML = selectElement.value
+        }
+    }
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("form").addEventListener("submit", function() {
+            document.querySelector("button[type='submit']").disabled = true;
+            document.querySelector("button[type='submit']").innerHTML = "در حال انتقال لطفا صبر کنید";
+        });
+    });
+</script>
+{% endblock extra_scripts %}

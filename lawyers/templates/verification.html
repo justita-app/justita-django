@@ -1,0 +1,145 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/personal-data/style.css' %}">
+
+{% endblock links %}
+
+{% block main_content %}
+
+
+<header>
+    <a href="{% url 'lawyers:settings' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+    </a>
+    <span class="fs-5">اطلاعات هویتی وکیل</span>
+</header>
+    <p class="text-danger">{% if form.instance.verified %}.اطلاعات حساب شما ثبت شده است و دیگر قادر به تغییر آن نیستید{% endif %}</p>
+
+    <form action="" method="post" id="information-form" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="national_code" name="national_code" placeholder="کد ملی" value="{{form.national_code.initial}}">
+            <label class="form_label" for="national_code">کد ملی</label>
+        </div>
+        
+        <div class="form-floating">
+            <input type="text" class="form-control" id="city_working" name="city_working" placeholder="شهر محل فعالیت" value="{{form.city_working.initial}}">
+            <label class="form_label" for="city_working">شهر محل فعالیت</label>
+        </div>
+        
+        <div class="form-floating">
+            <input type="text" class="form-control" id="licence_number" name="licence_number" placeholder="شماره پروانه" value="{{form.licence_number.initial}}">
+            <label class="form_label" for="licence_number">شماره پروانه</label>
+        </div>
+    
+        <div class="file-item" data-for="file1">
+            <span class="file-name">عکس روی کارت ملی</span>
+            <div class="input-file_btn" onclick="openFileInput(event)">
+                <span>انتخاب فایل</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                    <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5z"/>
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1"/>
+                </svg>
+                
+            </div>
+            <input type="file" style="display: none;" id="file1" name="id_card_image" class="file-input" onchange="changeFileInput(event)">
+        </div>   
+        
+        <div class="file-item" data-for="file1">
+            <span class="file-name">عکس پروانه</span>
+            <div class="input-file_btn" onclick="openFileInput(event)">
+                <span>انتخاب فایل</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                    <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5z"/>
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm10-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1"/>
+                </svg>
+                
+            </div>
+            <input type="file" style="display: none;" id="licence-pic" name="licence_image" class="file-input" onchange="changeFileInput(event)">
+        </div>
+        
+        <div class="form-floating">
+            <select class="form-select" id="licenceTypeSelect" aria-label="Floating label select example">
+                <option value="attorneys-icbar-first" {% if form.instance.licence_type == 'attorneys-icbar-first' %}selected{% endif %}>وکیل پایه یک کانون وکلای دادگستری</option>
+                <option value="attorneys-judiciary-first" {% if form.instance.licence_type == 'attorneys-judiciary-first' %}selected{% endif %}>وکیل پایه یک مرکز وکلای قوه‌قضاییه</option>
+                <option value="attorneys-judiciary-second" {% if form.instance.licence_type == 'attorneys-judiciary-second' %}selected{% endif %}>وکیل پایه دو مرکز وکلای قوه‌قضاییه</option>
+                <option value="trainee-icbar" {% if form.instance.licence_type == 'trainee-icbar' %}selected{% endif %}>کارآموز وکالت کانون وکلای دادگستری</option>
+                <option value="Trainee-judiciary" {% if form.instance.licence_type == 'Trainee-judiciary' %}selected{% endif %}>کاراموز وکالت مرکز وکلای قوه‌قضاییه</option>
+                <option value="judiciary_official_expert" {% if form.instance.licence_type == 'judiciary_official_expert' %}selected{% endif %}>کارشناس رسمی دادگستری</option>
+                <option value="legal-expert" {% if form.instance.licence_type == 'legal-expert' %}selected{% endif %}>کارشناس حقوقی</option>
+    
+            </select>
+            <label for="licence-type">نوع پروانه</label>
+            <input  type="hidden" id="licence_type" name="licence_type">
+        </div>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="last_degree" name="last_degree" placeholder="آخرین مدرک تحصیلی" value="{{form.last_degree.initial}}">
+            <label class="form_label" for="last_degree">آخرین مدرک تحصیلی</label>
+        </div>
+    
+        <div class="form-floating">
+            <input type="text" class="form-control" style="height: 100px;" id="office-address" name="office_address" placeholder="آدرس دفتر" value="{{form.office_address.initial}}">
+            <label class="form_label" for="office-address">آدرس دفتر</label>
+        </div>    
+    </form>
+
+    <div class="footer text-center mt-3 mb-0">
+        <button class="btn btn-primary mx-2 mt-1 w-75" style="font-size: large;" onclick="formSubmit()">ثبت</button>
+    </div>
+
+</div>
+
+<script>
+function Dropdowns(){
+    var licenceTypeSelect = document.getElementById('licenceTypeSelect')
+    var licenceTypeinput = document.getElementById('licence_type')
+    licenceTypeinput.value = licenceTypeSelect.value
+
+}
+function formSubmit(){
+    Dropdowns()
+    var form = document.getElementById('information-form')
+    form.submit()
+}
+function openFileInput(event) {
+    var fileInput = event.currentTarget.nextElementSibling;
+    fileInput.click();
+}
+
+function changeFileInput(event) {
+    var fileInput = event.currentTarget;
+    var fileName = fileInput.files[0].name;
+    var fileNameSpan = fileInput.parentElement.querySelector('.file-name');
+    
+    if (fileName.length > 10) {
+        fileName = fileName.substring(0, 10) + '...';
+    }
+    
+
+}
+var formElement = document.querySelector('.file-item');
+if (formElement.classList.contains('ff-is-valid')) {
+    document.querySelector('.file-item').innerHTML= `
+        <span class="file-name">عکس روی کارت ملی</span>
+        <div class="input-file_btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                <path xmlns="http://www.w3.org/2000/svg" fill="#198754" d="M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z"></path>
+            </svg>
+        </div>
+    `;
+} else {
+    console.log('The form is not valid');
+    }
+
+
+</script>
+{% endblock main_content %}
+

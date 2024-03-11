@@ -22,6 +22,7 @@ class User(AbstractUser) :
 
     city = models.CharField("city" , max_length=64 , default="" , blank=True)
     introduction_method = models.CharField("introduction method" , max_length=128 , default="")
+    is_lawyer = models.BooleanField(default=False)
 
 
 class SmsVerificationCode (models.Model) :

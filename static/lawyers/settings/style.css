@@ -1,0 +1,63 @@
+body{
+    background-color: snow;
+}
+h1{
+    font-size: medium    ;
+}
+.hero{
+    background-color: white;
+}
+.profile-picture{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+
+.box{
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(97, 100, 117, 0.036) 0 4px 5px, rgba(97,100,117,.04) 0 3px 7px, rgba(97,100,117,.12) 0 3px 2px;
+    
+}
+.spacer{
+    width: 90%;
+    height: 2px;
+    background-color: #94a3b840;
+}
+.box-title{
+    color: #798596;
+    border-bottom: solid 1px #798596;
+}
+.box-body span{
+    display: block;
+    font-size: x-small;
+    
+}
+
+.dropdown-menu{
+    min-width: 20rem;
+    padding: 0.25rem 0.5rem;
+    text-align: right;
+}
+.settings-list{
+    background-color: white;
+
+}
+
+.labels{
+    font-size: medium;
+    padding-bottom: 0.5rem;
+  
+
+  
+    margin: 0.5rem 0 0 ;
+}
+header {
+    font-size: small;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    padding: 15px 10px;
+    gap: 15px;
+    background: #fff;
+}

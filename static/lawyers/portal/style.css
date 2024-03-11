@@ -1,0 +1,46 @@
+body{
+    background-color: snow;
+}
+h1{
+    font-size: medium    ;
+}
+.profile-picture{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.wallet{
+    font-size: small ;
+}
+.balance{
+    font-size: x-small;
+}
+
+.box{
+    background-color: rgb(255, 255, 255);
+    box-shadow: rgba(97, 100, 117, 0.036) 0 4px 5px, rgba(97,100,117,.04) 0 3px 7px, rgba(97,100,117,.12) 0 3px 2px;
+    
+}
+.spacer{
+    width: 90%;
+    height: 2px;
+    background-color: #94a3b840;
+}
+.box-title{
+    color: #798596;
+    border-bottom: solid 1px #798596;
+}
+.box-body span{
+    display: block;
+    font-size: x-small;
+    
+}
+.score{
+    font-size: large;
+    font-weight: 700;
+}
+.dropdown-menu{
+    min-width: 20rem;
+    padding: 0.25rem 0.5rem;
+    text-align: right;
+}

@@ -8,28 +8,14 @@
 }
 
 .order-item {
-    display: flex;
-    font-size: small;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    column-gap: 8px;
     padding: 10px;
     border-radius: 4px;
     box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
 }
-.go-support{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.info{
-    margin-right: 0.75rem;
-    display: flex;
-    justify-content: center;
-  
-    flex-direction: column;
-}
-.order-title{
-    font-weight: 700;
-}
+
 @media screen and (max-width: 540px) {
 
     .order-title{
