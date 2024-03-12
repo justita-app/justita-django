@@ -151,6 +151,32 @@ class UpdateStatus(APIView):
             return Response({"error": "Data was not valid."}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
 
 
+@method_decorator(lawyer_only, name='dispatch')
+@method_decorator(login_required, name='dispatch')
+class UpdateProfile(APIView):
+    def post(self, request: HttpRequest):
+        def data_validation():
+            data_is_valid = True
+
+            if not profile_image:
+                data_is_valid = False
+
+            return data_is_valid
+
+        lawyer = Lawyer.objects.filter(username=request.user.username).first()
+        profile_image = request.FILES['profile_image']
+        data_is_valid = data_validation()
+        if data_is_valid:
+            lawyer.profile_image.delete()
+            lawyer.profile_image = profile_image
+            lawyer.save()
+
+            return Response({'status': 'OK', 'image_url': lawyer.profile_image.url}, status=status.HTTP_200_OK)
+        else:
+            return Response({"error": "Data was not valid."}, status=status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+
 @lawyer_only
 @login_required
 def councilView(request) :

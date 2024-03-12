@@ -4,7 +4,7 @@ from accounts.utils import random_digit
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from social.utils import customize_datetime_format , day_to_string_persian
-from lawyers.models import Lawyer
+from lawyers.models import Lawyer, ConsultationPrice
 import datetime
 
 
@@ -76,8 +76,13 @@ class CallCounseling(models.Model) :
         super().save(*args, **kwargs)
 
     def get_price(self) :
-        if self.call_time :
-            price = int(settings.PRICING.get(self.call_time))
+        if self.call_time:
+            if self.lawyer in ['Mohammad_Nobari', 'Alireza_Atashzaran',
+                            'Arghavan_Mansuri', 'Atmish_Jahanshahi', 'Niloofar_Shahab']:
+                price = int(settings.PRICING.get(self.call_time))
+            else:
+                lawyer = Lawyer.objects.filter(pk=self.lawyer).first()
+                price = ConsultationPrice.objects.filter(lawyer=lawyer).first().online_price
             return price
         return None
 
@@ -160,7 +165,12 @@ class OnlineCounseling(models.Model):
         super().save(*args, **kwargs)
 
     def get_price(self) :
-        price = int(settings.PRICING.get('online'))
+        if self.lawyer in ['Mohammad_Nobari', 'Alireza_Atashzaran',
+                           'Arghavan_Mansuri', 'Atmish_Jahanshahi', 'Niloofar_Shahab']:
+            price = int(settings.PRICING.get('online'))
+        else:
+            lawyer = Lawyer.objects.filter(pk=self.lawyer).first()
+            price = ConsultationPrice.objects.filter(lawyer=lawyer).first().online_price
         return price
 
     def __str__(self):

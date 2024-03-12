@@ -20,9 +20,13 @@
     
 <div class="hero p-2">
    <div class="">
+    <div id="profile" class="d-flex mt-2 align-items-center flex-column main"> 
+        <form action="" method="post" id="information-form-2" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" id="profile_image" name="profile_image" class="file-input" onchange="updateProfile()">
+        </form>
     
-    <div class="d-flex mt-2 align-items-center flex-column"> 
-        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="" class="profile-picture p-1 d-inline">
+        <img id="profile_pic" src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="" class="profile-picture p-1 d-inline">
         <h1 class="mt-2 mx-1 d-inline">
             {{ request.user.first_name }} {{ request.user.last_name }}
         </h1>
@@ -72,4 +76,49 @@
 
 </div>
 
+<style>
+    .main {
+        position: relative
+    }
+    .main > div {
+        width: 200px;
+        height: 200px;
+    }
+    input {
+        width: 70%;
+        height: 70%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+    input:checked + div {
+        background: #000
+    }
+</style>
+
+<script>
+const csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+function updateProfile() {
+    const url = `${window.location.origin}/lawyers/update-profile/`;
+    var profile_image = document.getElementById('profile_image')
+    const formData = new FormData()
+    formData.append("profile_image", profile_image.files[0]);
+    formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken);
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        success: function (data, status, xhr) {
+            var profile_image = document.getElementById('profile_pic').src = data.image_url
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            alert(jqXhr.responseJSON.error);
+        },
+        processData: false,
+        contentType: false
+    })
+}
+</script>
 {% endblock main_content %}
