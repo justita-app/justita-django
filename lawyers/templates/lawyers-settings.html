@@ -22,7 +22,7 @@
    <div class="">
     
     <div class="d-flex mt-2 align-items-center flex-column"> 
-        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/Mohammad_nobari.webp{% endif %}" alt="" class="profile-picture p-1 d-inline">
+        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="" class="profile-picture p-1 d-inline">
         <h1 class="mt-2 mx-1 d-inline">
             {{ request.user.first_name }} {{ request.user.last_name }}
         </h1>

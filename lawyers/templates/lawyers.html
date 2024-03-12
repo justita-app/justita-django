@@ -13,7 +13,7 @@
 <div class="hero">
    <div class="first_row row align-items-center">
     <div class="col-8 mt-2"> 
-        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/Mohammad_nobari.webp{% endif %}" alt="" class="profile-picture p-1 d-inline">
+        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="" class="profile-picture p-1 d-inline">
         <h1 class="mt-2 mx-1 d-inline">{{ request.user.first_name }} {{ request.user.last_name }}</h1>
     </div>
     <div class="col-4 mt-2"> 

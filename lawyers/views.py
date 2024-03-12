@@ -39,7 +39,7 @@ def verification(request):
             if form.is_valid():
                 form.save()
 
-                return redirect(reverse('lawyers:verification'))
+                return redirect(reverse('lawyers:settings'))
             else:
                 messages.error(request, form.errors)
         else:
@@ -60,7 +60,7 @@ def personal_settings(request):
             if form.is_valid():
                 form.save()
 
-                return redirect(reverse('lawyers:personal-settings'))
+                return redirect(reverse('lawyers:settings'))
             else:
                 messages.error(request, form.errors)
         else:

@@ -190,7 +190,7 @@ def LawyerRegisterView(request, identity):
 
                 login(request, lawyer)
 
-                return redirect(reverse('base:home'))
+                return redirect(reverse('lawyers:lawyers'))
         else:
             messages.error(request, form.errors)
 
