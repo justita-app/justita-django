@@ -13,6 +13,7 @@ from itertools import chain
 from operator import attrgetter
 from django.db.models import Value, CharField
 from django.http import HttpResponseNotFound
+from lawyers.models import Lawyer
 
 
 lawyer_pictures = {
@@ -65,6 +66,11 @@ def OrdersView(request):
 
 
 def ChatsView(request) :
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     if request.user.is_authenticated :
         online_counseling_chats = OnlineCounselingRoom.objects.filter(online_counseling__client=request.user)
@@ -163,8 +169,14 @@ def ChatsView(request) :
 @login_required
 def OnlineCounselingRoomView(request , identity) :
 
-    if not request.user.is_superuser and not OnlineCounselingRoom.objects.filter(identity=identity , online_counseling__client=request.user).exists():
+    if (not request.user.is_superuser or not request.user.is_lawyer) and not OnlineCounselingRoom.objects.filter(identity=identity , online_counseling__client=request.user).exists():
         return HttpResponseNotFound("گفت و گو یافت نشد")
+
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     online_counseling_room = OnlineCounselingRoom.objects.get(identity=identity)
     room_messages = OnlineCounselingRoomMessage.objects.filter(room=online_counseling_room)
@@ -287,8 +299,14 @@ def LegalPanelRoomStartView(request) :
 @login_required
 def LegalPanelRoomView(request , identity) :
 
-    if not request.user.is_superuser and not LegalPanel.objects.filter(identity=identity , client=request.user).exists():
+    if (not request.user.is_superuser or not request.user.is_lawyer) and not LegalPanel.objects.filter(identity=identity , client=request.user).exists():
         return HttpResponseNotFound("گفت و گو یافت نشد")
+
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     legal_panel = LegalPanel.objects.get(identity=identity)
     room_messages = LegalPanelMessage.objects.filter(room=legal_panel)

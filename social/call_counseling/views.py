@@ -165,6 +165,12 @@ def CallCounselingDetailView(request , identity):
     if not CallCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
+
     call_counseling_object = CallCounseling.objects.get(identity=identity)
     reservation_day = call_counseling_object.Reservation_day
     date_string = day_to_string_persian(reservation_day)

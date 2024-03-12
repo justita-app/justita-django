@@ -44,11 +44,11 @@
 
         </header>
         <div class="container">
-            {% for lawyer in lawyers %}            
+            {% for lawyer, consultation_price in lawyers %}
             <div class="col-12 col-lg-5 lawyer-box">
                 <div class="main-info">
                     <div class="information">
-                        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/Mohammad_nobari.webp{% endif %}" alt="" class="profile-picture">
+                        <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="" class="profile-picture">
                         <div class="info">
                             <p class="lawyer-name">{{ lawyer.first_name }} {{ lawyer.last_name }}</p>
                             <p class="position small">{{ lawyer.licence_type }}</p>
@@ -70,7 +70,7 @@
 
                         <div class="pricing">
                             <span class="price-text small text-muted">قیمت از</span>
-                            <p class="price">{{price_from}} تومن</p>
+                            <p class="price">{{ consultation_price }} تومن</p>
                         </div>
 
                     </div>

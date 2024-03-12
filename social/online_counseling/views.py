@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from social.utils import day_to_string_persian , customize_datetime_format , send_online_counseilng_payment_verified
 from social.payment import send_request , verify_paument
 from social.models import OnlineCounselingRoom
-from lawyers.models import Lawyer
+from lawyers.models import Lawyer, ConsultationPrice
 
 
 lawyer_pictures = {
@@ -43,6 +43,15 @@ def OnlineCounselingSelectLawyerView(request, identity):
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
     lawyers = Lawyer.objects.filter(verified=True).all()
+    consultation_prices = []
+    for lawyer in lawyers:
+        if ConsultationPrice.objects.filter(lawyer=lawyer).exists():
+            consultation_price = ConsultationPrice.objects.filter(lawyer=lawyer).first().online_price
+        else:
+            consultation_price = None
+
+        consultation_prices.append(consultation_price)
+
     if request.method == 'POST' :
         form = CounselingSelectLawyerForm(request.POST)
         if form.is_valid():
@@ -55,6 +64,7 @@ def OnlineCounselingSelectLawyerView(request, identity):
         else :
             messages.error(request , form.errors)
     
+    lawyers = list(zip(lawyers, consultation_prices))
     args = {
         'form' : form,
         'selected_lawyer' : OnlineCounseling.objects.get(identity=identity).lawyer,
@@ -68,6 +78,12 @@ def OnlineCounselingSelectLawyerView(request, identity):
 def OnlineCounselingChatPreviewView(request , identity) :
     if not OnlineCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
+
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     online_counseling_object = OnlineCounseling.objects.get(identity=identity)
     args = {

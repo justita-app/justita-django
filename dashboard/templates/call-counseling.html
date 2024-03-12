@@ -10,6 +10,7 @@
 
 {% block main_content %}
 <button id="today" class="btn btn-primary">امروز</button>
+{% if request.user.is_superuser %}
 <div class="dropdown d-inline">
     <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       وکلا
@@ -22,7 +23,7 @@
         <li><a class="dropdown-item" href="#" onclick="updateInput('نیلوفر شهاب')">نیلوفر شهاب</a></li>
       </ul>
   </div>
-
+{% endif %}
 <div class="input-group d-inline">
     <input type="search" class="w-25 p-2 d-inline form-control" style="font-size: small;" placeholder="فیلتر" id="searchInput">
    

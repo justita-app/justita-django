@@ -10,13 +10,19 @@ import datetime
 
 class CallCounseling(models.Model) :
 
-    lawyer_choices = (
+    lawyer_choices = [
         ("Mohammad_Nobari" , "محمدجواد خسرو نوبری"),
         ("Alireza_Atashzaran" , "علیرضا آتش زران"),
         ("Arghavan_Mansuri" , "ارغوان منصوری"),
         ("Atmish_Jahanshahi" , "آتمیش جهانشاهی"),
         ("Niloofar_Shahab" , "نیلوفر شهاب"),
-    )
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if len(self.lawyer_choices) <= 5:
+            for lawyer in Lawyer.objects.filter(verified=True).all():
+                self.lawyer_choices.append((str(lawyer.pk), lawyer.get_name()))
 
     time_choices = (
         ("20" , "20 دقیقه"),
@@ -106,13 +112,20 @@ class CallCounselingFiles (models.Model):
 
 class OnlineCounseling(models.Model):
 
-    lawyer_choices = (
+    lawyer_choices = [
         ("Mohammad_Nobari" , "محمدجواد خسرو نوبری"),
         ("Alireza_Atashzaran" , "علیرضا آتش زران"),
         ("Arghavan_Mansuri" , "ارغوان منصوری"),
         ("Atmish_Jahanshahi" , "آتمیش جهانشاهی"),
         ("Niloofar_Shahab" , "نیلوفر شهاب"),
-    )
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if len(self.lawyer_choices) <= 5:
+            for lawyer in Lawyer.objects.filter(verified=True).all():
+                self.lawyer_choices.append((str(lawyer.pk), lawyer.get_name()))
 
     payment_status_choices = (
         ("failed" , "ناموفق"),
@@ -386,15 +399,19 @@ class LegalPanel(models.Model) :
     )
 
     
-    lawyer_choices = (
+    lawyer_choices = [
         ("Mohammad_Nobari" , "محمد نوبری"),
         ("Alireza_Atashzaran" , "علیرضا آتش زران"),
         ("Arghavan_Mansuri" , "ارغوان منصوری"),
         ("Atmish_Jahanshahi" , "آتمیش جهانشیری"),
         ("Niloofar_Shahab" , "نیلوفر شهاب"),
         ("None" , "هنوز انتخاب نشده")
-    )
+    ]
 
+    def __init__(self, *args, **kwargs):
+        for lawyer in Lawyer.objects.filter(verified=True).all():
+            self.lawyer_choices.append((str(lawyer.pk), lawyer.get_name()))
+        super().__init__(*args, **kwargs)
 
     lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_legal_panel')
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
