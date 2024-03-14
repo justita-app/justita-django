@@ -7,6 +7,9 @@
 {% endblock links %}
 
 {% block main_content %}
+    {%for x in lawyers%}
+    <h1>{{x}}</h1>
+    {%endfor%}
     <div class="banner">
         <div style="background-color: #294D6A;" class="first-div" data-bs-toggle="modal" data-bs-target="#quickAction2">
 

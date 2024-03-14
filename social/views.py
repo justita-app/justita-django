@@ -28,7 +28,11 @@ lawyer_pictures = {
 
 
 def Home(request) :
-    return render(request , 'services.html')
+    lawyers = Lawyer.objects.filter(online=True)
+    args = {
+        'lawyers': lawyers,
+    }
+    return render(request , 'services.html',args)
 
 
 def LegalPanelView(request) :
@@ -169,7 +173,7 @@ def ChatsView(request) :
 @login_required
 def OnlineCounselingRoomView(request , identity) :
 
-    if (not request.user.is_superuser or not request.user.is_lawyer) and not OnlineCounselingRoom.objects.filter(identity=identity , online_counseling__client=request.user).exists():
+    if not request.user.is_superuser and not OnlineCounselingRoom.objects.filter(identity=identity , online_counseling__client=request.user).exists() and not request.user.is_lawyer:
         return HttpResponseNotFound("گفت و گو یافت نشد")
 
     for lawyer in Lawyer.objects.filter(verified=True).all():

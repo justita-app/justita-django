@@ -75,16 +75,23 @@ class CallCounseling(models.Model) :
 
         super().save(*args, **kwargs)
 
-    def get_price(self) :
+    def get_price(self):
         if self.call_time:
             if self.lawyer in ['Mohammad_Nobari', 'Alireza_Atashzaran',
                             'Arghavan_Mansuri', 'Atmish_Jahanshahi', 'Niloofar_Shahab']:
                 price = int(settings.PRICING.get(self.call_time))
             else:
+                
                 lawyer = Lawyer.objects.filter(pk=self.lawyer).first()
-                price = ConsultationPrice.objects.filter(lawyer=lawyer).first().online_price
+                if self.call_time == '20':
+                    price = ConsultationPrice.objects.filter(lawyer=lawyer).first().ten_min_price
+                elif self.call_time == '30':
+                    price = ConsultationPrice.objects.filter(lawyer=lawyer).first().fifteen_min_price
+                elif self.call_time == '45':
+                    price = ConsultationPrice.objects.filter(lawyer=lawyer).first().thirty_min_price
             return price
         return None
+        
 
     
     def persian_reserve_day(self) :

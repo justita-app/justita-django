@@ -129,122 +129,108 @@
 
 {% block extra_scripts %}
 
-  <script>
-    const identity = JSON.parse(document.getElementById('identity').textContent);
-    const lawyer_profile = JSON.parse(document.getElementById('lawyer_profile').textContent);
+<script>
+  const identity = JSON.parse(document.getElementById('identity').textContent);
+  const lawyer_profile = JSON.parse(document.getElementById('lawyer_profile').textContent);
 
-    const chatSocket = new WebSocket('wss://' + window.location.host + '/ws/online-counseling/' + identity + '/');
-
-    const loadingSvg = document.querySelector('.send-loading')
-
-    chatSocket.onmessage = function(e) {
-        var messageContainer = document.querySelector('.message-container')
-        const data = JSON.parse(e.data);
-        var message = data['message']
-        var file_url = data['file_url']
-        var created_time = data['created_at']
-        var from_client = data["from_client"]
-        
-        var message_from = from_client ?  "user-message" : "lawyer-message"
-        var profile = from_client ? "/media/accounts/main/user.png" : lawyer_profile 
-
-        var file = file_url ? `
-          <a class="uploaded-file" href="${file_url}">
-            <i class="fas fa-file"></i>
-            <span class="x-smal" >${file_url.slice(0, 15)}</span>
-          </a>` : ''
-
-        var newMessage = `
-        <div class="${message_from}">
-        <img src="${profile}" alt="" class="profile-picture">
-        <div class="message">
-          ${file}
-          <p class="context small m-0" dir="auto">${message}</p>
-          <span class="time x-small">${created_time}</span>
-        </div>
-      </div>
-        `
-      messageContainer.insertAdjacentHTML('beforeend' , newMessage)
-      loadingSvg.style.display = 'none'
-    };
-
-
-    chatSocket.onclose = function(e) {
-      var errorList = document.querySelector('.messages')
-      var errorMessage = document.createElement('li')
-      errorMessage.innerHTML = "خطا در اتصال به سرور"
-      errorMessage.classList.add('message-item')
-      errorMessage.classList.add('error')
+  const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/online-counseling/' + identity + '/');
+  const loadingSvg = document.querySelector('.send-loading');
+  const messageInputDom = document.querySelector('#message-input');
+  const fileInput = document.querySelector('#file-input');
   
-      errorList.insertAdjacentElement('beforeend' , errorMessage)
+  chatSocket.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      const messageContainer = document.querySelector('.message-container');
+      const message = data['message'];
+      const fileUrl = data['file_url'];
+      const createdTime = data['created_at'];
+      const fromClient = data['from_client'];
+      
+      const messageFrom = fromClient ? "user-message" : "lawyer-message";
+      const profile = fromClient ? "/media/accounts/main/user.png" : lawyer_profile;
+      const file = fileUrl ? `<a class="uploaded-file" href="${fileUrl}"><i class="fas fa-file"></i><span class="x-small">${fileUrl.slice(0, 15)}</span></a>` : '';
+
+      const newMessage = `
+      <div class="${messageFrom}">
+          <img src="${profile}" alt="" class="profile-picture">
+          <div class="message">
+              ${file}
+              <p class="context small m-0" dir="auto">${message}</p>
+              <span class="time x-small">${createdTime}</span>
+          </div>
+      </div>
+      `;
+      messageContainer.insertAdjacentHTML('beforeend', newMessage);
+      loadingSvg.style.display = 'none';
+  };
+
+  chatSocket.onclose = function(event) {
+      const errorList = document.querySelector('.messages');
+      const errorMessage = document.createElement('li');
+      errorMessage.innerHTML = "خطا در اتصال به سرور";
+      errorMessage.classList.add('message-item');
+      errorMessage.classList.add('error');
+
+      errorList.insertAdjacentElement('beforeend', errorMessage);
       setTimeout(() => {
-          errorMessage.remove()
-      } , 5000)
-    }
+          errorMessage.remove();
+      }, 5000);
+  };
 
+  document.querySelector('#message-input').focus();
 
-    document.querySelector('#message-input').focus();
+  document.querySelector('#selectFile').onclick = function() {
+      fileInput.click();
+  };
 
+  document.querySelector('#file-input').onchange = function() {
+      const selectedFile = document.querySelector('.selected-file');
+      const selectedFileName = document.querySelector('.selected-file_name');
+      selectedFile.style.display = 'block';
+      selectedFileName.innerHTML = fileInput.files[0].name;
+  };
 
-    document.querySelector('#selectFile').onclick = function(e) {
-      const fileInput = document.querySelector('#file-input');
-      fileInput.click()
-    }
+  document.querySelector('#sendMessage').onclick = function() {
+      loadingSvg.style.display = 'block';
 
-
-    document.querySelector('#file-input').onchange = function(e) {
-      var selected_file = document.querySelector('.selected-file')
-      var selected_file_name = document.querySelector('.selected-file_name')
-      selected_file.style.display = 'block'
-      selected_file_name.innerHTML = document.querySelector('#file-input').files[0].name;
-    }
-
-
-    document.querySelector('#sendMessage').onclick = function(e) {
-      loadingSvg.style.display = 'block'
-
-      const messageInputDom = document.querySelector('#message-input');
       const message = messageInputDom.value;
-
-      const fileInput = document.querySelector('#file-input');
       const file = fileInput.files[0];
 
-      if (file) {
-          // Read the file as Base64
-          const reader = new FileReader();
-          reader.onloadend = function () {
-              const fileData = {
-                  file_name: file.name,
-                  content: reader.result.split(',')[1],  // Extract the Base64 content
-              };
+      if (chatSocket.readyState === WebSocket.OPEN) {
+          if (file) {
+              const reader = new FileReader();
+              reader.onloadend = function () {
+                  const fileData = {
+                      file_name: file.name,
+                      content: reader.result.split(',')[1],
+                  };
 
-              // Send the file data and message over WebSocket
+                  chatSocket.send(JSON.stringify({
+                      'data': {
+                          'message': message,
+                          'file': fileData,
+                      },
+                  }));
+
+                  messageInputDom.value = '';
+                  fileInput.value = '';
+                  const selectedFile = document.querySelector('.selected-file');
+                  selectedFile.style.display = 'none';
+              };
+              reader.readAsDataURL(file);
+          } else {
               chatSocket.send(JSON.stringify({
                   'data': {
                       'message': message,
-                      'file': fileData,
                   },
               }));
-
-              // Clear input fields
               messageInputDom.value = '';
-              fileInput.value = '';
-              var selected_file = document.querySelector('.selected-file')
-              selected_file.style.display = 'none'
-          };
-
-          reader.readAsDataURL(file);
+          }
       } else {
-          // If no file is selected, send only the message
-          chatSocket.send(JSON.stringify({
-              'data': {
-                  'message': message,
-              },
-          }));
-
-          messageInputDom.value = '';
+          console.error('WebSocket is not open');
+          // Handle WebSocket not open error (e.g., display error message, retry connection)
       }
-    };
+  };
+</script>
 
-  </script>
 {% endblock extra_scripts %}

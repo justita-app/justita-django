@@ -9,6 +9,16 @@
 {% endblock links %}
 
 {% block main_content %}
+<header>
+    <a href="{% url 'lawyers:lawyers' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+        
+    </a>
+    <span class="fs-5">مشاوره های تلفنی</span>
+    </header>
+    
 <button id="today" class="btn btn-primary">امروز</button>
 {% if request.user.is_superuser %}
 <div class="dropdown d-inline">
@@ -32,10 +42,14 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">شناسه</th>
+            {% if request.user.is_superuser %}
+                 <th scope="col">شناسه</th>
+            {%endif%}
             <th scope="col">موکل</th>
             <th scope="col">شماره</th>
-            <th scope="col">وکیل</th>
+            {% if request.user.is_superuser %}
+                <th scope="col">وکیل</th>
+            {%endif%}
             <th scope="col">زمان مشاوره</th>
             <th scope="col">وضعیت مشاوره و پرداخت</th>
             
@@ -46,12 +60,18 @@
         {% for call in call_counseling %}
         <!-- On tables -->
             <tr>
-                <td scope="row"><a href="{%url 'base:home'%}admin/social/callcounseling/{{call.id}}">{{call.identity}}</a></td>
-                <td>{{call.client.get_full_name}}</td>
-                <td>{{call.client}}</td>
+                {% if request.user.is_superuser %}
+
+                     <td scope="row"><a href="{%url 'base:home'%}admin/social/callcounseling/{{call.id}}">{{call.identity}}</a></td>
+                {%endif%}
+                        <td>{{call.client.get_full_name}}</td>
+                        <td>{{call.client}}</td>
+
+                {% if request.user.is_superuser %}
                 <td>{% if call.lawyer %}
                     {{call.get_lawyer_display}}
                     {%else%}انتخاب نشده{% endif %}</td>
+                    {%endif%}
                 <td>{{call.persian_reserve_day}} , {{call.persian_reserve_time}}</td>
                 <td>
                     <span class="badge p-2 {% if call.status == 'done' %}bg-success{% else %}bg-info{% endif %}">{{call.get_status_display}}</span>

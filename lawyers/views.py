@@ -27,6 +27,7 @@ def settings(request):
     return render(request, 'lawyers-settings.html', {'lawyer': lawyer})
 
 
+
 @lawyer_only
 @login_required
 def verification(request):
@@ -187,14 +188,14 @@ def councilView(request) :
         identity = data.get('identity' , None)
         if identity and CallCounseling.objects.filter(identity=identity).exists() :
             call_counseling_object = CallCounseling.objects.get(identity=identity)
-            print(call_counseling_object.status)
+            
             status = call_counseling_object.status
             changed_status = 'done' if status == 'undone' else 'undone'
             call_counseling_object.status = changed_status
             call_counseling_object.save()
-            print(call_counseling_object.status)
+            
 
-    call_counseling = CallCounseling.objects.filter(lawyer=lawyer.pk).annotate(
+    call_counseling = CallCounseling.objects.filter(lawyer=lawyer.pk , payment_status='ok').annotate(
     has_reservation=Case(
         When(Reservation_day__isnull=False, Reservation_time__isnull=False, then=1),
         default=0,
@@ -242,9 +243,6 @@ def ChatRoomsView(request) :
             return redirect('dashboard:chats')
 
     online_counseling_chats = OnlineCounselingRoom.objects.filter(online_counseling=OnlineCounseling.objects.filter(lawyer=lawyer.pk).first()).annotate(last_message_created_at=Max('messages__created_at'))
-    # free_counseling_chats = FreeCounselingRoom.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
-    # complaint_chats = ComplaintRoom.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
-    # contract_chats = ContractRoom.objects.filter(lawyer_model=lawyer).annotate(last_message_created_at=Max('messages__created_at'))
     legal_panle_chats = LegalPanel.objects.filter(lawyer=lawyer.pk).annotate(last_message_created_at=Max('messages__created_at'))
 
     
@@ -311,3 +309,12 @@ def ChatRoomsView(request) :
     }
 
     return render(request , 'chat-rooms.html' , args)
+
+@lawyer_only
+@login_required
+def messanger(request):
+
+    return render(request , 'messanger.html')
+
+
+    

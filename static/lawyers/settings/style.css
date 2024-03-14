@@ -43,6 +43,21 @@ h1{
     background-color: white;
 
 }
+.settings-row{
+    align-items: center;
+}
+.code-row{
+    padding: 0.5rem;
+    
+    align-items: center;
+}
+.code{
+
+    border-radius: 12px;
+    
+    padding: 0.125rem 0.75rem;
+    background: linear-gradient(rgb(255, 224, 92) 0%, rgb(250, 179, 0) 100%);
+}
 
 .labels{
     font-size: medium;

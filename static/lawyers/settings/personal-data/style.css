@@ -1,11 +1,6 @@
 body{
     background-color: snow;
 }
-.sidbar{
-    display: none;
-}
-
-
 
 
 .labels{
@@ -66,4 +61,12 @@ header {
     color: red;
     border: solid 2px red;
 
+}
+
+@media screen and (max-width: 768px){
+
+    .sidbar{
+        display: none;
+    }
+    
 }

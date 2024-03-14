@@ -22,7 +22,7 @@ def random_digit(n):
 def send_verification_code(phone_number) :
 
     code = random_digit(4)
-
+    print(code)
 
     sms = Client("B-mILNC5m_lJcyISEqGz-WD53wV7W2FaMsrPIyJHZd8=")
 

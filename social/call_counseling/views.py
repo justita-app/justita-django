@@ -12,7 +12,7 @@ from social.payment import send_request , verify_paument
 from django.core import serializers
 from django.utils import timezone
 import json , datetime
-from lawyers.models import Lawyer
+from lawyers.models import Lawyer , ConsultationPrice
 
 
 lawyer_pictures = {
@@ -74,6 +74,7 @@ def CallCounselingSubjectTimeView(request , identity) :
 
     form = CallCounselingSubjectTimeForm()
 
+
     if request.method == "POST" :
         form = CallCounselingSubjectTimeForm(request.POST)
         if form.is_valid():
@@ -88,6 +89,7 @@ def CallCounselingSubjectTimeView(request , identity) :
             messages.error(request , form.errors)
         
     call_counseling_object = CallCounseling.objects.get(identity=identity)
+    consultation_price = ConsultationPrice.objects.get(lawyer=call_counseling_object.lawyer)
     args = {
         'form' : form,
         'identity' : identity,
@@ -96,6 +98,11 @@ def CallCounselingSubjectTimeView(request , identity) :
         'price20' : int(int(settings.PRICING.get('20') )/1000),
         'price30' : int(int(settings.PRICING.get('30') )/1000),
         'price45' : int(int(settings.PRICING.get('45') )/1000),
+        
+        'ten_min_price' : int(int(consultation_price.ten_min_price) / 1000),
+        'fifteen_min_price' : int(int(consultation_price.fifteen_min_price) / 1000),
+        'thirty_min_price' : int(int(consultation_price.thirty_min_price) / 1000),
+        'online_price' : int(int(consultation_price.online_price) / 1000),
     }
     return render(request , 'call-counseling/subject-time.html' , args)
 

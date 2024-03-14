@@ -70,7 +70,7 @@ def LawyerSmsVerifyView(request, phone_number):
             else:
                 return render(request, 'sms-verify.html', {'phone_number': phone_number, 'timeout': last_code.timeout_time()})
 
-        # send a sms if there was no sms code exist
+       
         send_verification_code(phone_number=phone_number)
         return render(request, 'sms-verify.html', {'phone_number': phone_number, 'timeout': 60})
 

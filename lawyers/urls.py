@@ -16,4 +16,5 @@ urlpatterns = [
     # API Views
     path("update-status/", views.UpdateStatus.as_view(), name="update-status"),
     path("update-profile/", views.UpdateProfile.as_view(), name="update-profile"),
+    path("messanger/", views.messanger, name="messanger"),
 ]
