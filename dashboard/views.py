@@ -12,6 +12,7 @@ from django.db import models
 from accounts.models import User
 from datetime import datetime
 
+
 @login_required
 def dashboardView(request) :
     if not request.user.is_superuser :
@@ -22,14 +23,14 @@ def dashboardView(request) :
         identity = data.get('identity' , None)
         if identity and CallCounseling.objects.filter(identity=identity).exists() :
             call_counseling_object = CallCounseling.objects.get(identity=identity)
-            print(call_counseling_object.status)
+            
             status = call_counseling_object.status
             changed_status = 'done' if status == 'undone' else 'undone'
             call_counseling_object.status = changed_status
             call_counseling_object.save()
-            print(call_counseling_object.status)
+            
 
-    call_counseling = CallCounseling.objects.annotate(
+    call_counseling = CallCounseling.objects.filter(created_at__date = datetime.now().date()).annotate(
     has_reservation=Case(
         When(Reservation_day__isnull=False, Reservation_time__isnull=False, then=1),
         default=0,
@@ -65,7 +66,6 @@ def ChatRoomsView(request) :
 
     if request.method == 'POST' :
         data = request.POST
-        print(data)
         service = data.get('service' , '')
         identity = data.get('identity' , '')
 
@@ -87,7 +87,6 @@ def ChatRoomsView(request) :
             new_status = 'open' if my_object.status == 'closed' else 'closed'
             my_object.status = new_status
             my_object.save()
-            print(my_object.status)
             return redirect('dashboard:chats')
 
     online_counseling_chats = OnlineCounselingRoom.objects.annotate(last_message_created_at=Max('messages__created_at'))
@@ -184,3 +183,34 @@ def UsersView(request):
 
     return render(request, 'user-list.html', context)
     
+@login_required
+def dashboardViewAll(request) :
+    if not request.user.is_superuser :
+        return HttpResponseForbidden('شما نمیتوانید وارد این قسمت شوید.')
+
+    if request.method == 'POST' :
+        data = request.POST
+        identity = data.get('identity' , None)
+        if identity and CallCounseling.objects.filter(identity=identity).exists() :
+            call_counseling_object = CallCounseling.objects.get(identity=identity)
+            
+            status = call_counseling_object.status
+            changed_status = 'done' if status == 'undone' else 'undone'
+            call_counseling_object.status = changed_status
+            call_counseling_object.save()
+            
+
+    call_counseling = CallCounseling.objects.annotate(
+    has_reservation=Case(
+        When(Reservation_day__isnull=False, Reservation_time__isnull=False, then=1),
+        default=0,
+        output_field=models.IntegerField(),
+    )
+    ).order_by('-has_reservation', 'Reservation_day', 'Reservation_time')
+
+    args = {
+        'call_counseling' : call_counseling
+    }
+
+    return render(request , 'call-counseling.html' , args)
+

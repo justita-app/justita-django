@@ -15,10 +15,15 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-# valid pages function
+
 
 
 def home(request):
+    if request.user.is_authenticated:
+        if request.user.is_lawyer:            
+            return redirect('lawyers:lawyers')
+         
+
     return render(request,'base/home.html')
 
 
@@ -54,3 +59,6 @@ def ccl(request):
 
 def tos(request):
     return render(request , 'base/tos.html')
+    
+def download(request):
+    return render(request, 'base/download-justita.html')

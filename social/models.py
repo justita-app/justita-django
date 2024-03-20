@@ -4,18 +4,25 @@ from accounts.utils import random_digit
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from social.utils import customize_datetime_format , day_to_string_persian
+from lawyers.models import Lawyer, ConsultationPrice
 import datetime
 
 
 class CallCounseling(models.Model) :
 
-    lawyer_choices = (
+    lawyer_choices = [
         ("Mohammad_Nobari" , "محمدجواد خسرو نوبری"),
         ("Alireza_Atashzaran" , "علیرضا آتش زران"),
         ("Arghavan_Mansuri" , "ارغوان منصوری"),
         ("Atmish_Jahanshahi" , "آتمیش جهانشاهی"),
         ("Niloofar_Shahab" , "نیلوفر شهاب"),
-    )
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if len(self.lawyer_choices) <= 5:
+            for lawyer in Lawyer.objects.filter(verified=True).all():
+                self.lawyer_choices.append((str(lawyer.pk), lawyer.get_name()))
 
     time_choices = (
         ("20" , "20 دقیقه"),
@@ -38,6 +45,7 @@ class CallCounseling(models.Model) :
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True )
     client = models.ForeignKey(get_user_model() ,verbose_name="موکل", blank=True , null=True , on_delete=models.SET_NULL)
     lawyer = models.CharField(verbose_name="وکیل" , max_length=64 , choices=lawyer_choices , blank=True)
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_call_counseling')
     subject = models.CharField(verbose_name="موضوع" , max_length=32 , blank=True , default='سایر')
     call_time = models.CharField(verbose_name="مدت زمان تماس" , max_length=3 , choices=time_choices , blank=True , default='30')
     description = models.TextField(verbose_name="توضیحات" , blank=True)
@@ -67,11 +75,23 @@ class CallCounseling(models.Model) :
 
         super().save(*args, **kwargs)
 
-    def get_price(self) :
-        if self.call_time :
-            price = int(settings.PRICING.get(self.call_time))
+    def get_price(self):
+        if self.call_time:
+            if self.lawyer in ['Mohammad_Nobari', 'Alireza_Atashzaran',
+                            'Arghavan_Mansuri', 'Atmish_Jahanshahi', 'Niloofar_Shahab']:
+                price = int(settings.PRICING.get(self.call_time))
+            else:
+                
+                lawyer = Lawyer.objects.filter(pk=self.lawyer).first()
+                if self.call_time == '20':
+                    price = ConsultationPrice.objects.filter(lawyer=lawyer).first().ten_min_price
+                elif self.call_time == '30':
+                    price = ConsultationPrice.objects.filter(lawyer=lawyer).first().fifteen_min_price
+                elif self.call_time == '45':
+                    price = ConsultationPrice.objects.filter(lawyer=lawyer).first().thirty_min_price
             return price
         return None
+        
 
     
     def persian_reserve_day(self) :
@@ -104,13 +124,20 @@ class CallCounselingFiles (models.Model):
 
 class OnlineCounseling(models.Model):
 
-    lawyer_choices = (
+    lawyer_choices = [
         ("Mohammad_Nobari" , "محمدجواد خسرو نوبری"),
         ("Alireza_Atashzaran" , "علیرضا آتش زران"),
         ("Arghavan_Mansuri" , "ارغوان منصوری"),
         ("Atmish_Jahanshahi" , "آتمیش جهانشاهی"),
         ("Niloofar_Shahab" , "نیلوفر شهاب"),
-    )
+    ]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        if len(self.lawyer_choices) <= 5:
+            for lawyer in Lawyer.objects.filter(verified=True).all():
+                self.lawyer_choices.append((str(lawyer.pk), lawyer.get_name()))
 
     payment_status_choices = (
         ("failed" , "ناموفق"),
@@ -121,6 +148,7 @@ class OnlineCounseling(models.Model):
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
     client = models.ForeignKey(get_user_model() ,verbose_name="موکل", blank=True , null=True , on_delete=models.SET_NULL)
     lawyer = models.CharField(verbose_name="وکیل" , max_length=64 , choices=lawyer_choices , blank=True)
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_online_counseling')
     payment_status = models.CharField(verbose_name="وضعیت پرداخت" , max_length=16 , choices=payment_status_choices , default="undone" , blank=True)
     payment_id = models.CharField(verbose_name="شناسه پرداخت" , max_length=64 , blank=True)
     ref_id = models.CharField(verbose_name="شماره تراکنش", max_length=32 , blank=True , null=True)
@@ -144,7 +172,12 @@ class OnlineCounseling(models.Model):
         super().save(*args, **kwargs)
 
     def get_price(self) :
-        price = int(settings.PRICING.get('online'))
+        if self.lawyer in ['Mohammad_Nobari', 'Alireza_Atashzaran',
+                           'Arghavan_Mansuri', 'Atmish_Jahanshahi', 'Niloofar_Shahab']:
+            price = int(settings.PRICING.get('online'))
+        else:
+            lawyer = Lawyer.objects.filter(pk=self.lawyer).first()
+            price = ConsultationPrice.objects.filter(lawyer=lawyer).first().online_price
         return price
 
     def __str__(self):
@@ -158,6 +191,7 @@ class OnlineCounselingRoom(models.Model):
         ('closed' , "بسته"),
     )
 
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_online_counseling_room')
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
     online_counseling = models.OneToOneField(verbose_name="مشاوره آنلاین" , to=OnlineCounseling , on_delete=models.CASCADE , related_name="room")
     status = models.CharField(verbose_name="وضعیت", max_length=16 , choices=status_choices , default='open')
@@ -382,16 +416,21 @@ class LegalPanel(models.Model) :
     )
 
     
-    lawyer_choices = (
+    lawyer_choices = [
         ("Mohammad_Nobari" , "محمد نوبری"),
         ("Alireza_Atashzaran" , "علیرضا آتش زران"),
         ("Arghavan_Mansuri" , "ارغوان منصوری"),
         ("Atmish_Jahanshahi" , "آتمیش جهانشیری"),
         ("Niloofar_Shahab" , "نیلوفر شهاب"),
         ("None" , "هنوز انتخاب نشده")
-    )
+    ]
 
+    def __init__(self, *args, **kwargs):
+        for lawyer in Lawyer.objects.filter(verified=True).all():
+            self.lawyer_choices.append((str(lawyer.pk), lawyer.get_name()))
+        super().__init__(*args, **kwargs)
 
+    lawyer_model = models.ForeignKey(Lawyer, on_delete=models.CASCADE, null=True, blank=True, related_name='lawyers_legal_panel')
     identity = models.IntegerField(verbose_name="شناسه" , unique=True , blank=True)
     client = models.ForeignKey(to=get_user_model() , verbose_name="موکل" , null=True , on_delete=models.SET_NULL)
     lawyer = models.CharField(verbose_name="وکیل" , max_length=64 , choices=lawyer_choices , blank=True , default='None')

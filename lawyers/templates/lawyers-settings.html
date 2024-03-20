@@ -1,0 +1,144 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+
+<header>
+    <a href="{% url 'lawyers:lawyers' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+        
+    </a>
+    <span class="fs-5">تنظیمات حساب کاربری</span>
+    </header>
+    
+<div class="hero p-2 rounded">
+   <div class="">
+    <div id="profile" class="d-flex mt-2 align-items-center flex-column main"> 
+        <form action="" method="post" id="information-form-2" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" id="profile_image" name="profile_image" class="file-input" onchange="updateProfile()">
+        </form>
+      
+        <img id="profile_pic" src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="عکس پروفایل وکیل" class="profile-picture p-1 d-inline">
+        <span onclick="edit()" class="translate-middle badge rounded-pill bg-primary p-2" style="right: -2.5rem;
+        position: relative;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="white" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"></path>
+              </svg>
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        <h1 class="mx-1 d-inline">
+            {{ request.user.first_name }} {{ request.user.last_name }}
+            
+        </h1>
+    </div>
+    
+   </div>
+</div>
+
+<div class="settings-list p-2 mt-3 rounded" style="width: 99%;">
+    <div class="row settings-row">
+        <div class="col-9 labels">اطلاعات شخصی</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:personal-settings' %}">ویرایش</a></div>
+    </div>
+    <div class="row settings-row ">
+        <div class="col-9 labels">اطلاعات هویتی</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:verification' %}">ویرایش</a></div>
+    </div>
+
+    <div class="row settings-row">
+        <div class="col-9 labels">تنظیمات حساب و قیمت ها</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:pricings' %}">ویرایش</a></div>
+    </div>
+    <div class="row settings-row">
+        <div class="col-9 labels">مالی</div>
+        <div class="col-3 text-center"><a href="{% url 'lawyers:financial' %}">نمایش</a></div>
+    </div>
+    
+    <div class="rounded">
+        <div class="code-row row justify-content-center">
+            <div class="col-6 labels">کد معرفی شما</div>
+            <div class="col-3 code p-2 text-center">{{ lawyer.introduction_code }}</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="settings-list p-2 m-3 mb-5">
+    <div class="settings-row ">
+        <a href="{% url 'accounts:logout' %}">
+            <div class="col-9 labels text-danger">
+                <svg class="mx-2" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                    <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                  </svg>
+                  خروج از حساب
+            </div>
+        </a>
+        
+    </div>
+
+
+</div>
+
+<style>
+    .main {
+        position: relative
+    }
+    .main > div {
+        width: 200px;
+        height: 200px;
+    }
+    input {
+        width: 70%;
+        height: 70%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+    input:checked + div {
+        background: #000
+    }
+</style>
+
+<script>
+const csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+
+function updateProfile() {
+    const url = `${window.location.origin}/lawyers/update-profile/`;
+    var profile_image = document.getElementById('profile_image')
+    const formData = new FormData()
+    formData.append("profile_image", profile_image.files[0]);
+    formData.append("csrfmiddlewaretoken", csrfmiddlewaretoken);
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: formData,
+        success: function (data, status, xhr) {
+            var profile_image = document.getElementById('profile_pic').src = data.image_url
+        },
+        error: function (jqXhr, textStatus, errorMessage) {
+            alert(jqXhr.responseJSON.error);
+        },
+        processData: false,
+        contentType: false
+    })
+}
+function edit(){
+    document.getElementById('profile_image').click()
+
+
+
+}
+</script>
+{% endblock main_content %}

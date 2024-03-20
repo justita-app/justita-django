@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from social import jalali
 import re
 import datetime
+from lawyers.models import Lawyer
 
 class CounselingSelectLawyerForm(forms.Form) :
     lawyer_name = forms.CharField(max_length=32 , required=True)
@@ -19,7 +20,8 @@ class CounselingSelectLawyerForm(forms.Form) :
             "Niloofar_Shahab",
         ]
         if not lawyer_name in lawyer_choices:
-            raise ValidationError("وکیل مورد نظر یافت نشد ، لطفا وکیل را به درستی انتخاب کنید؛")
+            if not Lawyer.objects.filter(pk=lawyer_name).exists():
+                raise ValidationError("وکیل مورد نظر یافت نشد ، لطفا وکیل را به درستی انتخاب کنید؛")
         
         return cleaned_data
 

@@ -1,0 +1,74 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/style.css' %}">
+
+{% endblock links %}
+
+{% block main_content %}
+
+<header>
+    <a href="{% url 'lawyers:settings' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+    </a>
+    <span class="fs-5">حساب کاربری</span>
+    </header>
+
+<div class="settings-list p-2 mt-3">
+    <p>موجودی: {{ lawyer.balance }} تومان</p>
+    <div class="box rounded">
+        <div class="box-title p-2">
+                    
+            تراکنش ها    
+         </div>
+
+
+        
+        <table>
+            <thead class="bg-dark text-light">
+                <tr class="bg-dark text-light">
+                    <th class="col-2 text-center p-1">شناسه</th>
+                    <th class="col-4 text-center p-1">مبلغ</th>
+                    <th class="col-3 text-center p-1">تاریخ پرداخت</th>
+                    <th class="col-3 text-center p-1">شماره شبا</th>  
+                </tr>
+            </thead>       
+
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td class="col-2 text-center p-1">{{ transaction.id }}</td>
+                    <td style="font-size: smaller;" class="col-4 text-center p-1">{{ transaction.amount }} تومان</td>
+                    <td class="col-3 text-center p-1" >{{ transaction.transaction_date.date }}</td>
+                    <td class="col-3 text-center p-1 iban">{{ transaction.IBAN_number }}</td>  
+                </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+
+
+
+    
+
+</div>
+
+<script>
+    function formatIBAN(elementClassName) {
+    var ibanElements = document.getElementsByClassName('iban');
+    
+    for (var i = 0; i < ibanElements.length; i++) {
+        var iban = ibanElements[i].textContent;
+        var formattedIBAN = '...' + iban.substring(0, 6) ;
+        ibanElements[i].textContent = formattedIBAN;
+    }
+}
+
+formatIBAN('iban');
+</script>
+
+{% endblock main_content %}

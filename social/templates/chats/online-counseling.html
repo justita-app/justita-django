@@ -39,17 +39,35 @@
   </div>
 
   <header>
+    {%if request.user.is_lawyer%}
+    
+    <span onclick="window.location.href='{% url 'lawyers:chats' %}'">
+    {%else%}
     <span onclick="window.location.href='{% url 'social:chats' %}'">
+    {%endif%}
       <svg data-v-19b8e40c="" xmlns="http://www.w3.org/2000/svg" class="back-svg" fill="none" stroke="gray" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" class="w-20 h-20 text-gray-600"><path data-v-19b8e40c="" d="M9 18l6-6-6-6"></path></svg>
     </span>
+
+    {%if request.user.is_lawyer%}
+    <div class="chat-lawyer-info">
+      <img src="/media/accounts/main/user.png" alt="تصویر کاربر" class="profile-picture">
+      <div class="info-text">
+        <p class="m-0">{{client.first_name}} {{client.last_name}}</p>
+        
+      </div>
+    </div>
+    {%else%}
 
     <div class="chat-lawyer-info">
       <img src="{{lawyer_profile}}" alt="{{lawyer}}" class="profile-picture">
       <div class="info-text">
         <p class="m-0">{{lawyer}}</p>
-        <span class="small text-muted">وکیل پایه یک کانون وکلای مرکز</span>
+        <span class="small text-muted">{{lawyer_license}}</span>
       </div>
     </div>
+    {%endif %}
+
+
 
   </header>
 
@@ -80,7 +98,6 @@
           <script>
            
             var parts = '{{ message.message }}'.split('_');
-            console.log('<a href="' + parts[1] + '" class="context small m-0" dir="auto">' + parts[2] + '</a>');
             document.write('<a href="' + parts[1] + '" class="context small m-0" dir="auto">' + parts[2] + '</a>');
           </script>
           {% else %}

@@ -19,6 +19,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('social/', include('social.urls')),
+    path('lawyers/', include('lawyers.urls')),
     # call counseling
     path('social/call-counseling/', include('social.call_counseling.urls') ),
     # online counseling

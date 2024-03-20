@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'accounts',
     'dashboard',
     'social',
+    'lawyers',
 ]
 
 
@@ -149,8 +150,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 #     os.path.join(BASE_DIR , 'static'),
 # )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 
 # Default primary key field type

@@ -22,7 +22,7 @@
         {% for room in support_rooms %}
         <!-- On tables -->
             <tr>
-                <td scope="row">#{{room.identity}}</td>
+                <td scope="row"><a href="/admin/social/supportroom/{{room.id}}">#{{room.identity}}</a></td>
                 <td>{{room.user.get_full_name}}</td>
                 <td>{{room.subject|truncatechars:20}}</td>
                 <td>{{room.created_persian.date}} , {{room.created_persian.time}}</td>

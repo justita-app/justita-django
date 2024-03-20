@@ -20,7 +20,7 @@ class OnlineCounselingConsumer(AsyncWebsocketConsumer):
         self.user = self.scope['user']
 
         is_authenticated = self.user.is_authenticated
-        is_valid_room = True if self.user.is_superuser else await sync_to_async(OnlineCounselingRoom.objects.filter(identity=self.identity, online_counseling__client=self.user).exists)()
+        is_valid_room = True if self.user.is_superuser or self.user.is_lawyer else await sync_to_async(OnlineCounselingRoom.objects.filter(identity=self.identity, online_counseling__client=self.user).exists)()
 
         if is_authenticated and is_valid_room:
             await self.channel_layer.group_add(self.room_group_name, self.channel_name)

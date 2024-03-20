@@ -12,6 +12,7 @@ from social.payment import send_request , verify_paument
 from django.core import serializers
 from django.utils import timezone
 import json , datetime
+from lawyers.models import Lawyer , ConsultationPrice
 
 
 lawyer_pictures = {
@@ -44,6 +45,8 @@ def CallCounselingSelectLawyerView(request, identity):
     if not CallCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
+    lawyers = Lawyer.objects.filter(verified=True).all()
+
     if request.method == 'POST' :
         form = CounselingSelectLawyerForm(request.POST)
         if form.is_valid():
@@ -60,6 +63,9 @@ def CallCounselingSelectLawyerView(request, identity):
         'form' : form,
         'selected_lawyer' : CallCounseling.objects.get(identity=identity).lawyer,
         'price_from' : int(settings.PRICING.get('20')),
+        'lawyers' : lawyers,
+        'lawyers_with_prices': [{'lawyer': lawyer, 'ten_min_price': lawyer.consultationprice.ten_min_price} for lawyer in lawyers if hasattr(lawyer, 'consultationprice')],
+
     }
 
     return render(request , 'call-counseling/select-lawyer.html' , args)
@@ -70,6 +76,7 @@ def CallCounselingSubjectTimeView(request , identity) :
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
     form = CallCounselingSubjectTimeForm()
+
 
     if request.method == "POST" :
         form = CallCounselingSubjectTimeForm(request.POST)
@@ -85,6 +92,7 @@ def CallCounselingSubjectTimeView(request , identity) :
             messages.error(request , form.errors)
         
     call_counseling_object = CallCounseling.objects.get(identity=identity)
+    consultation_price = ConsultationPrice.objects.get(lawyer=call_counseling_object.lawyer)
     args = {
         'form' : form,
         'identity' : identity,
@@ -93,6 +101,11 @@ def CallCounselingSubjectTimeView(request , identity) :
         'price20' : int(int(settings.PRICING.get('20') )/1000),
         'price30' : int(int(settings.PRICING.get('30') )/1000),
         'price45' : int(int(settings.PRICING.get('45') )/1000),
+        
+        'ten_min_price' : int(int(consultation_price.ten_min_price) / 1000),
+        'fifteen_min_price' : int(int(consultation_price.fifteen_min_price) / 1000),
+        'thirty_min_price' : int(int(consultation_price.thirty_min_price) / 1000),
+        'online_price' : int(int(consultation_price.online_price) / 1000),
     }
     return render(request , 'call-counseling/subject-time.html' , args)
 
@@ -162,10 +175,17 @@ def CallCounselingDetailView(request , identity):
     if not CallCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
+
     call_counseling_object = CallCounseling.objects.get(identity=identity)
     reservation_day = call_counseling_object.Reservation_day
     date_string = day_to_string_persian(reservation_day)
     client_name =  call_counseling_object.client.get_full_name() if call_counseling_object.client else ''
+    lawyer_license = Lawyer.objects.get(id = call_counseling_object.lawyer).licence_type
     args = {
         'identity' : call_counseling_object.identity,
         'lawyer_picture' : lawyer_pictures.get(call_counseling_object.lawyer , '/media/team/default.png'),
@@ -175,7 +195,8 @@ def CallCounselingDetailView(request , identity):
         'reservation_day' : date_string ,
         'reservation_time' : call_counseling_object.Reservation_time.strftime('%H:%M:%S') ,
         'call_time' : call_counseling_object.call_time,
-        'price' : call_counseling_object.get_price()
+        'price' : call_counseling_object.get_price(),
+        'lawyer_license':lawyer_license
     }
 
     return render(request , 'call-counseling/order-details.html' , args)
@@ -212,10 +233,12 @@ def CallCounselingPaymentVerifyView(request) :
     call_counseling_object = CallCounseling.objects.get(payment_id=authority)
 
     response = verify_paument(amount=call_counseling_object.amount_paid , authority=authority)
-
+    lawyer = Lawyer.objects.get(id=call_counseling_object.lawyer).username
     args = {
         'time' : call_counseling_object.Reservation_time.strftime('%H:%M:%S'),
         'day' : day_to_string_persian(call_counseling_object.Reservation_day),
+        
+       
     }
 
     if response.get('status') :
@@ -228,12 +251,30 @@ def CallCounselingPaymentVerifyView(request) :
             name = call_counseling_object.client.get_full_name()
             date = day_to_string_persian(call_counseling_object.Reservation_day)
             time = call_counseling_object.Reservation_time.strftime("%H:%M:%S")
+            
+            
 
-            send_call_counseilng_payment_verified(phone_number=phone_number, name=name , date=date , time=time)
-
+            send_call_counseilng_payment_verified(phone_number=phone_number, name=name , date=date , time=time , lawyer=lawyer)
+    
         return render(request , 'call-counseling/done.html' , args)
+    
     else :
         call_counseling_object.payment_status = 'failed'
         call_counseling_object.save()
         return render(request , 'call-counseling/failed.html' , args)
 
+
+
+def CallCounselingViewAjax(request):
+    if request.user.is_authenticated:
+        if CallCounseling.objects.filter(client=request.user, payment_status='undone').exists():
+            order = CallCounseling.objects.filter(client=request.user, payment_status='undone').last()
+        else:
+            order = CallCounseling(client=request.user)
+            order.save()
+    else:
+        order = CallCounseling()
+        order.save()
+    
+    # Assuming 'identity' is an attribute of the 'order' object
+    return JsonResponse({'identity': order.identity})

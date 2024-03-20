@@ -41,7 +41,8 @@
             <link href="{%static 'splash/ipadpro1-splash'%}" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
             <link href="{%static 'splash/ipadpro2'%}" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image">
             <meta name="apple-mobile-web-app-title" content="Justita">
-        {% endblock basemeta %}
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+          {% endblock basemeta %}
 
         {% block meta %}
 
@@ -70,6 +71,7 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-KXLDFJ87');</script>
   <!-- End Google Tag Manager -->
+  
         {% endblock bootstrap %}
         
         

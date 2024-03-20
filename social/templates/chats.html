@@ -21,9 +21,7 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link small" id="pills-close-tab" data-bs-toggle="pill" data-bs-target="#pills-close" type="button" role="tab" aria-controls="pills-close" aria-selected="false">بسته شده</button>
         </li>
-        <li class="nav-item" role="presentation">
-          <button class="nav-link small" id="pills-mark-tab" data-bs-toggle="pill" data-bs-target="#pills-mark" type="button" role="tab" aria-controls="pills-mark" aria-selected="false">نشان شده</button>
-        </li>
+ 
       </ul>
 
       <div class="tab-content" id="pills-tabContent">
@@ -38,11 +36,7 @@
               </div>
               
               <div class="left-side">
-                {% if chat.marked %}
-                <i class="fas fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-                {% else %}
-                <i class="fal fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-                {% endif %}
+               
                 <div class="row">
                   <p class="lawyer-name">{{chat.lawyer}}</p>
                   <p class="small service-name">{{chat.service_name}}</p>
@@ -66,11 +60,7 @@
             </div>
             
             <div class="left-side">
-              {% if chat.marked %}
-              <i class="fas fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-              {% else %}
-              <i class="fal fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-              {% endif %}
+
               <div class="row">
                 <p class="lawyer-name">{{chat.lawyer}}</p>
                 <p class="small service-name">{{chat.service_name}}</p>
@@ -92,11 +82,7 @@
             </div>
             
             <div class="left-side">
-              {% if chat.marked %}
-              <i class="fas fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-              {% else %}
-              <i class="fal fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-              {% endif %}
+
               <div class="row">
                 <p class="lawyer-name">{{chat.lawyer}}</p>
                 <p class="small service-name">{{chat.service_name}}</p>
@@ -107,32 +93,7 @@
           {% endif %}
         {% endfor %}
         </div>
-        <div class="tab-pane chat-container fade" id="pills-mark" role="tabpanel" aria-labelledby="pills-mark-tab" tabindex="0">
-          {% for chat in chats %}
-          {% if chat.marked %}
-          <a class="chat-item" href="{{chat.url}}">
-            <div class="right-side">
-             
-              <span class="small m-0">{{chat.last_message_time.date}} </span>
-              <span class="time_details">{{chat.last_message_time.time}}</span>
-            </div>
-            
-            <div class="left-side">
-              {% if chat.marked %}
-              <i class="fas fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-              {% else %}
-              <i class="fal fa-star marked-icon" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="handleStarClick(event)"></i>
-              {% endif %}
-              <div class="row">
-                <p class="lawyer-name">{{chat.lawyer}}</p>
-                <p class="small service-name">{{chat.service_name}}</p>
-              </div>
-              <img src="{{chat.lawyer_profile}}" alt="{{chat.lawyer}}" class="chat-lawyer_profile">
-            </div>
-          </a>
-          {% endif %}
-        {% endfor %}
-        </div>
+ 
       </div>
       
       <form method="post" style="display: none;" id="change_marked_form">

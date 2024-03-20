@@ -1,0 +1,328 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/style.css' %}">
+  <link rel="stylesheet" href="{% static 'lawyers/settings/personal-data/style.css' %}">
+
+{% endblock links %}
+
+{% block main_content %}
+
+<header>
+    <a href="{% url 'lawyers:settings' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+    </a>
+    <span class="fs-5">تنظیمات حساب و قیمت ها</span>
+</header>
+
+    
+
+    <div class="container mt-3">
+
+  
+    
+        <div class="finances mt-3">    
+                <div class="box rounded">
+                    <div class="box-title p-2">
+                        
+                            قیمت ها
+                    
+                    </div>
+                    <div class="box-body">
+             
+                        <div class="row m-1 my-3 finance-row align-items-center">
+                            <div class="col-6"> مشاوره تلفنی</div>
+                            <div class="col-4"> 10 دقیقه
+                                <span class="text-success 10-council price">{{ consultation_price_form.ten_min_price.initial }} هزار تومان</span>
+                            </div>
+                            <div class="col-2 text-center">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal10">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="blue" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                      </svg>
+                                  </button>
+                          
+                            </div>
+                        </div>
+                        <div class="row m-1 my-3 finance-row align-items-center">
+                            <div class="col-6"> مشاوره تلفنی</div>
+                            <div class="col-4"> 15 دقیقه
+                                <span class="text-success 15-council price">{{ consultation_price_form.fifteen_min_price.initial }} هزار تومان</span>
+                            </div>
+                            <div class="col-2 text-center">
+                                <div class="svg">
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal15">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="blue" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                          </svg>
+                                      </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row m-1 my-3 finance-row align-items-center">
+                            <div class="col-6"> مشاوره تلفنی</div>
+                            <div class="col-4"> 30 دقیقه
+                                <span class="text-success 30-council price">{{  consultation_price_form.thirty_min_price.initial }} هزار تومان</span>
+                            </div>
+                            <div class="col-2 text-center">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modal30">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="blue" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                      </svg>
+                                  </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center my-1">
+                            <div class="spacer ">
+                            </div> 
+                        </div>
+
+                        <div class="row m-1 my-3 pb-3 finance-row align-items-center">
+                            <div class="col-6"> مشاوره آنلاین</div>
+                            <div class="col-4"> 
+                                <span class="text-success online-council price">{{ consultation_price_form.online_price.initial }} هزار تومان</span>
+                            </div>
+                            <div class="col-2 text-center">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#Modalonline">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="blue" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                      </svg>
+                                  </button>
+                            </div>
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <input id="10-council_input" name="ten_min_price" value="{{ consultation_price_form.ten_min_price.initial }}" type="hidden">
+                                <input id="15-council_input" name="fifteen_min_price" value="{{ consultation_price_form.fifteen_min_price.initial }}" type="hidden">
+                                <input id="30-council_input" name="thirty_min_price" value="{{ consultation_price_form.thirty_min_price.initial }}" type="hidden">
+                                <input id="online-council_input" name="online_price" value="{{ consultation_price_form.online_price.initial }}" type="hidden">
+            
+                                <div class="footer text-center m-3">
+                                    <button class="btn btn-primary mx-2 my-1 w-75" style="font-size: large;" onclick="formSubmit()">بروزرسانی قیمت ها</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+    
+                </div>
+             
+        </div>
+        <form action="" method="post" id="information-form-2" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="IBAN_number" name="IBAN_number" value="{{lawyer_update_form.IBAN_number.initial}}">
+                <label class="form_label" for="IBAN_number">شماره شبا</label>
+            </div>
+
+        
+
+            <div class="footer text-center m-3">
+                <button class="btn btn-primary mx-2 my-1 w-75" style="font-size: large;" onclick="formSubmit2()">ثبت</button>
+            </div>
+        </form>
+
+    
+    </div>
+
+
+
+    <!-- Modals -->
+        <div class="modal fade " id="Modal10" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اصلاح قیمت</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                اصلاح قیمت مشاوره تلفنی 10 دقیقه ای
+                </div>
+                            
+                    <div class="form-modal p-3">
+                        <form class="form-floating">
+                            <div class="input-group mb-3">
+                                <input id="10-council" name="ten_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                                </form>
+                    </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="Modal15" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اصلاح قیمت</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                اصلاح قیمت مشاوره تلفنی 15 دقیقه ای
+                </div>
+                            
+                    <div class="form-modal p-3">
+                        <form class="form-floating">
+                            <div class="input-group mb-3">
+                                <input id="15-council" name="fifteen_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                                </form>
+                    </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="Modal30" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اصلاح قیمت</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                اصلاح قیمت مشاوره تلفنی 30 دقیقه ای
+                </div>
+                            
+                    <div class="form-modal p-3">
+                        <form class="form-floating">
+                            <div class="input-group mb-3">
+                                <input id="30-council" name="thirty_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                                </form>
+                    </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="Modalonline" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog  modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">اصلاح قیمت</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                اصلاح قیمت مشاوره آنلاین
+                </div>
+                            
+                    <div class="form-modal p-3">
+                        <form class="form-floating">
+                            <div class="input-group mb-3">
+                                <input id="online-council" name="online_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                            </div>
+                                </form>
+                    </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                </div>
+            </div>
+            </div>
+        </div>
+{% endblock main_content %}
+
+{% block extra_scripts %}
+<script>
+function formSubmit2(){
+    var form = document.getElementById('information-form-2')
+    form.submit()
+}
+var inputs = document.querySelectorAll("[aria-label=\"Recipient's username\"]")
+
+function updatePrice(event){
+    var price = document.getElementsByClassName(event.target.id)[0];
+    price.innerHTML = event.target.value + " هزار تومان"
+    main_input = document.getElementById(`${event.target.id}_input`)
+    console.log(main_input);
+    main_input.value = event.target.value
+}
+inputs.forEach((item) => {
+    item.addEventListener('keyup', updatePrice)
+});
+
+
+
+function openFileInput(event) {
+    var fileInput = event.currentTarget.nextElementSibling;
+    fileInput.click();
+}
+
+function changeFileInput(event) {
+    var fileInput = event.currentTarget;
+    var fileName = fileInput.files[0].name;
+    var fileNameSpan = fileInput.parentElement.querySelector('.file-name');
+    
+    if (fileName.length > 10) {
+        fileName = fileName.substring(0, 10) + '...';
+    }
+    
+
+}
+var formElement = document.querySelector('.file-item');
+if (formElement.classList.contains('ff-is-valid')) {
+    document.querySelector('.file-item').innerHTML= `
+        <span class="file-name">عکس روی کارت ملی</span>
+        <div class="input-file_btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
+                <path xmlns="http://www.w3.org/2000/svg" fill="#198754" d="M2.3 6.73.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z"></path>
+            </svg>
+        </div>
+    `;
+} else {
+    console.log('The form is not valid');
+    }
+
+</script>
+<script>
+    function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function updatePrices() {
+        var priceElements = document.getElementsByClassName('price');
+        
+        for (var i = 0; i < priceElements.length; i++) {
+            var rawPrice = parseFloat(priceElements[i].innerText);
+            
+            priceElements[i].innerText = formatPrice(rawPrice + " تومان ");
+        }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        updatePrices();
+    });
+</script>
+<script>
+    var inputs = document.querySelectorAll('input');
+    
+    inputs.forEach(function(input) {
+        if (input.value == 'None') {
+            input.value = '';
+        
+        }
+    });
+    </script>
+
+{% endblock extra_scripts %}

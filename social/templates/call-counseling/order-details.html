@@ -55,7 +55,7 @@
                     <img src="{{lawyer_picture}}" alt="" class="lawyer-profile_picture">
                     <div class="info">
                         <p class="lawyer-name small m-0">{{lawyer}}</p>
-                        <p class="position x-small m-0">وکیل پایه یک کانون وکلای مرکز</p>
+                        <p class="position x-small m-0">{{lawyer_license}}</p>
                     </div>
                 </div>
                 <hr>
@@ -125,36 +125,25 @@
         });
     </script>
 <script>
-    
     function removeSeconds(time) {
-        
         var timeComponents = time.split(':');
         
-       
         timeComponents.pop();
         
-       
         return timeComponents.join(':');
     }
     
-    
     function updateTimeDetails() {
-       
         var timeElements = document.getElementsByClassName('time_details');
         
-        
         for (var i = 0; i < timeElements.length; i++) {
-            
             var originalTime = timeElements[i].innerText;
             
-            
             var formattedTime = removeSeconds(originalTime);
-            
             
             timeElements[i].innerText = formattedTime;
         }
     }
-    
     
     document.addEventListener("DOMContentLoaded", function() {
         updateTimeDetails();

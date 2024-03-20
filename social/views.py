@@ -13,6 +13,10 @@ from itertools import chain
 from operator import attrgetter
 from django.db.models import Value, CharField
 from django.http import HttpResponseNotFound
+from lawyers.models import Lawyer , Comment , ConsultationPrice
+from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseNotAllowed, HttpResponseNotFound
+from django.db.models import Avg
+from lawyers.forms import CommentForm
 
 
 lawyer_pictures = {
@@ -25,9 +29,34 @@ lawyer_pictures = {
 }
 
 
+def Home(request):
+    lawyers = Lawyer.objects.filter(online=True)
 
-def Home(request) :
-    return render(request , 'services.html')
+    lawyer_comment_count = {}
+    lawyer_avg_score = {}
+    for lawyer in lawyers:
+        lawyer.comment_count = Comment.objects.filter(lawyer=lawyer).count()+56
+        avg_score = Comment.objects.filter(lawyer=lawyer).aggregate(avg_score=Avg('score'))
+        lawyer.ten_min_price = int(ConsultationPrice.objects.get(lawyer=lawyer).ten_min_price/1000)
+        lawyer.online_price = int(ConsultationPrice.objects.get(lawyer=lawyer).online_price/1000)
+        if avg_score['avg_score'] is not None:
+            lawyer.avg_score = avg_score['avg_score']/2
+        else:
+            lawyer.avg_score=5
+                  
+        
+        
+
+
+
+
+    args = {
+        'lawyers': lawyers,
+
+        
+    }
+    return render(request, 'services.html', args)
+
 
 
 def LegalPanelView(request) :
@@ -42,7 +71,8 @@ def OrdersView(request):
         # Combine and sort the orders
         all_orders = sorted(
             chain(user_call_counseling, user_online_counseling),
-            key=attrgetter('created_at')
+            key=attrgetter('created_at'),
+            reverse=True
         )
         
         # Add a service name to each order
@@ -53,7 +83,8 @@ def OrdersView(request):
                 'service_name': 'درخواست مشاوره تلفنی' if isinstance(order, CallCounseling) else 'درخواست مشاوره آنلاین',
                 'identity': order.identity,
                 'lawyer' : order.get_lawyer_display,
-            }
+                
+                }
             for order in all_orders
         ]
     else:
@@ -67,6 +98,11 @@ def OrdersView(request):
 
 
 def ChatsView(request) :
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     if request.user.is_authenticated :
         online_counseling_chats = OnlineCounselingRoom.objects.filter(online_counseling__client=request.user)
@@ -165,12 +201,18 @@ def ChatsView(request) :
 @login_required
 def OnlineCounselingRoomView(request , identity) :
 
-    if not request.user.is_superuser and not OnlineCounselingRoom.objects.filter(identity=identity , online_counseling__client=request.user).exists():
+    if not request.user.is_superuser and not OnlineCounselingRoom.objects.filter(identity=identity , online_counseling__client=request.user).exists() and not request.user.is_lawyer:
         return HttpResponseNotFound("گفت و گو یافت نشد")
+
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     online_counseling_room = OnlineCounselingRoom.objects.get(identity=identity)
     room_messages = OnlineCounselingRoomMessage.objects.filter(room=online_counseling_room)
-
+    lawyer_license = Lawyer.objects.get(id = online_counseling_room.online_counseling.lawyer).licence_type
     args = {
         'identity' : identity,
         'lawyer' : online_counseling_room.online_counseling.get_lawyer_display(),
@@ -178,7 +220,8 @@ def OnlineCounselingRoomView(request , identity) :
         'created_time' : customize_datetime_format(online_counseling_room.created_at)['time'],
         'client' : online_counseling_room.online_counseling.client , 
         'messages' : room_messages,
-        'status' : online_counseling_room.status
+        'status' : online_counseling_room.status,
+        'lawyer_license': lawyer_license
     }
 
     return render(request , 'chats/online-counseling.html' , args)
@@ -289,8 +332,14 @@ def LegalPanelRoomStartView(request) :
 @login_required
 def LegalPanelRoomView(request , identity) :
 
-    if not request.user.is_superuser and not LegalPanel.objects.filter(identity=identity , client=request.user).exists():
+    if (not request.user.is_superuser or not request.user.is_lawyer) and not LegalPanel.objects.filter(identity=identity , client=request.user).exists():
         return HttpResponseNotFound("گفت و گو یافت نشد")
+
+    for lawyer in Lawyer.objects.filter(verified=True).all():
+        if lawyer.profile_image:
+            lawyer_pictures[f'{lawyer.pk}'] = lawyer.profile_image.url
+        else:
+            lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     legal_panel = LegalPanel.objects.get(identity=identity)
     room_messages = LegalPanelMessage.objects.filter(room=legal_panel)
@@ -341,3 +390,107 @@ def SupportRoomView(request , identity):
     }
 
     return render(request , 'chats/support.html' , args)
+
+
+
+
+
+def select_lawyer(request):
+    lawyer_id = request.GET.get('pk')
+    if lawyer_id is None:
+        return HttpResponseBadRequest("Lawyer ID not provided")
+
+    if request.user.is_authenticated:
+        
+        if CallCounseling.objects.filter(client=request.user, payment_status='undone').exists():
+            order = CallCounseling.objects.filter(client=request.user, payment_status='undone').last()
+        else:
+            order = CallCounseling(client=request.user)
+            order.save()
+    else:
+        
+        order = CallCounseling()
+        order.save()
+
+    try:
+        
+        lawyer = Lawyer.objects.get(id=lawyer_id)
+    except Lawyer.DoesNotExist:
+        return HttpResponseBadRequest("Invalid lawyer ID")
+
+   
+    order.lawyer = lawyer.id
+    order.save()
+    
+    
+    return redirect('call-counseling:subject-time', identity=order.identity)
+
+def select_lawyer_online(request):
+    lawyer_id = request.GET.get('pk')
+    if lawyer_id is None:
+        return HttpResponseBadRequest("Lawyer ID not provided")
+    if request.user.is_authenticated:
+        
+        if OnlineCounseling.objects.filter(client=request.user, payment_status='undone').exists():
+            order = OnlineCounseling.objects.filter(client=request.user, payment_status='undone').last()
+        else:
+            order = OnlineCounseling(client=request.user)
+            order.save()
+    else:
+        
+        order = OnlineCounseling()
+        order.save()
+    try:
+        
+        lawyer = Lawyer.objects.get(id=lawyer_id)
+    except Lawyer.DoesNotExist:
+        return HttpResponseBadRequest("Invalid lawyer ID")    
+    order.lawyer = lawyer.id
+    order.save()
+    
+    
+    return redirect('online-counseling:chat-preview', identity=order.identity)
+
+
+def submit_review(request):
+    order_identity = request.GET.get('pk')
+    
+    try:
+        order = CallCounseling.objects.get(identity=order_identity, payment_status = "ok", client=request.user)
+    except CallCounseling.DoesNotExist:
+        try:
+            order = OnlineCounseling.objects.get(identity=order_identity , payment_status = "ok", client=request.user)
+        except OnlineCounseling.DoesNotExist:
+            
+            return HttpResponse("سفارش فوق یافت نشد. با پشتیبانی تماس بگیرید")
+    
+    try:
+        instance = Comment.objects.get(order_id=order_identity)
+    except Comment.DoesNotExist: 
+        pass
+    else:
+        return HttpResponse("نظر ثبت شده است.")     
+    if request.method == "POST" :
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('social:orders')
+
+    prefill_data = {
+        'order_id': order_identity,
+        'lawyer': order.lawyer,
+       
+    }            
+    form = CommentForm(initial=prefill_data)
+    args = {
+        'order': order,
+        'form' : form,
+        'service_name': 'مشاوره تلفنی' if isinstance(order, CallCounseling) else 'مشاوره آنلاین',
+        'lawyerr' : order.get_lawyer_display,
+        'lawyer' : Lawyer.objects.get(id=order.lawyer),
+
+
+    }               
+    
+
+    return render(request, 'submit-review.html', args)

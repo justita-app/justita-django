@@ -11,6 +11,7 @@ cryptography==41.0.7
 daphne==4.0.0
 Django==4.0.6
 django-environ==0.11.2
+djangorestframework==3.14.0
 hyperlink==21.0.0
 idna==3.6
 incremental==22.10.0
@@ -20,6 +21,7 @@ pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pyOpenSSL==23.3.0
+python-environ==0.4.54
 requests==2.31.0
 service-identity==24.1.0
 six==1.16.0

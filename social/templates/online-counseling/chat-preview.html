@@ -19,7 +19,7 @@
       <img src="{{lawyer_profile}}" alt="{{lawyer}}" class="profile-picture">
       <div class="info-text">
         <p class="m-0">{{lawyer}}</p>
-        <span class="small text-muted">وکیل پایه یک کانون وکلای مرکز</span>
+        <span class="small text-muted">{{lawyer_license}}</span>
       </div>
     </div>
 
@@ -37,8 +37,8 @@
 
 
     <div class="payment-required position-relative small">
-      <p class="text-primary">کاربر عزیز، جهت شروع گفتگوی آنلاین با متخصص مربوطه لازم است تا ابتدا هزینه مشاوره آنلاین با این متخصص را پرداخت کنید. با استفاده از دکمه زیر می‌توانید نسبت به پرداخت اقدام نمایید.</p>
-      <p class="small">هزینه مشاوره : {{payment_aount}} تومان</p>
+      <p class="text-primary">کاربر عزیز، جهت شروع گفتگوی آنلاین با {{lawyer}} لازم است تا ابتدا هزینه مشاوره آنلاین با این متخصص را پرداخت کنید. با استفاده از دکمه زیر می‌توانید نسبت به پرداخت اقدام نمایید.</p>
+      <p class="small">هزینه مشاوره : <span class="price">{{payment_aount}}</span> تومان</p>
       <a href="{% url 'online-counseling:start-payment' identity=identity %}" class="go-payment_btn">پرداخت هزینه</a>
     </div>
 
@@ -60,4 +60,23 @@
     </form>
 
   </main>
+  <script>
+    function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function updatePrices() {
+        var priceElements = document.getElementsByClassName('price');
+        
+        for (var i = 0; i < priceElements.length; i++) {
+            var rawPrice = parseFloat(priceElements[i].innerText);
+            
+            priceElements[i].innerText = formatPrice(rawPrice);
+        }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        updatePrices();
+    });
+</script>
 {% endblock content %}

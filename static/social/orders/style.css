@@ -8,28 +8,36 @@
 }
 
 .order-item {
-    display: flex;
-    font-size: small;
+
     padding: 10px;
     border-radius: 4px;
-    box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1);
+    border: solid .5px #e6e6e6;
 }
-.go-support{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.order-done{
+    font-size: 11px;
+    color: #22a958;
+    background-color: rgba(34, 169, 88, 0.04);
+    padding: 4px;
+    border-radius: 4px;
 }
-.info{
-    margin-right: 0.75rem;
-    display: flex;
-    justify-content: center;
-  
-    flex-direction: column;
+.order-done span{
+    font-size: 13px;
+
 }
-.order-title{
-    font-weight: 700;
+.scoretaker{
+    background-color: #f2f2f2;
+    color: #404040;
+    padding: 13px 12px;
+    border-radius: 6px;
 }
+
+
+.subitem{
+    font-size: small;
+    color: #505050;
+}
+
 @media screen and (max-width: 540px) {
 
     .order-title{
