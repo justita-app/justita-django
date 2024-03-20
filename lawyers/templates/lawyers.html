@@ -10,7 +10,7 @@
 {% block main_content %}
 
 
-<div class="hero">
+<div class="hero container">
    <div class="first_row row align-items-center">
     <div class="col-8 mt-2"> 
         <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/team/default.png{% endif %}" alt="" class="profile-picture p-1 d-inline">
@@ -31,8 +31,10 @@
             
         
             </div>
-        
-        <div class="balance mx-1 mt-1 price">
+
+
+       
+    <div class="balance mx-1 mt-1 price">
             {{ lawyer.balance }} تومان
         </div>
     </div>
@@ -51,7 +53,7 @@
             </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="/media/social/services/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
+            <img src="/media/lawyers/portal/test.jpg" class="d-block w-100 rounded" alt="...">
           </div>
           <div class="carousel-item rounded">
             <img src="/media/social/services/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
@@ -85,10 +87,13 @@
                     <div class="col-8 mx-1" id="statusdiv"></div>
                     <div class="col-3">
                         <div class="form-check form-switch">
+                            {%if lawyer.verified%}
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" style="width: 2rem; height: 1rem;">
-                          </div>
+                            {%else%}
+                             <div class="text-center text-danger">اهراز هویت نشده</div>
+                            {%endif%}
+                        </div>
                     </div>
-                    <!-- <p>وضعیت شما: {% if lawyer.verified %}تایید شده{% else %}تایید نشده{% endif %}</p> -->
                 </div>
                 <div class="image-online" id="svg-off">
     
@@ -102,24 +107,31 @@
                 <div class="box rounded">
                     <div class="box-title p-2">
     
-                            آمار امروز
+                            آمار کل
     
                     </div>
                     <div class="box-body">
-                        <div class="row m-1 finance-row align-items-center">
+                        <div class="row m-1 my-3 finance-row align-items-center">
                             <div class="col-8"> مشاوره تلفنی</div>
-                            <div class="col-4"> 25 دقیقه
-                                <span class="text-success">200 هزار تومان</span>
+                            <div class="col-4"> {{call_counseling}} مشاوره
+                                <!-- <span class="text-success">200 هزار تومان</span> -->
                             </div>
                         </div>
                         <div class="d-flex justify-content-center my-1">
                             <div class="spacer ">
                             </div>
                         </div>
-                        <div class="row m-1 mt-2 finance-row align-items-center pb-2">
+                        <div class="row m-1 my-3 finance-row align-items-center pb-2">
                             <div class="col-8"> مشاوره آنلاین</div>
-                            <div class="col-4"> 10 مشاوره
-                                <span class="text-danger">10000 هزار تومان</span>
+                            <div class="col-4"> {{online_counseling}} مشاوره
+                               
+                            </div>
+    
+                        </div>
+                        <div class="row m-1 mt-2 finance-row align-items-center pb-2">
+                            <div class="text-center small text-success"> جزئیات بیشتر مشاوره ها را در پیامرسان و بخش مشاوره های تلفنی ببینید</div>
+                            
+                               
                             </div>
     
                         </div>
@@ -142,7 +154,7 @@
                 </div>
                 <div class="box-body">
                     <div class="row m-1 finance-row align-items-center justify-content-around">
-                        <div class="col-4 score text-center"> {% if avg_score %}{{ avg_score }}{% else %}0{% endif %}
+                        <div class="col-4 score text-center"> {% if avg_score %}{{ avg_score }}{% else %}5.0{% endif %}
                             <span>
                                 از مجموع {{ comments|length }} نظر
                             </span>
@@ -220,15 +232,30 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="staticBackdropLabel">تایید قوانین و مقررات</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          
         </div>
+        {%if lawyer.licence_number == 'None'%}
         <div class="modal-body">
-             زدن دکمه ورود به کارتابل وکیل به منزله پذیرفتن شرایط و قوانین و سیاست حفظ حریم‌ خصوصی جاستیتا می باشد.
+            
+            کاربر گرامی، به منظور اهراز هویت و تایید حساب کاربری، لطفا وارد بخش تنظیمات شوید و نسبت به تکمیل اطلاعات خود اقدام نمایید. در صورت نیاز به پشیتیبانی، روی دکمه زیر کلیک کنید.
         </div>
+    
+    
         <div class="modal-footer">
 
 
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">ورود به کارتابل</button>
+          <a href="{%url 'lawyers:settings'%}"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">ورود به بخش تنظیمات</button></a>
+        
+          {%else%}
+          <div class="modal-body">
+              شما فرایند تکمیل اطلاعات را شروع کرده اید. در صورتی که تمامی اطلاعات مورد درخواست را بارگذاری کرده اید، حساب شما به زودی فعال خواهد شد.            
+          </div>
+          <div class="modal-footer">
+          <a href="{%url 'social:support'%}"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">درخواست پشیتیبانی</button></a>
+
+          {%endif%}
+        
+        
         </div>
       </div>
     </div>
@@ -245,9 +272,10 @@
 <script>
 
     function onPageLoaded() {
-        const agreement = "{{lawyer.agreement_signed}}"
+        const agreement = "{{lawyer.verified}}"
 
-    if (agreement == "True") {
+    if (agreement != "True") {
+        
             setTimeout(() => {
                 document.getElementById("agreementbtn").click();
             }, 1000);
@@ -350,4 +378,5 @@ statusBtn.checked = {% if lawyer.online %}true{% else %}false{% endif %};
         }
     });
 </script>
+
 {% endblock extra_scripts %}

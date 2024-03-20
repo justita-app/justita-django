@@ -8,3 +8,5 @@ admin.site.register(models.Lawyer, LawyerAdmin)
 admin.site.register(models.Comment)
 admin.site.register(models.Transaction)
 admin.site.register(models.Warning)
+admin.site.register(models.ConsultationPrice)
+

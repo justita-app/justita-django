@@ -24,22 +24,7 @@
 
     <div class="container mt-3">
 
-        <div class="box rounded">
-            <div class="box-title p-2">
-                        
-                وضعیت    
-        </div>
-            <div class="row p-2 ">
-                <div class="col-8 mx-1 "> آنلاین</div>
-                <div class="col-3">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" style="width: 2rem; height: 1rem;">
-                      </div>
-    
-                </div>
-            </div>
-        </div>
-        
+  
     
         <div class="finances mt-3">    
                 <div class="box rounded">
@@ -277,29 +262,7 @@ inputs.forEach((item) => {
     item.addEventListener('keyup', updatePrice)
 });
 
-const csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-var statusBtn = document.getElementById('flexSwitchCheckChecked')
 
-function updateStatus() {
-    const url = `${window.location.origin}/lawyers/update-status/`;
-    $.ajax({
-        url: url,
-        method: 'POST',
-        data: {
-            'is_online': statusBtn.checked,
-            'csrfmiddlewaretoken': csrfmiddlewaretoken
-        },
-        success: function (data, status, xhr) {
-            console.log('Status has been updated');
-        },
-        error: function (jqXhr, textStatus, errorMessage) {
-            alert(jqXhr.responseJSON.error);
-        }
-    })
-}
-
-statusBtn.addEventListener('click', updateStatus)
-statusBtn.checked = {% if lawyer.online %}true{% else %}false{% endif %};
 
 function openFileInput(event) {
     var fileInput = event.currentTarget.nextElementSibling;
@@ -351,4 +314,15 @@ if (formElement.classList.contains('ff-is-valid')) {
         updatePrices();
     });
 </script>
+<script>
+    var inputs = document.querySelectorAll('input');
+    
+    inputs.forEach(function(input) {
+        if (input.value == 'None') {
+            input.value = '';
+        
+        }
+    });
+    </script>
+
 {% endblock extra_scripts %}

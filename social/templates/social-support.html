@@ -14,7 +14,11 @@
 {% block content %}
 
   <header>
-    <span onclick="window.location.href = '{% url 'accounts:home' %}'">
+    {%if request.user.is_lawyer%}
+    <span onclick="window.location.href = '{% url 'lawyers:lawyers' %}'">
+    {%else%}
+    <span onclick="window.location.href = '{% url 'social:home' %}'">
+      {%endif%}
         <img src="/media/accounts/main/back-arrow.png" alt="برگشت" , class="back-arrow">
     </span>
     <span class="fs-5">پشتیبانی</span>

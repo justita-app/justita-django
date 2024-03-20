@@ -1,0 +1,129 @@
+.nav-pills .nav-item .nav-link {
+    font-size: small;
+    color: black;
+}
+
+.nav-pills .nav-item .nav-link.active {
+    background-color: var(--brand-color);
+    color: #fff;
+}
+
+.chat-lawyer_profile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    font-size: x-large;
+    color: #c8c8c8;
+}
+
+.chat-item a{
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 10px;
+    padding: 1px 6px;
+   
+    
+    position: relative;
+    justify-content: space-between;
+    
+    width: 100%;
+    color: black;
+
+}
+
+.chat-item {
+    display: flex;
+    flex-direction: column-reverse;
+
+    padding: 4px 6px;
+    border: solid 1px #c8c8c8;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+   
+  
+    position: relative;
+    justify-content: space-between;
+   
+    width: 100%;
+    color: black;
+
+}
+.actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.2rem 1rem;
+    padding:0.15rem 0.4rem;
+    
+}
+.action-btn{
+    
+    font-size: smaller;
+    padding: 3px 10px;
+    background-color: #0d6efd;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+.action-btn-closed{
+    
+    font-size: smaller;
+    padding: 3px 10px;
+    background-color: #ffa930;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+
+.chat-item .left-side { 
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+}
+.right-side{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+    font-size: smaller;
+}
+.lawyer-name{
+    margin-right: 0.45rem;
+    margin-bottom: 0;
+ 
+}
+.service-name{
+    margin-right: 0.55rem;
+    margin-bottom: 0;
+    font-size: small;
+
+}
+
+.marked-icon {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+    color: #dbd700;
+}
+
+.tab-content > .active {
+    display: flex;
+}
+
+.chat-container{
+    flex-wrap: wrap;
+}
+@media (min-width:1160px) {
+    .chat-item{
+        max-width: 420px;
+    }
+    
+}

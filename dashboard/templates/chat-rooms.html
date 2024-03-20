@@ -8,6 +8,15 @@
 {% endblock links %}
 
 {% block main_content %}
+<header>
+    <a href="{% url 'lawyers:lawyers' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+        
+    </a>
+    <span class="fs-5">مشاوره های آنلاین</span>
+    </header>
 <button id="today" class="btn btn-primary">امروز</button>
 {% if request.user.is_superuser %}
 <div class="dropdown d-inline">
@@ -15,6 +24,8 @@
       وکلا
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+
+
         <li><a class="dropdown-item" href="#" onclick="updateInput('محمدجواد خسرو نوبری')">محمدجواد خسرو نوبری</a></li>
         <li><a class="dropdown-item" href="#" onclick="updateInput('آتمیش جهانشاهی')">آتمیش جهانشاهی</a></li>
         <li><a class="dropdown-item" href="#" onclick="updateInput('ارغوان منصوری')">ارغوان منصوری</a></li>
@@ -22,6 +33,7 @@
         <li><a class="dropdown-item" href="#" onclick="updateInput('نیلوفر شهاب')">نیلوفر شهاب</a></li>
       </ul>
   </div>
+  
 {% endif %}
 <div class="input-group d-inline">
     <input type="search" class="w-25 p-2 d-inline form-control" style="font-size: small;" placeholder="فیلتر" id="searchInput">
@@ -30,10 +42,16 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">شناسه</th>
-            <th scope="col">سرویس</th>
-            <th scope="col">کاربر</th>
-            <th scope="col">وکیل</th>
+            {% if request.user.is_superuser %}  
+                <th scope="col">شناسه</th>
+                <th scope="col">سرویس</th>
+            {% endif %}
+
+            <th scope="col">موکل</th>
+
+            {% if request.user.is_superuser %}  
+                <th scope="col">وکیل</th>
+            {% endif %}    
             <th scope="col">وضعیت</th>
             <th scope="col">تغییر وضعیت</th>
             <th scope="col">آخرین پیام در</th>
@@ -43,11 +61,18 @@
         <tbody>
         {% for chat in chats %}
         <!-- On tables -->
-            <tr>
-                <td scope="row">#{{chat.identity}}</td>
-                <td>{{chat.service_name}}</td>
+            <tr>    
+
+                {% if request.user.is_superuser %}  
+                    <td scope="row">#{{chat.identity}}</td>
+                    <td>{{chat.service_name}}</td>
+                {% endif %}
+
                 <td>{{chat.client.get_full_name}}</td>
-                <td>{{chat.lawyer}}</td>
+                
+                {% if request.user.is_superuser %}  
+                    <td>{{chat.lawyer}}</td>
+                {% endif %}    
                 <td><span class="badge {% if chat.status == 'open' %}bg-success{% else %}bg-danger{% endif %}">{{chat.get_status_display}}</span></td>
                 <td>
                     <button class="change-status" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">

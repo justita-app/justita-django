@@ -1,0 +1,244 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/persian-date/dist/persian-date.min.js"></script>
+
+{% endblock links %}
+
+{% block main_content %}
+<header>
+    <a href="{% url 'lawyers:lawyers' %}">
+        <span>
+            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
+        </span>
+        
+    </a>
+    <span class="fs-5">مشاوره های تلفنی</span>
+    </header>
+    
+<div class=" mt-3">
+    <button id="today" class="btn btn-primary">امروز</button>
+    
+    <div class="input-group d-inline">
+        <input type="search" class="w-25 p-2 d-inline form-control" style="font-size: small;" placeholder="فیلتر" id="searchInput">
+    
+    </div>
+</div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+
+            <th scope="col">موکل</th>
+            <th scope="col">شماره تماس موکل</th>
+
+            <th scope="col">زمان مشاوره
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/>
+              </svg>
+            </th>
+            <th scope="col">وضعیت مشاوره
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/>
+                  </svg>
+            </th>
+            
+            <th scope="col">جزئیات</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for call in call_counseling %}
+        <!-- On tables -->
+            <tr>
+
+                        <td>{{call.client.get_full_name}}</td>
+                        <td>{{call.client}}</td>
+
+
+                <td>{{call.persian_reserve_day}} , {{call.persian_reserve_time}}</td>
+                <td>
+                    <span class="badge p-2 {% if call.status == 'done' %}bg-success{% else %}bg-info{% endif %}">{{call.get_status_display}}</span>
+
+                </td>
+               
+                <td>
+                    <button class="detail-btn text-primary" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{call.identity}}">جزئیات</button>
+                </td>
+
+                <!-- Modal -->
+                <div class="modal modal-dialog-scrollable fade" id="staticBackdrop_{{call.identity}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdrop_{{call.identity}}_Label">جزئیات مشاوره</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="info">
+                                <p class="m-0">شناسه مشاوره  : 
+                                    {{call.identity}}</p>
+                     
+                            </div>
+
+                            <div class="info">
+                                <p class="m-0">موکل  : 
+                                    {{call.client.get_full_name}}</p>
+                                <p class="m-0">شماره تماس موکل  : 
+                                    {{call.client}}</p>
+                                 
+                            </div>
+
+
+                            <div class="info">
+                                <p class="m-0">مبلغ پرداختی : 
+                                    {{call.amount_paid}} تومان
+                               </p>
+                            </div>
+                
+
+                            <div class="info">
+                                <p class="m-0">روز رزور شده مشاوره : {{call.persian_reserve_day}}</p>
+                                <p class="m-0">ساعت رزور شده مشاوره : {{call.persian_reserve_time}}</p>
+                            </div>
+                            <div class="info">
+                                <p class="m-0">توضیحات :</p>
+                                <p class="m-0">{{call.description}}</p>
+                            </div>
+
+                            <div class="info">
+                                <p class="m-0">فایل های  پیوست شده :</p>
+                                <div class="files">
+                                    {% for file in call.files.all %}
+                                    <div class="file">
+                                        <a href="{{file.file.url}}" class="small">{{file.file.url|truncatechars:30}}</a>
+                                    </div>
+                                    {%empty%}
+                                    <p class="text-danger">فایلی وجود ندارد</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="info">
+                                <p class="m-0">وضعیت فعلی مشاوره : {{call.get_status_display}}</p>
+                                {% if call.status != 'done' %}
+                                <button class="change-status my-1" data-identity="{{call.identity}}" onclick="changeStatus(event)">
+                                    
+                                     
+                                   
+                                        تغییر وضعیت به انجام شده
+                                   
+                                </button>
+                                
+                                {% endif %}
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+  
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form class="change-status_form" method="post" style="display: none;">
+        {% csrf_token %}
+        <input type="text" name="identity" id="identityInput">
+    </form>
+
+{% endblock main_content %}
+
+{% block extra_scripts %}
+<script>
+    function updateInput(value) {
+      document.getElementById('searchInput').value = value;
+      document.getElementById('searchInput').dispatchEvent(new Event('input'));
+    }
+    
+  </script>
+<script>
+    document.getElementById('today').addEventListener('click', function() {
+        const currentDate = new persianDate();
+        currentDate.toLocale('en');
+        const currentDateShamsi = currentDate.format('YYYY/MM/DD');
+        document.getElementById('searchInput').value = currentDateShamsi;
+        document.getElementById('searchInput').dispatchEvent(new Event('input'));
+    });
+</script>
+
+  <script>
+
+    function changeStatus(event) {
+        var identity = event.target.dataset.identity
+        var form = document.querySelector('.change-status_form')
+        var identityInput = document.querySelector('#identityInput')
+
+        identityInput.value = identity
+        form.submit()
+    }
+  </script>
+  <script>
+    const search = document.querySelector('.input-group input'),
+    table_rows = document.querySelectorAll('tbody tr');
+
+// 1. Searching for specific data of HTML table
+search.addEventListener('input', searchTable);
+
+function searchTable() {
+    const searchValue = search.value.toLowerCase();
+
+    table_rows.forEach((row, i) => {
+        let table_data = row.textContent.toLowerCase();
+        const isRowVisible = table_data.includes(searchValue);
+        row.hidden = !isRowVisible;
+        row.style.setProperty('--delay', isRowVisible ? i / 25 + 's' : '0s');
+    });
+
+    document.querySelectorAll('tbody tr:not([hidden])').forEach((visible_row, i) => {
+        visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+    });
+}
+
+  </script>
+    <script>
+        
+        const  table_rowss = document.querySelectorAll('tbody tr');
+        const  table_headings = document.querySelectorAll('thead th');
+        table_headings.forEach((head, i) => {
+    let sort_asc = true;
+    head.onclick = () => {
+
+
+        
+     
+        head.classList.toggle('asc', sort_asc);
+        sort_asc = head.classList.contains('asc') ? false : true;
+
+        sortTable(i, sort_asc);
+    }
+})
+function sortTable(column, sort_asc) {
+    [...table_rowss].sort((a, b) => {
+        let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
+            second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+        return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
+    })
+        .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+}
+
+    </script>
+      <style>
+        th {
+            cursor: pointer;
+        }
+    </style>
+    
+{% endblock extra_scripts %}

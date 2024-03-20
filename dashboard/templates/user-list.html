@@ -43,7 +43,7 @@
     
             
             {% if user == call_counseling.client %}    
-            <button class="mx-1 p-0 btn {% if call_counseling.amount_paid != None%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{call_counseling.id}}">تلفنی {{call_counseling.id}}</button>
+            <button class="mx-1 p-0 btn {% if call_counseling.payment_status == 'ok'%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{call_counseling.id}}">تلفنی {{call_counseling.id}}</button>
     
          
             <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{call_counseling.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
@@ -80,7 +80,7 @@
     
         {% for online in online_counselings %}
         {% if user == online.client %}  
-        <button class="mx-1 p-0 btn {% if online.amount_paid != None%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{online.id}}">آنلاین {{online.id}}</button>
+        <button class="mx-1 p-0 btn {% if online.payment_status == 'ok'%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{online.id}}">آنلاین {{online.id}}</button>
     
         <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{online.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
             <div class="modal-dialog">

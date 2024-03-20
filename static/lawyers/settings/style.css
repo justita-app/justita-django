@@ -57,6 +57,7 @@ h1{
     
     padding: 0.125rem 0.75rem;
     background: linear-gradient(rgb(255, 224, 92) 0%, rgb(250, 179, 0) 100%);
+    font-weight: 700;
 }
 
 .labels{

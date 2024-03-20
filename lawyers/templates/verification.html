@@ -19,7 +19,7 @@
     </a>
     <span class="fs-5">اطلاعات هویتی وکیل</span>
 </header>
-    <p class="text-danger">{% if form.instance.verified %}.اطلاعات حساب شما ثبت شده است و دیگر قادر به تغییر آن نیستید{% endif %}</p>
+    <p class="text-success mt-3" style="font-size: smaller;">{% if form.instance.verified %}اطلاعات حساب شما تایید شده است در صورت نیاز به ثبت تغییرات، به پشتیبانی مراجعه کنید.{% endif %}</p>
 
     <form action="" method="post" id="information-form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -41,7 +41,7 @@
     
         <div class="file-item" data-for="file1">
             <span class="file-name">عکس روی کارت ملی</span>
-            <div class="input-file_btn" onclick="openFileInput(event)">
+            <div class="input-file_btn" onclick="openFileInput(event)" onchange="changeFileInput(event)">
                 <span>انتخاب فایل</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-file-plus" viewBox="0 0 16 16">
                     <path d="M8.5 6a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V10a.5.5 0 0 0 1 0V8.5H10a.5.5 0 0 0 0-1H8.5z"/>
@@ -66,7 +66,11 @@
         </div>
         
         <div class="form-floating">
+            {% if form.instance.verified %}
+            <select disabled class="form-select is-valid" id="licenceTypeSelect" aria-label="Floating label select example">
+            {%else%}            
             <select class="form-select" id="licenceTypeSelect" aria-label="Floating label select example">
+            {%endif%}
                 <option value="وکیل پایه یک کانون وکلای دادگستری" {% if form.instance.licence_type == 'وکیل پایه یک کانون وکلای دادگستری' %}selected{% endif %}>وکیل پایه یک کانون وکلای دادگستری</option>
                 <option value="وکیل پایه یک مرکز وکلای قوه‌قضاییه" {% if form.instance.licence_type == 'وکیل پایه یک مرکز وکلای قوه‌قضاییه' %}selected{% endif %}>وکیل پایه یک مرکز وکلای قوه‌قضاییه</option>
                 <option value="وکیل پایه دو مرکز وکلای قوه‌قضاییه" {% if form.instance.licence_type == 'وکیل پایه دو مرکز وکلای قوه‌قضاییه' %}selected{% endif %}>وکیل پایه دو مرکز وکلای قوه‌قضاییه</option>
@@ -122,8 +126,8 @@ function changeFileInput(event) {
     if (fileName.length > 10) {
         fileName = fileName.substring(0, 10) + '...';
     }
-    
 
+    fileNameSpan.textContent = fileName;
 }
 var formElement = document.querySelector('.file-item');
 if (formElement.classList.contains('ff-is-valid')) {
@@ -141,5 +145,34 @@ if (formElement.classList.contains('ff-is-valid')) {
 
 
 </script>
+<script>
+    var inputs = document.querySelectorAll('.form-control');
+    
+    inputs.forEach(function(input) {
+        if (input.value == 'None') {
+            input.value = '';
+        
+        }
+    });
+</script>
+
+{% if form.instance.verified %}
+<script>
+    var inputs = document.querySelectorAll('input');
+    var files = document.querySelectorAll('.file-item');
+
+inputs.forEach(function(input) {
+input.classList.add('is-valid')
+input.disabled = true
+
+});
+
+files.forEach(function(files) {
+    files.classList.add('ff-is-valid')
+    
+});
+</script>
+{% endif %}
+
 {% endblock main_content %}
 

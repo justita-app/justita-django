@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}پشتیبانی جاستیتا{% endblock title %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'social/support/style.css' %}">
+  <script src="{% static 'social/support/script.js' %}" defer></script>
+  <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" > 
+  <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous"> 
+{% endblock links %}
+
+{% block content %}
+
+  <header>
+
+        <a href="{%url 'social:orders'%}"><img src="/media/accounts/main/back-arrow.png" alt="برگشت" , class="back-arrow"></a>
+    </span>
+    <span class="fs-5">ثبت نظر</span>
+  </header>
+
+  <div class="container pt-4">
+    <h1 class="h4 text-center mb-3 text-center">
+   امتیاز به {{service_name}} با {{lawyerr}}   
+</h1>
+
+
+<div class="text-center container row mb-2 justify-content-between;">
+    <div class="col-3"><img src="/media/{{lawyer.profile_image}}" style="border-radius: 50%;" width="75px" height="75px"></div>
+    
+    <div class="d-flex col-9" style="flex-direction: column; align-items: start; justify-content: center;">
+            <span class="small">{{lawyer.licence_type}}</span>
+            <span class="small">مدرک تحصیلی : {{lawyer.last_degree}}</span>
+            <span class="small">{{lawyer.licence_type}}</span>
+    </div>
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <div class="mt-3">
+        <div class="card-rating justify-content-center">
+        
+        
+            <span onclick="gfg(1)"
+                  class="star">★
+            </span>
+            <span onclick="gfg(2)"
+                  class="star">★
+            </span>
+            <span onclick="gfg(3)"
+                  class="star">★
+            </span>
+            <span onclick="gfg(4)"
+                  class="star">★
+            </span>
+            <span onclick="gfg(5)"
+                  class="star">★
+            </span>
+        
+        </div>
+        <div class="text-center mt-0" id="output">
+ 0 از 5
+        </div>
+    </div>
+    <textarea class="form-control mt-1" style="height: 75px;" type="text" name="description" maxlength="512" id="id_description" placeholder="در صورت تمایل نظر خود را در این کادر تایپ کنید"></textarea>
+   
+
+    <div class="visually-hidden">
+        <select name="lawyer" required="" id="id_lawyer">
+            <option value="">---------</option>
+        
+            <option value="109">09120001234</option>
+        
+            <option value="108" selected="">09120000000</option>
+        
+            <option value="104">09110000000</option>
+        
+          </select>
+          <input type="text" name="order_id" value="383815" maxlength="64" id="id_order_id">
+          <input type="number" name="score" required="" id="id_score">
+          <input type="text" name="description" maxlength="512" id="id_description">
+    </div>
+    
+    <div class="text-center mt-2"><button type="submit" class="w-75 btn btn-primary">ثبت نظر</button></div>
+</form>
+
+
+
+
+  </div>
+  <script>
+
+let stars = 
+	document.getElementsByClassName("star");
+let output = 
+	document.getElementById("output");
+let numberInput = document.getElementById('id_score');
+
+
+function gfg(n) {
+	remove();
+	for (let i = 0; i < n; i++) {
+		if (n == 1) cls = "one";
+		else if (n == 2) cls = "two";
+		else if (n == 3) cls = "three";
+		else if (n == 4) cls = "four";
+		else if (n == 5) cls = "five";
+		stars[i].className = "star " + cls;
+	}
+	output.innerText = "امتیاز : " + n + " از 5";
+   
+    numberInput.value = n;
+}
+
+
+function remove() {
+	let i = 0;
+	while (i < 5) {
+		stars[i].className = "star";
+		i++;
+	}
+}
+
+  </script>
+  <style>
+
+.card-rating {
+
+  
+
+
+  display: flex;
+  flex-direction: row;
+}
+
+ 
+.star {
+  font-size: 5vh;
+  cursor: pointer;
+  margin: 0rem 0.25rem;
+}
+ 
+.one {
+  color: rgb(255, 0, 0);
+}
+ 
+.two {
+   color: rgb(247, 156, 0);
+}
+ 
+.three {
+  color: rgb(124, 124, 243);
+}
+ 
+.four {
+  color: #0d6efd
+}
+ 
+.five {
+  color: rgb(251, 255, 120);
+}
+  </style>
+
+  
+{% endblock content %}

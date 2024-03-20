@@ -19,7 +19,7 @@
     <span class="fs-5">مشاوره های تلفنی</span>
     </header>
     
-<button id="today" class="btn btn-primary">امروز</button>
+<button id="today" class="btn btn-primary">کل</button>
 {% if request.user.is_superuser %}
 <div class="dropdown d-inline">
     <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -172,11 +172,7 @@
   </script>
 <script>
     document.getElementById('today').addEventListener('click', function() {
-        const currentDate = new persianDate();
-        currentDate.toLocale('en');
-        const currentDateShamsi = currentDate.format('YYYY/MM/DD');
-        document.getElementById('searchInput').value = currentDateShamsi;
-        document.getElementById('searchInput').dispatchEvent(new Event('input'));
+        window.location.href = "allcalls"
     });
 </script>
 

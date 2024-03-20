@@ -1,0 +1,333 @@
+{% extends "lawyers/base.html" %}
+{% load static %}
+
+{% block links %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'lawyers/messanger/style.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}" > 
+    <link rel="preload" as="font" href="{% static 'fontawesome/webfonts/fa-solid-900.woff2' %}" type="font/woff2" crossorigin="anonymous"> 
+{% endblock links %}
+
+{% block main_content %}
+<form class="change-status_form" method="post" style="display: none;">
+  {% csrf_token %}
+  <input type="text" name="identity" id="identityInput">
+  <input type="text" name="service" id="service_nameInput">
+</form>
+    <h1 class="fs-3 my-2 text-center">پیامرسان</h1>
+
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+        <li class="nav-item" role="presentation">
+          <button class="nav-link small active" id="pills-all-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">تمام گفت و گو ها</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link small " id="pills-open-tab" data-bs-toggle="pill" data-bs-target="#pills-open" type="button" role="tab" aria-controls="pills-open" aria-selected="false">باز</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link small " id="pills-close-tab" data-bs-toggle="pill" data-bs-target="#pills-close" type="button" role="tab" aria-controls="pills-close" aria-selected="false">بسته شده</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link small " id="pills-mark-tab" data-bs-toggle="pill" data-bs-target="#pills-mark" type="button" role="tab" aria-controls="pills-mark" aria-selected="false">امروز</button>
+        </li>
+     
+      </ul>
+
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane chat-container fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
+
+          {% for chat in chats %}
+          
+          
+          <div class="chat-item" >
+            <div class="actions">
+              <div class="chat-details x-small ">
+                تاریخ ثبت : 
+                {{chat.created_at.date}}
+              </div>
+              <div>
+                {% if chat.status == 'open' %}
+                <button class="action-btn" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">
+                  بستن چت
+                  
+                </button>
+                {%else%}
+                <button class="action-btn-closed" > بسته شده</button>
+                {%endif%}
+              </div>
+         
+
+            </div>
+            <a class="chat-item" href="{{chat.url}}" style="border: none !important;">
+                <div class="right-side">
+            
+                  <span class="small m-0">{{chat.last_message_time.date}} </span>
+                  <span class="time_details">{{chat.last_message_time.time}}</span>
+                </div>
+            
+                <div class="left-side">
+                  <div class="row">
+                    <p class="lawyer-name">{{chat.client.first_name}} {{chat.client.last_name}}</p>
+                    <p class="small service-name">{{chat.service_name}}</p>
+                  </div>
+                  <div class="chat-lawyer_profile">{{chat.client.first_name}}</div>
+                </div>
+            </a>
+
+          </div>
+
+          {% endfor %}
+          
+
+        </div>
+
+        <div class="tab-pane chat-container fade" id="pills-open" role="tabpanel" aria-labelledby="pills-open-tab" tabindex="0">
+          {% for chat in chats %}
+          {% if chat.status == "open" %}
+
+          <div class="chat-item" >
+            <div class="actions">
+              <div class="chat-details x-small ">
+                تاریخ ثبت : 
+                {{chat.created_at.date}}
+              </div>
+              <div>
+                {% if chat.status == 'open' %}
+                <button class="action-btn" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">
+                  بستن چت
+                  
+                </button>
+                {%else%}
+                <button class="action-btn-closed" > بسته شده</button>
+                {%endif%}
+              </div>
+         
+
+            </div>
+            <a class="chat-item" href="{{chat.url}}" style="border: none !important;">
+                <div class="right-side">
+            
+                  <span class="small m-0">{{chat.last_message_time.date}} </span>
+                  <span class="time_details">{{chat.last_message_time.time}}</span>
+                </div>
+            
+                <div class="left-side">
+                  <div class="row">
+                    <p class="lawyer-name">{{chat.client.first_name}} {{chat.client.last_name}}</p>
+                    <p class="small service-name">{{chat.service_name}}</p>
+                  </div>
+                  <div class="chat-lawyer_profile">{{chat.client.first_name}}</div>
+                </div>
+            </a>
+
+          </div>
+
+          {% endif %}
+        {% endfor %}
+        </div>
+        <div class="tab-pane chat-container fade" id="pills-close" role="tabpanel" aria-labelledby="pills-close-tab" tabindex="0">
+          {% for chat in chats %}
+          {% if chat.status == "closed" %}
+
+          <div class="chat-item" >
+            <div class="actions">
+              <div class="chat-details x-small ">
+                تاریخ ثبت : 
+                {{chat.created_at.date}}
+              </div>
+              <div>
+                {% if chat.status == 'open' %}
+                <button class="action-btn" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">
+                  بستن چت
+                  
+                </button>
+                {%else%}
+                <button class="action-btn-closed" > بسته شده</button>
+                {%endif%}
+              </div>
+         
+
+            </div>
+            <a class="chat-item" href="{{chat.url}}" style="border: none !important;">
+                <div class="right-side">
+            
+                  <span class="small m-0">{{chat.last_message_time.date}} </span>
+                  <span class="time_details">{{chat.last_message_time.time}}</span>
+                </div>
+            
+                <div class="left-side">
+                  <div class="row">
+                    <p class="lawyer-name">{{chat.client.first_name}} {{chat.client.last_name}}</p>
+                    <p class="small service-name">{{chat.service_name}}</p>
+                  </div>
+                  <div class="chat-lawyer_profile">{{chat.client.first_name}}</div>
+                </div>
+            </a>
+
+          </div>
+
+          {% endif %}
+        {% endfor %}
+        </div>
+        <div class="tab-pane chat-container fade" id="pills-mark" role="tabpanel" aria-labelledby="pills-mark-tab" tabindex="0">
+          {% for chat in chats %}
+          {% if chat.created_at == today %}
+
+
+
+          <div class="chat-item" >
+            <div class="actions">
+              <div class="chat-details x-small ">
+                تاریخ ثبت : 
+                {{chat.created_at.date}}
+              </div>
+              <div>
+                {% if chat.status == 'open' %}
+                <button class="action-btn" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">
+                  بستن چت
+                  
+                </button>
+                {%else%}
+                <button class="action-btn-closed" > بسته شده</button>
+                {%endif%}
+              </div>
+         
+
+            </div>
+            <a class="chat-item" href="{{chat.url}}" style="border: none !important;">
+                <div class="right-side">
+            
+                  <span class="small m-0">{{chat.last_message_time.date}} </span>
+                  <span class="time_details">{{chat.last_message_time.time}}</span>
+                </div>
+            
+                <div class="left-side">
+                  <div class="row">
+                    <p class="lawyer-name">{{chat.client.first_name}} {{chat.client.last_name}}</p>
+                    <p class="small service-name">{{chat.service_name}}</p>
+                  </div>
+                  <div class="chat-lawyer_profile">{{chat.client.first_name}}</div>
+                </div>
+            </a>
+
+          </div>
+
+
+
+          {% endif %}
+        {% endfor %}
+        </div>
+      </div>
+      
+      <form method="post" style="display: none;" id="change_marked_form">
+        {% csrf_token %}
+        <input type="text" name="identity" id="identityInput">
+        <input type="text" name="service" id="service_nameInput">
+      </form>
+
+
+{% endblock main_content %}
+
+{% block extra_scripts %}
+  <script>
+    function handleStarClick(event) {
+    // Prevent the default behavior of the anchor tag
+    event.preventDefault();
+
+    // Your custom logic for handling the star click
+    var identity = event.target.getAttribute('data-identity');
+    var service_name = event.target.getAttribute('data-service_name');
+    console.log('Star clicked for chat with identity:', identity , 'service_name is ' , service_name);
+
+    var form = document.querySelector('#change_marked_form')
+    var identityInput = document.querySelector('#identityInput')
+    var service_nameInput = document.querySelector('#service_nameInput')
+
+    identityInput.value = identity
+    service_nameInput.value = service_name
+    form.submit()
+
+}
+  </script>
+  <script>
+    
+    function removeSeconds(time) {
+        
+        var timeComponents = time.split(':');
+        
+       
+        timeComponents.pop();
+        
+       
+        return timeComponents.join(':');
+    }
+    
+    
+    function updateTimeDetails() {
+       
+        var timeElements = document.getElementsByClassName('time_details');
+        
+        
+        for (var i = 0; i < timeElements.length; i++) {
+            
+            var originalTime = timeElements[i].innerText;
+            
+            
+            var formattedTime = removeSeconds(originalTime);
+            
+            
+            timeElements[i].innerText = formattedTime;
+        }
+    }
+    
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        updateTimeDetails();
+    });
+</script>
+<script>
+  function changeStatus(event) {
+      var identity = event.target.dataset.identity;
+      var service_name = event.target.dataset.service_name
+
+      var form = document.querySelector('.change-status_form')
+      var identityInput = document.querySelector('#identityInput')
+      var service_nameInput = document.querySelector('#service_nameInput')
+
+      identityInput.value = identity
+      service_nameInput.value = service_name
+
+      form.submit()
+  }
+</script>
+<script>
+  var thebgs = document.querySelectorAll('.chat-lawyer_profile')
+
+  const colors = [
+    "#ffd7d5",
+    "#ffe9d6",
+    "#ffffd1",
+    "#d6ffda",
+    "#d7eeff",
+    "#dad6ff",
+    "#ffd6e8",
+    "#f5f5dc",
+    "#f4e4e4",
+    "#e4e6f4" 
+  ];
+  thebgs.forEach(thebg => {
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    thebg.innerText = thebg.innerText.charAt(0)
+    
+
+
+
+ 
+ 
+  thebg.style.backgroundColor = randomColor
+    
+  });
+
+
+</script>
+{% endblock extra_scripts %}

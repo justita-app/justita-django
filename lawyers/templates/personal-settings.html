@@ -18,12 +18,12 @@
         </span>
         
     </a>
-    <span class="fs-5">اطلاعات هویتی</span>
+    <span class="fs-5">اطلاعات شخصی</span>
 </header>
 
 <div class="settings-list p-2 mt-3">
 
-    <p class="text-danger">{% if form.instance.verified %}.اطلاعات حساب شما ثبت شده است و دیگر قادر به تغییر آن نیستید{% endif %}</p>
+    <p class="text-success mt-3" style="font-size: smaller;">{% if form.instance.verified %}اطلاعات حساب شما تایید شده است در صورت نیاز به ثبت تغییرات، به پشتیبانی مراجعه کنید.{% endif %}</p>
 
     <form action="" method="post" id="information-form" enctype="multipart/form-data">
         {% csrf_token %}
@@ -59,7 +59,11 @@
         </div>
 
         <div class="form-floating">
+            {% if form.instance.verified %}
+            <select disabled class="form-select is-valid" id="genderSelect" aria-label="Floating label select example">
+            {%else%}            
             <select class="form-select" id="genderSelect" aria-label="Floating label select example">
+            {%endif%}            
                 <option value="M" {% if form.instance.gender == 'M' %}selected{% endif %}>آقا</option>
                 <option value="F" {% if form.instance.gender == 'F' %}selected{% endif %}>خانم</option>
 
@@ -113,11 +117,41 @@ if (formElement.classList.contains('ff-is-valid')) {
             </svg>
         </div>
     `;
-} else {
+} 
+else {
     console.log('The form is not valid');
     }
 
 
 </script>
+<script>
+var inputs = document.querySelectorAll('.form-control');
+
+inputs.forEach(function(input) {
+    console.log("object");
+    if (input.value == 'None') {
+        input.value = '';
+    
+    }
+});
+</script>
+
+{% if form.instance.verified %}
+<script>
+    var inputs = document.querySelectorAll('input');
+    var files = document.querySelectorAll('.file-item');
+
+inputs.forEach(function(input) {
+input.classList.add('is-valid')
+input.disabled = true
+
+});
+
+files.forEach(function(files) {
+    files.classList.add('ff-is-valid')
+    
+});
+</script>
+{% endif %}
 {% endblock main_content %}
 

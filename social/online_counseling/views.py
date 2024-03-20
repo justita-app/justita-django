@@ -86,12 +86,14 @@ def OnlineCounselingChatPreviewView(request , identity) :
             lawyer_pictures[f'{lawyer.pk}'] = '/media/team/default.png'
 
     online_counseling_object = OnlineCounseling.objects.get(identity=identity)
+    lawyer_license = Lawyer.objects.get(id = online_counseling_object.lawyer).licence_type
     args = {
         'identity' : identity,
         'lawyer' : online_counseling_object.get_lawyer_display(),
         'lawyer_profile' : lawyer_pictures.get(online_counseling_object.lawyer , '/media/team/default.png'),
         'created_time' : customize_datetime_format(online_counseling_object.created_at)['time'],
         'payment_aount' : online_counseling_object.get_price(),
+        'lawyer_license':lawyer_license
     }
 
     return render(request , 'online-counseling/chat-preview.html' , args)
@@ -128,7 +130,8 @@ def OnlineCounselingPaymentVerifyView(request) :
     online_counseling_object = OnlineCounseling.objects.get(payment_id=authority)
 
     response = verify_paument(amount=online_counseling_object.amount_paid , authority=authority)
-
+    lawyer_num = Lawyer.objects.get(id=online_counseling_object.lawyer).username
+    
     if response.get('status') :
         online_counseling_object.payment_status = 'ok'
         online_counseling_object.ref_id = response.get('ref_id')
@@ -143,14 +146,16 @@ def OnlineCounselingPaymentVerifyView(request) :
             lawyer = online_counseling_object.get_lawyer_display()
             name = online_counseling_object.client.get_full_name()
 
-            send_online_counseilng_payment_verified(phone_number=phone_number , lawyer=lawyer , name=name)
+            send_online_counseilng_payment_verified(phone_number=phone_number , lawyer=lawyer , name=name , lawyer_num=lawyer_num)
 
         else :
             online_counseling_room = OnlineCounselingRoom.objects.get(online_counseling=online_counseling_object)
             
         args = {
-            'identity' : online_counseling_room.identity
+            'identity' : online_counseling_room.identity,
+           
         }
+        
         return render(request , 'online-counseling/done.html' , args)
 
     else :

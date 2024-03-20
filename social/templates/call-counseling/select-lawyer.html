@@ -71,7 +71,7 @@
 
                         <div class="pricing">
                             <span class="price-text small text-muted">قیمت از</span>
-                            <p class="price">{{price_from}} تومن</p>
+                            <p class="price">{{  lawyer.consultationprice.ten_min_price}} تومان</p>
                         </div>
 
                     </div>
@@ -441,27 +441,20 @@
         </button>
     </footer>
     <script>
-        // Function to format numbers into price format
         function formatPrice(price) {
             return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
     
-        // Function to update the HTML with formatted prices
         function updatePrices() {
-            // Get all elements with class 'price' (assuming this is where prices are displayed)
             var priceElements = document.getElementsByClassName('price');
             
-            // Loop through each element
             for (var i = 0; i < priceElements.length; i++) {
-                // Get the raw price value
                 var rawPrice = parseFloat(priceElements[i].innerText);
                 
-                // Format the price and update the HTML
                 priceElements[i].innerText = formatPrice(rawPrice + " تومان ");
             }
         }
         
-        // Call updatePrices() when the document is ready
         document.addEventListener("DOMContentLoaded", function() {
             updatePrices();
         });

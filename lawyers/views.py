@@ -18,6 +18,8 @@ from django.db.models import Max, Case , When , F, Avg
 from itertools import chain
 from operator import attrgetter
 from django.db import models
+from django.utils import timezone
+
 
 
 @lawyer_only
@@ -118,13 +120,27 @@ def financial(request):
 @login_required
 def lawyers(request):
     lawyer = Lawyer.objects.filter(username=request.user.username).first()
+    call_orders = CallCounseling.objects.filter(lawyer_model=request.user.username )
     warnings = Warning.objects.filter(lawyer=lawyer).all()
     comments = Comment.objects.filter(lawyer=lawyer).all()
-    avg_score = comments.aggregate(Avg('score'))
+    
+    avg_score = Comment.objects.filter(lawyer=lawyer).aggregate(avg_score=Avg('score'))
+    if avg_score['avg_score'] is not None:
+        avg_score = avg_score['avg_score']/2
+    else:
+        avg_score=5
+
+
+    call_counseling = CallCounseling.objects.filter(lawyer=lawyer.pk , payment_status='ok').count()
+    online_counseling = OnlineCounseling.objects.filter(lawyer=lawyer.pk , payment_status='ok').count()
+
+    
     return render(request, 'lawyers.html', {'lawyer': lawyer,
+                                            'call_counseling' : call_counseling,
+                                            'online_counseling' : online_counseling,
                                             'warnings': warnings,
                                             'comments': comments,
-                                            'avg_score': avg_score['score__avg']})
+                                            'avg_score': avg_score})
 
 
 @method_decorator(lawyer_only, name='dispatch')
@@ -207,7 +223,7 @@ def councilView(request) :
         'call_counseling' : call_counseling
     }
 
-    return render(request , 'call-counseling.html' , args)
+    return render(request , 'calls.html' , args)
 
 
 @lawyer_only
@@ -217,7 +233,6 @@ def ChatRoomsView(request) :
 
     if request.method == 'POST' :
         data = request.POST
-        print(data)
         service = data.get('service' , '')
         identity = data.get('identity' , '')
 
@@ -239,10 +254,10 @@ def ChatRoomsView(request) :
             new_status = 'open' if my_object.status == 'closed' else 'closed'
             my_object.status = new_status
             my_object.save()
-            print(my_object.status)
-            return redirect('dashboard:chats')
-
-    online_counseling_chats = OnlineCounselingRoom.objects.filter(online_counseling=OnlineCounseling.objects.filter(lawyer=lawyer.pk).first()).annotate(last_message_created_at=Max('messages__created_at'))
+            return redirect('lawyers:chats')
+    online_counselings = OnlineCounseling.objects.filter(lawyer=lawyer.pk , payment_status='ok')
+    online_counseling_ids = online_counselings.values_list('id', flat=True)
+    online_counseling_chats = OnlineCounselingRoom.objects.filter(online_counseling__id__in=online_counseling_ids)
     legal_panle_chats = LegalPanel.objects.filter(lawyer=lawyer.pk).annotate(last_message_created_at=Max('messages__created_at'))
 
     
@@ -264,33 +279,11 @@ def ChatRoomsView(request) :
             url = f'/social/chat/online-counseling/{chat.identity}'
             last_message_time = OnlineCounselingRoomMessage.objects.filter(room=chat).last().created_at_persian() if OnlineCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
             last_message_time_en = OnlineCounselingRoomMessage.objects.filter(room=chat).last().created_at if OnlineCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at
-        elif isinstance(chat, ContractRoom):
-            service_name = 'تنظیم قرارداد'
-            lawyer = 'جاستیتا'
-            url = f'/social/chat/contract/{chat.identity}'
-            last_message_time = ContractRoomMessage.objects.filter(room=chat).last().created_at_persian() if ContractRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
-            last_message_time_en = ContractRoomMessage.objects.filter(room=chat).last().created_at if ContractRoomMessage.objects.filter(room=chat).last() else chat.created_at
-        elif isinstance(chat , ComplaintRoom):
-            service_name = 'تنظیم شکوائیه'
-            lawyer = 'جاستیتا'
-            url = f'/social/chat/complaint/{chat.identity}'
-            last_message_time = ComplaintRoomMessage.objects.filter(room=chat).last().created_at_persian() if ComplaintRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
-            last_message_time_en = ComplaintRoomMessage.objects.filter(room=chat).last().created_at if ComplaintRoomMessage.objects.filter(room=chat).last() else chat.created_at
-        elif isinstance(chat , FreeCounselingRoom) :
-            service_name = 'مشاوره رایگان'
-            lawyer = 'جاستیتا'
-            url = f'/social/chat/free-counseling/{chat.identity}'
-            last_message_time = FreeCounselingRoomMessage.objects.filter(room=chat).last().created_at_persian() if FreeCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
-            last_message_time_en = FreeCounselingRoomMessage.objects.filter(room=chat).last().created_at if FreeCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at
-        else :
-            service_name = 'وکالت آنلاین'
-            lawyer = chat.get_lawyer_display()
-            url = f'/social/chat/legal-panel/{chat.identity}'
-            last_message_time = LegalPanelMessage.objects.filter(room=chat).last().created_at_persian() if LegalPanelMessage.objects.filter(room=chat).last() else chat.created_at_persian()
-            last_message_time_en = LegalPanelMessage.objects.filter(room=chat).last().created_at if LegalPanelMessage.objects.filter(room=chat).last() else chat.created_at
-
+       
         chats.append({
             'created_at': customize_datetime_format(chat.created_at),
+            'today' : timezone.now().date(),
+            
             'client' : chat.client ,
             'status' : chat.status,
             'get_status_display' : chat.get_status_display,
@@ -308,13 +301,6 @@ def ChatRoomsView(request) :
         'chats' : chats_sorted_by_last_message
     }
 
-    return render(request , 'chat-rooms.html' , args)
-
-@lawyer_only
-@login_required
-def messanger(request):
-
-    return render(request , 'messanger.html')
+    return render(request , 'messanger.html' , args)
 
 
-    

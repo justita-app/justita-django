@@ -8,7 +8,7 @@ env.read_env(os.path.join(BASE_DIR, ".env"))
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 
 
@@ -139,19 +139,19 @@ USE_TZ = True
 # STATIC_ROOT = '/home/forushif/theapp/statics'
 # MEDIA_ROOT=BASE_DIR/'static/userimages'
 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATIC_URL = '/static/'
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 #00000000000staticfiles for development
-STATIC_URL = 'static/'
+# STATIC_URL = 'static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR , 'static'),
-)
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR , 'static'),
+# )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
 
 
 # Default primary key field type

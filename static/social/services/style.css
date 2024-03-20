@@ -1,6 +1,7 @@
 .banner {
     width: 90%;
     margin: 20px auto;
+    
     box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
     border-radius: 0.75rem;
     overflow : hidden;
@@ -288,8 +289,8 @@ main{
 }
 
 .lawyer-box .profile-picture{
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
 
 }
@@ -335,6 +336,12 @@ main{
     justify-content: space-between;
 }
 
+.lawyer-card-footer{
+    font-size: medium;
+}
+.lawyer-card-footer span{
+    color:rgba(45,255,196,0.9);
+}
 
 
 .more-info_button {
@@ -349,12 +356,56 @@ main{
 
 }
 .online-lawyer{
-    justify-content: center;
+    justify-content: normal;
+}
+.call-to-action{ 
+    width: 95%;
+    
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1);
+    border: solid 0.5px #e6e6e6;}
+.call-to-action button{
+    width: 50%;
+    
+}
+
+
+   
+   
+
+.the-action{
+    font-size: large;
+    
+}
+.explanation{
+    font-size: small;
+    color: #848b8e;
+}
+.start_pric{
+    font-size: small;
+    color: #848b8e;
+}
+.the-start_pric{
+color: rgba(45,255,196,0.9);
+
+font-size: small;
+}
+@media (max-width:540px){
+    .explanation{
+        font-size: 11px;
+    
+    }
+     .lawyer-card-footer {
+        font-size: 0.7rem
+    }
+    .lawyer-card-footer span{
+        font-size: 1rem
+    }
+
 }
 
 @media (max-width:992px) {
     .lawyer-box{
-        width: 60%;
+        width: 55%;
     }
     .online-lawyer{
         justify-content: normal;

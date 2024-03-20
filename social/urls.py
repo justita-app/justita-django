@@ -21,4 +21,7 @@ urlpatterns = [
     path('chat/contract/<identity>' , views.ContractRoomView , name="contract-room"),
     path('chat/legal-panel/<identity>' , views.LegalPanelRoomView , name="legal-panel-chat"),
     path('support/<identity>' , views.SupportRoomView , name="support-room"),
+    path('dselect-lawyer/', views.select_lawyer, name='select_lawyer'),
+    path('dselect-lawyer-online/', views.select_lawyer_online, name='select_lawyer_online'),
+    path('submit-review/', views.submit_review, name='submit_review'),
 ]

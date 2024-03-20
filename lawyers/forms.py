@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 from django.core.exceptions import ValidationError
-from lawyers.models import Lawyer, ConsultationPrice
+from lawyers.models import Lawyer, ConsultationPrice , Comment
 
 
 class LawyerVerificationForm(ModelForm) :
@@ -40,3 +40,9 @@ class LawyerUpdateForm(ModelForm) :
     class Meta:
         model = Lawyer
         fields = ['IBAN_number', 'profile_image']
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['lawyer','order_id','score', 'description']
