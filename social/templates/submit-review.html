@@ -65,12 +65,14 @@
     </div>
     <input class="form-control mt-1" style="height: 75px;" type="text" name="description" maxlength="512" id="id_description" placeholder="در صورت تمایل نظر خود را در این کادر تایپ کنید">
    
-    
-      <input  name="lawyer" required="" id="id_lawyer" value="{{lawyer.id}}">
-     
-          <input type="text" name="order_id" maxlength="64" id="id_order_id" value="{{order_id}}">
-          <input type="number" name="score" required="" id="id_score">
-          
+ <div class="visually-hidden">
+   
+     <input  name="lawyer" required="" id="id_lawyer" value="{{lawyer.id}}">
+   
+         <input type="text" name="order_id" maxlength="64" id="id_order_id" value="{{order_id}}">
+         <input type="number" name="score" required="" id="id_score">
+   
+ </div>
     
          
     <div class="text-center mt-2"><button type="submit" class="w-75 btn btn-primary">ثبت نظر</button></div>
