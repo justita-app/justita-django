@@ -62,3 +62,5 @@ def tos(request):
     
 def download(request):
     return render(request, 'base/download-justita.html')
+def lawyers_tos(request):
+    return render(request, 'base/lawyers-tos.html')

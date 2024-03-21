@@ -340,7 +340,7 @@ main{
     font-size: medium;
 }
 .lawyer-card-footer span{
-    color:rgba(45,255,196,0.9);
+    color:rgba(0, 179, 131)
 }
 
 
@@ -385,7 +385,7 @@ main{
     color: #848b8e;
 }
 .the-start_pric{
-color: rgba(45,255,196,0.9);
+color: rgba(0, 179, 131);
 
 font-size: small;
 }

@@ -14,6 +14,7 @@ urlpatterns = [
     path('call-counseling-lawyer' , views.ccl , name="ccl"),
     path('download' , views.download , name="download"),
     path('terms-of-service' , views.tos , name="tos"),
+    path('lawyers-terms-of-service' , views.lawyers_tos , name="lawyers_tos"),
 
    
  

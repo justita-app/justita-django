@@ -451,7 +451,7 @@ def select_lawyer_online(request):
     
     return redirect('online-counseling:chat-preview', identity=order.identity)
 
-
+@login_required
 def submit_review(request):
     order_identity = request.GET.get('pk')
     
@@ -471,23 +471,20 @@ def submit_review(request):
     else:
         return HttpResponse("نظر ثبت شده است.")     
     if request.method == "POST" :
+        
         form = CommentForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('social:orders')
 
-    prefill_data = {
-        'order_id': order_identity,
-        'lawyer': order.lawyer,
-       
-    }            
-    form = CommentForm(initial=prefill_data)
+    form = CommentForm()
     args = {
         'order': order,
         'form' : form,
         'service_name': 'مشاوره تلفنی' if isinstance(order, CallCounseling) else 'مشاوره آنلاین',
         'lawyerr' : order.get_lawyer_display,
         'lawyer' : Lawyer.objects.get(id=order.lawyer),
+        'order_id': order_identity,
 
 
     }               

@@ -87,13 +87,17 @@ def OnlineCounselingChatPreviewView(request , identity) :
 
     online_counseling_object = OnlineCounseling.objects.get(identity=identity)
     lawyer_license = Lawyer.objects.get(id = online_counseling_object.lawyer).licence_type
+    lawyerf = Lawyer.objects.get(id = online_counseling_object.lawyer).first_name
+    lawyerl = Lawyer.objects.get(id = online_counseling_object.lawyer).last_name
     args = {
         'identity' : identity,
         'lawyer' : online_counseling_object.get_lawyer_display(),
         'lawyer_profile' : lawyer_pictures.get(online_counseling_object.lawyer , '/media/team/default.png'),
         'created_time' : customize_datetime_format(online_counseling_object.created_at)['time'],
         'payment_aount' : online_counseling_object.get_price(),
-        'lawyer_license':lawyer_license
+        'lawyer_license':lawyer_license,
+        'lawyerf' : lawyerf,
+        'lawyerl': lawyerl
     }
 
     return render(request , 'online-counseling/chat-preview.html' , args)

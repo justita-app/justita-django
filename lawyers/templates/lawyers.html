@@ -53,13 +53,13 @@
             </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="/media/lawyers/portal/test.jpg" class="d-block w-100 rounded" alt="...">
+            <img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
           </div>
           <div class="carousel-item rounded">
-            <img src="/media/social/services/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
+            <img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
           </div>
           <div class="carousel-item rounded">
-            <img src="/media/social/services/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
+            <img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="...">
           </div>
         </div>
         <button class="carousel-control-prev visually-hidden" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -77,7 +77,7 @@
 <div class="container">
 <div class="row p-0 m-0 justify-content-center align-items-center">
     
-        <div class="finances p-0 col-md-5 mx-md-1 mt-3 ">
+        <div class="finances p-0 col-lg-5 mx-md-1 mt-3 ">
             <div class="box rounded">
                 <div class="box-title p-2">
     
@@ -90,7 +90,7 @@
                             {%if lawyer.verified%}
                             <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" style="width: 2rem; height: 1rem;">
                             {%else%}
-                             <div class="text-center text-danger">اهراز هویت نشده</div>
+                             <div class="text-center text-danger">احراز هویت نشده</div>
                             {%endif%}
                         </div>
                     </div>
@@ -103,7 +103,7 @@
 
         </div>
     
-        <div class="finances p-0 col-md-5 mx-md-1 mt-3 ">
+        <div class="finances p-0 col-lg-5 mx-md-1 mt-3 ">
                 <div class="box rounded">
                     <div class="box-title p-2">
     
@@ -129,7 +129,7 @@
     
                         </div>
                         <div class="row m-1 mt-2 finance-row align-items-center pb-2">
-                            <div class="text-center small text-success"> جزئیات بیشتر مشاوره ها را در پیامرسان و بخش مشاوره های تلفنی ببینید</div>
+                            <div class="text-center x-small text-success"> جزئیات بیشتر مشاوره ها را در پیامرسان و بخش مشاوره های تلفنی ببینید.</div>
                             
                                
                             </div>
@@ -154,7 +154,7 @@
                 </div>
                 <div class="box-body">
                     <div class="row m-1 finance-row align-items-center justify-content-around">
-                        <div class="col-4 score text-center"> {% if avg_score %}{{ avg_score }}{% else %}5.0{% endif %}
+                        <div class="col-4 score text-center "><div class="scoreSpan"> {{ avg_score }}</div>
                             <span>
                                 از مجموع {{ comments|length }} نظر
                             </span>
@@ -231,13 +231,14 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">تایید قوانین و مقررات</h5>
+          <h5 class="modal-title" id="staticBackdropLabel">احراز هویت</h5>
           
         </div>
-        {%if lawyer.licence_number == 'None'%}
-        <div class="modal-body">
+     
+        
+        <div class="modal-body small">
             
-            کاربر گرامی، به منظور اهراز هویت و تایید حساب کاربری، لطفا وارد بخش تنظیمات شوید و نسبت به تکمیل اطلاعات خود اقدام نمایید. در صورت نیاز به پشیتیبانی، روی دکمه زیر کلیک کنید.
+            کاربر گرامی، به منظور احراز هویت و تایید حساب کاربری، لطفا وارد بخش تنظیمات شوید و نسبت به تکمیل اطلاعات خود اقدام نمایید و پس از تکمیل اطلاعات منتظر تایید حساب کاربری بمانید. همچنین صورت نیاز به پشیتیبانی، روی دکمه زیر کلیک کنید.
         </div>
     
     
@@ -245,18 +246,17 @@
 
 
           <a href="{%url 'lawyers:settings'%}"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">ورود به بخش تنظیمات</button></a>
+          <a href="{%url 'social:support'%}"><button type="button" class="btn btn-scondary" data-bs-dismiss="modal">درخواست پشیتیبانی</button></a>
         
-          {%else%}
-          <div class="modal-body">
-              شما فرایند تکمیل اطلاعات را شروع کرده اید. در صورتی که تمامی اطلاعات مورد درخواست را بارگذاری کرده اید، حساب شما به زودی فعال خواهد شد.            
-          </div>
-          <div class="modal-footer">
-          <a href="{%url 'social:support'%}"><button type="button" class="btn btn-primary" data-bs-dismiss="modal">درخواست پشیتیبانی</button></a>
 
-          {%endif%}
         
         
         </div>
+
+
+
+
+
       </div>
     </div>
   </div>
@@ -378,5 +378,14 @@ statusBtn.checked = {% if lawyer.online %}true{% else %}false{% endif %};
         }
     });
 </script>
+<script>
+    scores = document.querySelectorAll('.scoreSpan')
+    scores.forEach(score =>{
+        let rating = score.innerText
+        rating = Math.round(rating * 2) / 2
+        score.innerText = rating
 
+    })
+    
+</script>
 {% endblock extra_scripts %}
