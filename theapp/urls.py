@@ -11,6 +11,9 @@ import os
 def serve_service_worker(request):
     service_worker_path = os.path.join(settings.BASE_DIR, 'serviceworker.js')
     return FileResponse(open(service_worker_path, 'rb'))
+def justita_apk(request):
+    justita_apk_path = os.path.join(settings.BASE_DIR, 'justita.apk')
+    return FileResponse(open( justita_apk_path, 'rb'))
 
 
 urlpatterns = [
@@ -25,6 +28,7 @@ urlpatterns = [
     # online counseling
     path('social/online-counseling/', include('social.online_counseling.urls') ),
     path('serviceworker.js', serve_service_worker, name='serve_service_worker'),
+    path('justitaapk', justita_apk, name='justita_apk'),
 
 ]
 

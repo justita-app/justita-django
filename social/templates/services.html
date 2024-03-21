@@ -156,7 +156,7 @@
             <div class="main-info">
 
                 <div class="information">
-                    <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/accounts/main/user.png{% endif %}" alt="محمدجواد خسرونوبری" class="profile-picture" style="border: 4px solid rgb(14, 181, 14);">
+                    <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/accounts/main/user.png{% endif %}" alt="{{lawyer.first_name}} {{lawyer.last_name}}" class="profile-picture" style="border: 3px solid rgba(45,255,196,0.9);">
                     
                     <div class="info">
                         <p class="lawyer-name">{{ lawyer.first_name }} {{ lawyer.last_name }}</p>
@@ -169,6 +169,7 @@
                       <p class="my-1 small">
                         امتیاز
                           <span class="score">
+                            
                             {{lawyer.avg_score}}
                           </span>
                          
@@ -215,7 +216,7 @@
                         <div class="main-info">
             
                             <div class="information px-3" style="flex-direction: row !important; margin-top: -1rem;">
-                                <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/accounts/main/user.png{% endif %}" alt="محمدجواد خسرونوبری" class="profile-picture" style="border: 4px solid rgb(14, 181, 14);">
+                                <img src="{% if lawyer.profile_image %}{{ lawyer.profile_image.url }}{% else %}/media/accounts/main/user.png{% endif %}" alt="محمدجواد خسرونوبری" class="profile-picture" style="border: 3px solid rgba(45,255,196,0.9);">
                                 
                                 <div class="info">
                                     <div class="">{{ lawyer.first_name }} {{ lawyer.last_name }}</div>
@@ -236,11 +237,11 @@
                                 </div>
 
                                 <div class="call-to-action row rounded py-2 justify-content-around" onclick="selectLawyer('{{lawyer.id}}')" >
-                                    <div class="col-8 p-0">
+                                    <div class="col-7">
                                         <div class="the-action">مشاوره تلفنی</div>
                                         <div class="explanation">تماس تلفنی با وکیل + بارگذاری مستندات</div>
                                     </div>
-                                    <div class="col-3 p-0">
+                                    <div class="col-4">
                                         <div class="start_pric">قیمت از</div>
                                        
                                         <div class="the-start_pric">{{lawyer.ten_min_price}}  هزار تومان</div>
@@ -257,7 +258,7 @@
                                     <div class="col-4">
                                         <div class="start_pric">قیمت </div>
                                        
-                                        <div class="the-start_pric">{{lawyer.ten_min_price}}  هزار تومان</div>
+                                        <div class="the-start_pric">{{lawyer.online_price}}  هزار تومان</div>
                                         
                                     </div>
                                     <button class="px-2 py-1 btn select-btn my-2" data-bs-toggle="modal" data-bs-target="#Description"  >شروع مشاوره آنلاین</button>
@@ -292,92 +293,7 @@
 
         {%endfor%}
 
-        <div class=" lawyer-box">
-            <div class="main-info">
-
-                <div class="information">
-                    <img src="/media/team/Mohammad_nobari.webp" alt="محمدجواد خسرونوبری" class="profile-picture">
-                    
-                    <div class="info">
-                        <p class="lawyer-name">محمدجواد خسرونوبری</p>
-                        <p class="position small">وکیل پایه یک کانون وکلای مرکز</p>
-                    </div>
-                </div>
-                <div class="stars text-center mt-3">
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                   <p style="font-size: small;"> مجموع 96 دیدگاه</p>
-                </div>
-
-                <div class="section-body">
-
-                   <a href="{% url 'call-counseling:home' %}"> <button class="btn select-btn">درخواست مشاوره تلفنی </button></a>
-                   <a href="{% url 'online-counseling:home' %}"> <button class="btn select-btn">شروع مشاوره آنلاین</button></a>
-                    
-
-           
-                  
-
-                </div>
-
-            </div>
-
-            <div class="lawyer-footer p-3">
-                <div class="accordion-header more-info_section" id="panelsStayOpen-headingTwo">
-                    <p class="m-0 small">شماره پروانه : </p>
-                    <p class="m-0 small">28213 </p>
-              
-                </div>
-            </div>
-        </div>
-        <div style="width: 7%;">
-
-        </div>
-        
-        <div class="lawyer-box">
-            <div class="main-info">
-
-                <div class="information">
-                    <img src="/media/team/Arghavan_mansuri.webp" alt="ارغوان منصوری" class="profile-picture">
-                    <div class="info">
-                        <p class="lawyer-name">ارغوان منصوری</p>
-                        <p class="position small">وکیل پایه یک کانون وکلای مرکز</p>
-                    </div>
-                </div>
-                <div class="stars text-center mt-3">
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                    <svg height="16px" width="16px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path style="fill:#ED8A19;" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"></path> </g></svg>
-                   <p style="font-size: small;"> مجموع 57 دیدگاه</p>
-                </div>
-
-                <div class="section-body">
-          
-                    <a href="{% url 'call-counseling:home' %}"> <button class="btn select-btn">درخواست مشاوره تلفنی </button></a>
-                    <a href="{% url 'online-counseling:home' %}"> <button class="btn select-btn">شروع مشاوره آنلاین</button></a>
-                   
-                    
-
-           
-                  
-
-                </div>
-
-            </div>
-
-            <div class="lawyer-footer p-3">
-                <div class="accordion-header more-info_section" id="panelsStayOpen-headingTwo">
-                    <p class="m-0 small">شماره پروانه : </p>
-                    <p class="m-0 small">30386 </p>
-              
-                </div>
-            </div>
-        </div>
+      
         
 
         
@@ -569,6 +485,7 @@ starsElements.forEach(starsElement => {
         let output = [];
         var rating = scoreElement.innerText;
         rating = Math.round(rating * 2) / 2;
+        
         for (var i = rating; i >= 1; i--)
          output.push(`  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#ED8A19" class="bi bi-star-fill" viewBox="0 0 16 16">
                         <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
@@ -589,5 +506,15 @@ starsElements.forEach(starsElement => {
 
 });
 
+</script>
+<script>
+    scores = document.querySelectorAll('.score')
+    scores.forEach(score =>{
+        let rating = score.innerText
+        rating = Math.round(rating * 2) / 2
+        score.innerText = rating
+
+    })
+    
 </script>
 {% endblock main_content %}

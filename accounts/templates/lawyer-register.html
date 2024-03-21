@@ -70,10 +70,11 @@
 
                 <textarea name="introduction_method" id="id_introduction_method" maxlength="128" style="display: none;" placeholder="نحوه آشنایی خود را شرح دهید" required></textarea>
 
-                <div class="row visually-hidden">
-                    <input class="col-1" type="checkbox" name="agreement_signed" id="id_agreement_signed" checked>
+                <div class="row">
+                    <label class="col-11" for="agreement_signed"><a class="x-small" href="{% url 'base:lawyers_tos' %}" target="_blank">.توافق نامه همکاری مورد پذیرش است</a></label>
 
-                    <label class="col-9" for="agreement_signed"><a href="{% url 'base:tos' %}" target="_blank">توافق نامه را قبول میکنم</a></label>
+                    <input style="width: 5%;" class="col-1" type="checkbox" name="agreement_signed" id="id_agreement_signed">
+
                 </div>
 
                 <button type="submit" class="btn submit-btn">ثبت نام</button>

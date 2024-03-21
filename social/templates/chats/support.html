@@ -46,7 +46,12 @@
     <div class="chat-lawyer-info">
       <img src="/media/team/justita-team.png" alt="پشتیبانی جاستیتا" class="profile-picture">
       <div class="info-text">
+        {%if request.user.is_lawyer%}
+        <p class="m-0">پشتیبانی وکلا</p>
+        {%else%}
         <p class="m-0">پشتیبانی</p>
+        {%endif%}
+        
         <span class="small text-muted">گروه حقوقی جاستیتا</span>
       </div>
     </div>
@@ -60,6 +65,16 @@
       <div class="lawyer-message">
         <img src="/media/team/justita-team.png" alt="پروفایل وکیل" class="profile-picture">
         <div class="message">
+          {%if request.user.is_lawyer%}
+          <p class="context small m-0">
+        
+            کاربر متخصص گرامی، لطفا شرح مختصری از مشکل خود را ارسال نمایید. تیم پشتیبانی وکلا جاستیتا در اسرع وقت نسبت به بررسی اقدام می نمایند.
+            
+         
+          
+          </p>
+
+          {%else%}
           <p class="context small m-0">
         
             کاربر گرامی، لطفا شرح مختصری از مشکل خود را ارسال نمایید.
@@ -67,6 +82,7 @@
          
           
           </p>
+          {%endif%}
           <span class="time x-small">{{created_time}}</span>
         </div>
       </div>

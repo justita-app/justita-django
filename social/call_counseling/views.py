@@ -186,6 +186,8 @@ def CallCounselingDetailView(request , identity):
     date_string = day_to_string_persian(reservation_day)
     client_name =  call_counseling_object.client.get_full_name() if call_counseling_object.client else ''
     lawyer_license = Lawyer.objects.get(id = call_counseling_object.lawyer).licence_type
+    lawyerf = Lawyer.objects.get(id = call_counseling_object.lawyer).first_name
+    lawyerl = Lawyer.objects.get(id = call_counseling_object.lawyer).last_name
     args = {
         'identity' : call_counseling_object.identity,
         'lawyer_picture' : lawyer_pictures.get(call_counseling_object.lawyer , '/media/team/default.png'),
@@ -196,7 +198,9 @@ def CallCounselingDetailView(request , identity):
         'reservation_time' : call_counseling_object.Reservation_time.strftime('%H:%M:%S') ,
         'call_time' : call_counseling_object.call_time,
         'price' : call_counseling_object.get_price(),
-        'lawyer_license':lawyer_license
+        'lawyer_license':lawyer_license,
+        'lawyerf' : lawyerf,
+        'lawyerl': lawyerl
     }
 
     return render(request , 'call-counseling/order-details.html' , args)

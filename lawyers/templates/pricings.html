@@ -143,22 +143,28 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">اصلاح قیمت</h5>
+                
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                 اصلاح قیمت مشاوره تلفنی 10 دقیقه ای
                 </div>
+                
                             
-                    <div class="form-modal p-3">
+                    <div class="form-modal p-3 pt-0">
                         <form class="form-floating">
                             <div class="input-group mb-3">
-                                <input id="10-council" name="ten_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input id="10-council" name="ten_min_price" type="text" class="form-control" placeholder=" قیمت جدید را وارد کنید (تومان)" aria-label="Recipient's username" aria-describedby="basic-addon2">
                             </div>
                                 </form>
                     </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
-                </div>
+                    <div class="d-flex justify-content-between w-100 align-items-center mx-2">
+                        <div class="new-price">newprice</div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onchange="UpdateFooter()">ذخیره تغییرات</button>
+                        
+                    </div>
+            </div>
             </div>
             </div>
         </div>
@@ -255,7 +261,7 @@ function updatePrice(event){
     var price = document.getElementsByClassName(event.target.id)[0];
     price.innerHTML = event.target.value + " هزار تومان"
     main_input = document.getElementById(`${event.target.id}_input`)
-    console.log(main_input);
+    
     main_input.value = event.target.value
 }
 inputs.forEach((item) => {
@@ -324,5 +330,19 @@ if (formElement.classList.contains('ff-is-valid')) {
         }
     });
     </script>
-
+    <script>
+        function UpdateFooter(){
+            console.log("object");
+        }
+    </script>
+<script>
+    // Get the input element
+    const inputElement = document.getElementById('10-council');
+    
+    // Add event listener for input change
+    inputElement.addEventListener('input', function(event) {
+        // Log the value when input changes
+        console.log(event.target.value);
+    });
+    </script>
 {% endblock extra_scripts %}
