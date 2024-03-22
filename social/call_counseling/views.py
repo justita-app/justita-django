@@ -199,8 +199,8 @@ def CallCounselingDetailView(request , identity):
         'call_time' : call_counseling_object.call_time,
         'price' : call_counseling_object.get_price(),
         'lawyer_license':lawyer_license,
-        'lawyerf' : lawyerf,
-        'lawyerl': lawyerl
+        'lawyer_f' : lawyerf,
+        'lawyer_l': lawyerl
     }
 
     return render(request , 'call-counseling/order-details.html' , args)
