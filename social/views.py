@@ -82,7 +82,7 @@ def OrdersView(request):
                 'amount_paid': order.amount_paid,
                 'service_name': 'درخواست مشاوره تلفنی' if isinstance(order, CallCounseling) else 'درخواست مشاوره آنلاین',
                 'identity': order.identity,
-                'lawyer' : order.get_lawyer_display,
+                'lawyer' : Lawyer.objects.get(id=order.lawyer).first_name +' '+ Lawyer.objects.get(id=order.lawyer).last_name ,
                 
                 }
             for order in all_orders
@@ -122,7 +122,7 @@ def ChatsView(request) :
         for chat in all_chats:
             if isinstance(chat, OnlineCounselingRoom):
                 service_name = 'مشاوره آنلاین'
-                lawyer = chat.online_counseling.get_lawyer_display() if chat.online_counseling else 'جاستیتا'
+                lawyer = Lawyer.objects.get(id=chat.online_counseling.lawyer).first_name + ' ' + Lawyer.objects.get(id=chat.online_counseling.lawyer).last_name if chat.online_counseling else 'جاستیتا'
                 lawyer_profile = lawyer_pictures.get(chat.online_counseling.lawyer , '/media/team/justita-team.png')
                 url = f'/social/chat/online-counseling/{chat.identity}'
                 last_message_time = OnlineCounselingRoomMessage.objects.filter(room=chat).last().created_at_persian() if OnlineCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
@@ -160,7 +160,8 @@ def ChatsView(request) :
                 'url' : url , 
                 'lawyer': lawyer if lawyer else 'جاستیتا',
                 'lawyer_profile' : lawyer_profile,
-                'last_message_time' : last_message_time
+                'last_message_time' : last_message_time,
+
             })
 
     else :
@@ -221,7 +222,9 @@ def OnlineCounselingRoomView(request , identity) :
         'client' : online_counseling_room.online_counseling.client , 
         'messages' : room_messages,
         'status' : online_counseling_room.status,
-        'lawyer_license': lawyer_license
+        'lawyer_license': lawyer_license,
+        'lawyer_f' : lawyer.first_name,
+        'lawyer_l' : lawyer.last_name
     }
 
     return render(request , 'chats/online-counseling.html' , args)
@@ -482,7 +485,7 @@ def submit_review(request):
         'order': order,
         'form' : form,
         'service_name': 'مشاوره تلفنی' if isinstance(order, CallCounseling) else 'مشاوره آنلاین',
-        'lawyerr' : order.get_lawyer_display,
+        
         'lawyer' : Lawyer.objects.get(id=order.lawyer),
         'order_id': order_identity,
 
