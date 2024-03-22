@@ -83,14 +83,15 @@ def OrdersView(request):
                 'service_name': 'درخواست مشاوره تلفنی' if isinstance(order, CallCounseling) else 'درخواست مشاوره آنلاین',
                 'identity': order.identity,
                 'lawyer' : order.get_lawyer_display,
-                'lawyerr' : Lawyer.objects.get(id=order.lawyer)
+                 
+                
                 
                 }
             for order in all_orders
         ]
     else:
         modified_data = []
-
+    
     args = {
         'orders': modified_data
     }
@@ -123,7 +124,7 @@ def ChatsView(request) :
         for chat in all_chats:
             if isinstance(chat, OnlineCounselingRoom):
                 service_name = 'مشاوره آنلاین'
-                lawyer = Lawyer.objects.get(id=chat.online_counseling.lawyer) if chat.online_counseling else 'جاستیتا'
+                lawyer = chat.online_counseling.get_lawyer_display if chat.online_counseling else 'جاستیتا'
                 lawyer_profile = lawyer_pictures.get(chat.online_counseling.lawyer , '/media/team/justita-team.png')
                 url = f'/social/chat/online-counseling/{chat.identity}'
                 last_message_time = OnlineCounselingRoomMessage.objects.filter(room=chat).last().created_at_persian() if OnlineCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
