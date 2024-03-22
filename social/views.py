@@ -75,14 +75,15 @@ def OrdersView(request):
             reverse=True
         )
         
-        # Add a service name to each order
+        
         modified_data = [
             {
                 'created_at': customize_datetime_format(order.created_at),
                 'amount_paid': order.amount_paid,
                 'service_name': 'درخواست مشاوره تلفنی' if isinstance(order, CallCounseling) else 'درخواست مشاوره آنلاین',
                 'identity': order.identity,
-                'lawyer' : Lawyer.objects.get(id=order.lawyer).first_name +' '+ Lawyer.objects.get(id=order.lawyer).last_name ,
+                'lawyer' : order.get_lawyer_display,
+                'lawyerr' : Lawyer.objects.get(id=order.lawyer)
                 
                 }
             for order in all_orders
@@ -122,7 +123,7 @@ def ChatsView(request) :
         for chat in all_chats:
             if isinstance(chat, OnlineCounselingRoom):
                 service_name = 'مشاوره آنلاین'
-                lawyer = Lawyer.objects.get(id=chat.online_counseling.lawyer).first_name + ' ' + Lawyer.objects.get(id=chat.online_counseling.lawyer).last_name if chat.online_counseling else 'جاستیتا'
+                lawyer = Lawyer.objects.get(id=chat.online_counseling.lawyer) if chat.online_counseling else 'جاستیتا'
                 lawyer_profile = lawyer_pictures.get(chat.online_counseling.lawyer , '/media/team/justita-team.png')
                 url = f'/social/chat/online-counseling/{chat.identity}'
                 last_message_time = OnlineCounselingRoomMessage.objects.filter(room=chat).last().created_at_persian() if OnlineCounselingRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
@@ -485,7 +486,7 @@ def submit_review(request):
         'order': order,
         'form' : form,
         'service_name': 'مشاوره تلفنی' if isinstance(order, CallCounseling) else 'مشاوره آنلاین',
-        
+        'lawyerr' : order.get_lawyer_display,
         'lawyer' : Lawyer.objects.get(id=order.lawyer),
         'order_id': order_identity,
 
