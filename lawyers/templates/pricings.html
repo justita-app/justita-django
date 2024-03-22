@@ -154,13 +154,13 @@
                     <div class="form-modal p-3 pt-0">
                         <form class="form-floating">
                             <div class="input-group mb-3">
-                                <input id="10-council" name="ten_min_price" type="text" class="form-control" placeholder=" قیمت جدید را وارد کنید (تومان)" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input id="10-council" name="ten_min_price" type="text" class="form-control" placeholder=" قیمت جدید را وارد کنید (تومان)" aria-label="Recipient's username" aria-describedby="basic-addon2" onclick="profit_calc('10-council' , 'raw-profit-10-council')">
                             </div>
                                 </form>
                     </div>
                 <div class="modal-footer">
                     <div class="d-flex justify-content-between w-100 align-items-center mx-2">
-                        <div class="new-price">newprice</div>
+                        <div class="new-price visually-hidden x-small">خالص دریافتی شما بعد از کسر کمیسیون: <span class="price" id="raw-profit-10-council"> </span> تومان  </div>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onchange="UpdateFooter()">ذخیره تغییرات</button>
                         
                     </div>
@@ -185,12 +185,16 @@
                     <div class="form-modal p-3">
                         <form class="form-floating">
                             <div class="input-group mb-3">
-                                <input id="15-council" name="fifteen_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input id="15-council" name="fifteen_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2" onclick="profit_calc('15-council' , 'raw-profit-15-council')">
                             </div>
                                 </form>
                     </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                    <div class="d-flex justify-content-between w-100 align-items-center mx-2">
+                        <div class="new-price visually-hidden x-small">خالص دریافتی شما بعد از کسر کمیسیون: <span class="price" id="raw-profit-15-council"> </span> تومان  </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                        
+                    </div>
                 </div>
             </div>
             </div>
@@ -211,12 +215,16 @@
                     <div class="form-modal p-3">
                         <form class="form-floating">
                             <div class="input-group mb-3">
-                                <input id="30-council" name="thirty_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input id="30-council" name="thirty_min_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2" onclick="profit_calc('30-council' , 'raw-profit-30-council')">
                             </div>
                                 </form>
                     </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                    <div class="d-flex justify-content-between w-100 align-items-center mx-2">
+                        <div class="new-price visually-hidden x-small">خالص دریافتی شما بعد از کسر کمیسیون: <span class="price" id="raw-profit-30-council"> </span> تومان  </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                        
+                    </div>
                 </div>
             </div>
             </div>
@@ -237,12 +245,16 @@
                     <div class="form-modal p-3">
                         <form class="form-floating">
                             <div class="input-group mb-3">
-                                <input id="online-council" name="online_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <input id="online-council" name="online_price" type="text" class="form-control" placeholder="قیمت جدید را وارد کنید" aria-label="Recipient's username" aria-describedby="basic-addon2" onclick="profit_calc('online-council' , 'raw-profit-online-council')">
                             </div>
                                 </form>
                     </div>
                 <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                    <div class="d-flex justify-content-between w-100 align-items-center mx-2">
+                        <div class="new-price visually-hidden x-small">خالص دریافتی شما بعد از کسر کمیسیون: <span class="price" id="raw-profit-online-council"> </span> تومان  </div>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ذخیره تغییرات</button>
+                        
+                    </div>
                 </div>
             </div>
             </div>
@@ -336,13 +348,19 @@ if (formElement.classList.contains('ff-is-valid')) {
         }
     </script>
 <script>
-    // Get the input element
-    const inputElement = document.getElementById('10-council');
-    
-    // Add event listener for input change
-    inputElement.addEventListener('input', function(event) {
-        // Log the value when input changes
-        console.log(event.target.value);
+    function profit_calc(inpuElementId , RawPriceElementId){
+        const price = document.getElementById(inpuElementId);
+        const RawProfit = document.getElementById(RawPriceElementId);
+
+    price.addEventListener('input', function(event) {
+
+        RawProfit.parentElement.classList.remove('visually-hidden')
+        RawProfit.style.color ='green'
+        RawProfit.innerText = formatPrice(price.value - price.value*35/100)
     });
+    }
+    
+
+    
     </script>
 {% endblock extra_scripts %}

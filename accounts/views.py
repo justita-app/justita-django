@@ -171,7 +171,7 @@ def LawyerRegisterView(request, identity):
         if form.cleaned_data['subset_introduction_code'] and \
             not Lawyer.objects.filter(introduction_code=form.cleaned_data['subset_introduction_code']).exists():
             data_is_valid = False
-            form.add_error('subset_introduction_code', 'Wrong introduction code.')
+            form.add_error('subset_introduction_code', 'کد معرف به درستی وارد نشده است.')
 
         return data_is_valid
 
