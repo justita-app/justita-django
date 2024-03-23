@@ -51,10 +51,10 @@ class Lawyer(User):
 
 class ConsultationPrice(models.Model):
     lawyer = models.OneToOneField(Lawyer, on_delete=models.CASCADE, null=False)
-    ten_min_price = models.IntegerField(default=15, blank=True, null=True)
-    fifteen_min_price = models.IntegerField(default=30, blank=True, null=True)
-    thirty_min_price = models.IntegerField(default=45, blank=True, null=True)
-    online_price = models.IntegerField(default=100, blank=True, null=True)
+    ten_min_price = models.IntegerField(default=100000, blank=True, null=True)
+    fifteen_min_price = models.IntegerField(default=180000, blank=True, null=True)
+    thirty_min_price = models.IntegerField(default=200000, blank=True, null=True)
+    online_price = models.IntegerField(default=75000, blank=True, null=True)
 
 
 class Comment(models.Model):

@@ -20,7 +20,8 @@
     </header>
 
 <div class="settings-list p-2 mt-3">
-    <p>موجودی: {{ lawyer.balance }} تومان</p>
+    <p class="my-1">موجودی: {{ lawyer.balance }} تومان</p>
+    <span class="x-small">جهت ثبت درخواست تسویه پیش از موعد به <a href="{%url 'social:support'%}">پشتیبانی </a> مراجعه کنید.</span>
     <div class="box rounded">
         <div class="box-title p-2">
                     
@@ -29,13 +30,13 @@
 
 
         
-        <table>
+        <table style="width: 100%;">
             <thead class="bg-dark text-light">
                 <tr class="bg-dark text-light">
                     <th class="col-2 text-center p-1">شناسه</th>
                     <th class="col-4 text-center p-1">مبلغ</th>
                     <th class="col-3 text-center p-1">تاریخ پرداخت</th>
-                    <th class="col-3 text-center p-1">شماره شبا</th>  
+                    <th class="col-3 text-center p-1">شماره شبا مقصد</th>  
                 </tr>
             </thead>       
 
@@ -50,6 +51,7 @@
                 {% endfor %}
             </tbody> 
         </table>
+
 
 
 

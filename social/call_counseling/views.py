@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
 from django.http import JsonResponse , HttpResponseNotFound
-from social.models import CallCounseling , CallCounselingFiles
+from social.models import CallCounseling , CallCounselingFiles , OnlineCounseling
 from social.forms import (CounselingSelectLawyerForm , CallCounselingSubjectTimeForm ,
     CallCounselingDescriptionTimeForm , CallCounselingFileUploadForm)
 from social.utils import day_to_string_persian , customize_datetime_format , send_call_counseilng_payment_verified
@@ -12,7 +12,8 @@ from social.payment import send_request , verify_paument
 from django.core import serializers
 from django.utils import timezone
 import json , datetime
-from lawyers.models import Lawyer , ConsultationPrice
+from lawyers.models import Lawyer , ConsultationPrice , Comment
+from django.db.models import Avg
 
 
 lawyer_pictures = {
@@ -46,6 +47,18 @@ def CallCounselingSelectLawyerView(request, identity):
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
     lawyers = Lawyer.objects.filter(verified=True).all()
+    for lawyer in lawyers:
+        lawyer.comment_count = Comment.objects.filter(lawyer=lawyer).count()
+        # lawyer.totalCalls = CallCounseling.objects.filter(lawyer = lawyer.id).count()+ OnlineCounseling.objects.filter(lawyer = lawyer.id).count()
+
+        avg_score = Comment.objects.filter(lawyer=lawyer).aggregate(avg_score=Avg('score'))
+        if avg_score['avg_score'] is not None:
+            lawyer.avg_score = avg_score['avg_score']/2
+        else:
+            lawyer.avg_score=5.0
+                  
+        
+        
 
     if request.method == 'POST' :
         form = CounselingSelectLawyerForm(request.POST)

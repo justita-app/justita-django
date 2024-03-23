@@ -11,7 +11,7 @@ from operator import attrgetter
 from django.db import models
 from accounts.models import User
 from datetime import datetime
-
+from lawyers.models import Comment , Lawyer
 
 @login_required
 def dashboardView(request) :
@@ -214,3 +214,15 @@ def dashboardViewAll(request) :
 
     return render(request , 'call-counseling.html' , args)
 
+@login_required
+def Comments(request):
+    comments = Comment.objects.all()
+    lawyers = Lawyer.objects.all()
+    for comment in comments:
+        comment.lawyer = Lawyer.objects.get(username = comment.lawyer)
+    args ={
+        'comments': comments,
+        'lawyers':lawyers,
+        'comments_count' : comments.count()
+    }
+    return render(request , 'comments.html',args)

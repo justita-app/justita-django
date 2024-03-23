@@ -21,18 +21,19 @@ header .back-arrow {
 }
 
 .ticket {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     padding: 10px;
     border: solid 1px #f8f8f8;
     border-radius: 4px;
     color: rgb(49, 49, 49) ;
     max-width: 460px;
     width: 100%;
-    grid-gap: 0px 12px;
-    box-shadow: rgba(97, 100, 117, 0.06) 0px 8px 10px, rgba(97, 100, 117, 0.04) 0px 3px 14px, rgba(97, 100, 117, 0.12) 0px 5px 5px;
+
+    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.1);
+    border: solid 0.5px #e6e6e6;
 }
+
 
 .ticket-id {
     grid-row: 1;
@@ -50,14 +51,14 @@ header .back-arrow {
 .add-ticket {
     background-color: #fff;
     border: solid 1px #e6e6e6;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     line-height: 40px;
     text-align: center;
     border-radius: 4px;
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 20px;
+    right: 20px;
 }
 
 .ticket-form_container{

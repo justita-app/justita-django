@@ -61,7 +61,7 @@
     
 {% endblock links %}
 
-{% block title %}پرداخت موفق{% endblock title %}
+{% block title %}پرداخت موفق-مشاوره تلفنی{% endblock title %}
 
 
 {% block content %}
@@ -79,7 +79,9 @@
         </div>
 
 
-        <p class="px-1" style="text-align: center;"> وکیل مورد انتخاب در ساعت {{time}} روز {{day}} باشما تماس خواهد گرفت.</p>
+        <p class="px-1" style="text-align: center;"> زمان انتخابی شما : {{day}}  ساعت {{time}}</p>
+        <p class="px-1" style="text-align: center;">اطلاعات تماس وکیل دقایقی قبل از ساعت مورد انتخاب برای شما ارسال خواهد شد.</p>
+       
         <p class="text-dark">شماره تماس پشتیبانی : 91035969-021</p>
         <a href="{% url 'social:orders' %}" class="redirect-url px-4 bg-primary text-light rounded p-2" style="text-align: center;">لیست سفارشات</a>
     </main>
