@@ -82,23 +82,23 @@
                     <div class="accordion-item">
                         <div class="accordion-header more-info_section" id="panelsStayOpen-headingFour">
                             <p class="m-0 small">شماره پروانه : {{ lawyer.licence_number }}</p>
-                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
+                            <button class="accordion-button more-info_button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse{{lawyer.id}}" aria-expanded="true" aria-controls="panelsStayOpen-collapseFour">
                                 +اطلاعات بیشتر
                             </button>
                         </div>
 
-                        <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                        <div id="panelsStayOpen-collapse{{lawyer.id}}" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
                             <div class="accordion-body py-1">
                                 <div>
-                                    <span class="text-muted small">درصد رضایت موکلین: </span>
-                                    <span class="small green-color">100%</span>
-                                    <span class="small">درصد</span>
+                                    <span class="text-muted small">امتیاز موکلین: </span>
+                                    <span class="small green-color" class="score">{{lawyer.avg_score}} از 5</span>
                                 </div>
-                                <hr color="#010110" class="my-1">
+                                <!-- <hr color="#010110" class="my-1">
                                 <div>
-                                    <span class="text-muted small">تعداد مشاوره انجام شده:</span>
-                                    <span class="small green-color">1096</span>
-                                </div>
+                                    <span class="small green-color">{{lawyer.totalCalls}} </span>
+                                    <span class="text-muted small"> مشاوره انجام شده</span>
+                                    
+                                </div> -->
                                 <hr color="#010110" class="my-1">
                                 <div>
                                     <span class="text-muted small">مدرک تحصیلی: </span>
@@ -149,5 +149,14 @@
             updatePrices();
         });
     </script>
+<script>
+    scores = document.querySelectorAll('.score')
+    scores.forEach(score =>{
+        let rating = score.innerText
+        rating = Math.round(rating * 2) / 2
+        score.innerText = rating
 
+    })
+    
+</script>
 {% endblock content %}

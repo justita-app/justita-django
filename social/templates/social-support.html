@@ -31,9 +31,9 @@
 
       {% for ticket in tickets %}
       <a class="ticket" href="{% url 'social:support-room' identity=ticket.identity %}">
-          <p class="small ticket-id">تیکت : <span>{{ticket.identity}}</span></p>
-          <p class="small ticket-subject">موضوع : <span>{{ticket.subject|truncatechars:25}}</span></p>
-          <p class="small ticket-time">زمان : <span> {{ticket.created_persian.time}} , {{ticket.created_persian.date}}</span></p>
+          <p class="small my-1 ticket-id">تیکت : <span>{{ticket.identity}}</span></p>
+          <p class="small my-1 ticket-subject">موضوع : <span>{{ticket.subject|truncatechars:25}}</span></p>
+          <p class="small my-1 ticket-time">تاریخ ثبت : <span> {{ticket.created_persian.time}} , {{ticket.created_persian.date}}</span></p>
       </a>
       {% endfor %}
 
@@ -42,7 +42,7 @@
     <div class="ticket-form_container" style="display: none;">
       <form class="ticket-form" method="post">
         <h3 class="fs-5">ایجاد تیکت جدید</h3>
-        <input type="text" name="subject" placeholder="موضوع (حداکثر 30 کاراکتر)" required>
+        <input type="text" name="subject" placeholder="موضوع تیکت (حداکثر 30 کاراکتر)" required>
         {% csrf_token %}
         <div class="btns">
           <button type="submit" class="submit-form_button">ایجاد</button>

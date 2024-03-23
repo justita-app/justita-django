@@ -1,0 +1,153 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block links %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
+{% endblock links %}
+
+{% block main_content %}
+  <h1> کامنت ها ({{comments.count}})</h1>
+<p>  {{comments_today_count}} کاربر جدید</p>
+
+  <table class="table table-striped" id="userTable">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">order</th>
+        <th scope="col">Lawyer</th>
+        <th scope="col">Score</th>
+       
+        <th style="width: 5%;">Desciption</th>
+
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for comment in comments %}
+        <tr>
+          <td><a href="{%url 'base:home'%}admin/lawyers/comment/{{comment.id}}">{{comment.id}}</a></td>
+          <td>{{comment.order_id}}</a></td>
+          <td>{{comment.lawyer.first_name}} {{comment.lawyer.last_name}}</td>
+       
+          <td>{{ comment.score}}</td>
+          
+<td style="width: 5%;">{{comment.description}}</td>
+
+
+      {% endfor %}
+    </tbody>
+  </table>
+  <hr class="my-5">
+
+  <h1>وکلا</h1>
+  <table class="table table-striped" id="">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+
+        <th scope="col">Full name</th>
+        <th scope="col">Verified</th>
+       
+        <th style="width: 5%;">Desciption</th>
+
+      </tr>
+    </thead>
+   
+    
+    <tbody>
+      {% for lawyer in lawyers %}
+        <tr>
+          <td><a href="{%url 'base:home'%}admin/lawyers/comment/{{comment.id}}">{{lawyer.id}}</a></td>
+          
+          <td>{{lawyer.first_name}} {{lawyer.last_name}}</td>
+       
+          <td>{{lawyer.verified}}</td>
+          
+          <td style="width: 5%;"><a target="_blank" href="{%url 'base:home'%}media/{{lawyer.profile_image}}">Pic</a></td>
+
+
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <style>
+    th {
+        cursor: pointer;
+    }
+</style>
+
+  <script>
+        
+        const  table_rows = document.querySelectorAll('tbody tr');
+        const  table_headings = document.querySelectorAll('thead th');
+        table_headings.forEach((head, i) => {
+    let sort_asc = true;
+    head.onclick = () => {
+
+
+        
+     
+        head.classList.toggle('asc', sort_asc);
+        sort_asc = head.classList.contains('asc') ? false : true;
+
+        sortTable(i, sort_asc);
+    }
+})
+function sortTable(column, sort_asc) {
+    [...table_rows].sort((a, b) => {
+        let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
+            second_row = b.querySelectorAll('td')[column].textContent.toLowerCase();
+
+        return sort_asc ? (first_row < second_row ? 1 : -1) : (first_row < second_row ? -1 : 1);
+    })
+        .map(sorted_row => document.querySelector('tbody').appendChild(sorted_row));
+}
+    
+    </script>
+    <script>
+        // Function to remove seconds from a time string
+        function removeSeconds(time) {
+            // Split the time string into hours, minutes, and seconds
+            var timeComponents = time.split(':');
+            
+            // Remove the last element (seconds) from the array
+            timeComponents.pop();
+            
+            // Join the remaining components back into a string
+            return timeComponents.join(':');
+        }
+        
+        // Function to update time details
+        function updateTimeDetails() {
+            // Get all elements with class 'time_details'
+            var timeElements = document.getElementsByClassName('timeElement');
+            
+            // Loop through each element
+            for (var i = 0; i < timeElements.length; i++) {
+                // Get the original time string
+                var originalTime = timeElements[i].innerText;
+                
+                // Remove seconds from the time string
+                var formattedTime = removeSeconds(originalTime);
+                
+                // Update the HTML with the formatted time
+                timeElements[i].innerText = formattedTime;
+            }
+        }
+        
+        // Call updateTimeDetails() when the document is ready
+        document.addEventListener("DOMContentLoaded", function() {
+            updateTimeDetails();
+        });
+    </script>
+    <script>
+        function fixOrderType() {
+        var ordertypeElement = document.querySelector('.ordertype');
+        if(ordertypeElement.textContent == "20"){ordertypeElement.textContent = "10"}
+        if(ordertypeElement.textContent == "30"){ordertypeElement.textContent = "15"}
+        if(ordertypeElement.textContent == "45"){ordertypeElement.textContent = "30"}
+    }
+    fixOrderType();
+    </script>
+{% endblock main_content %}

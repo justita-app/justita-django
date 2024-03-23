@@ -35,7 +35,7 @@ def Home(request):
     lawyer_comment_count = {}
     lawyer_avg_score = {}
     for lawyer in lawyers:
-        lawyer.comment_count = Comment.objects.filter(lawyer=lawyer).count()+56
+        lawyer.comment_count = Comment.objects.filter(lawyer=lawyer).count()
         avg_score = Comment.objects.filter(lawyer=lawyer).aggregate(avg_score=Avg('score'))
         lawyer.ten_min_price = int(ConsultationPrice.objects.get(lawyer=lawyer).ten_min_price/1000)
         lawyer.online_price = int(ConsultationPrice.objects.get(lawyer=lawyer).online_price/1000)

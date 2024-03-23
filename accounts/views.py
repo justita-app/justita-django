@@ -44,7 +44,7 @@ def SmsVerifyView(request, phone_number ,*args, **kwargs):
                 user = get_user_model().objects.get(username=phone_number)
                 login(request, user)
 
-                redirect_url = request.GET.get('next', None) or reverse('base:home')
+                redirect_url = request.GET.get('next', None) or reverse('social:home')
                 return redirect(redirect_url)
 
     for field, errors in form.errors.items():

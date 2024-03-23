@@ -8,7 +8,8 @@ from django.contrib.auth.decorators import login_required
 from social.utils import day_to_string_persian , customize_datetime_format , send_online_counseilng_payment_verified
 from social.payment import send_request , verify_paument
 from social.models import OnlineCounselingRoom
-from lawyers.models import Lawyer, ConsultationPrice
+from lawyers.models import Lawyer, ConsultationPrice , Comment
+from django.db.models import Avg
 
 
 lawyer_pictures = {
@@ -43,6 +44,14 @@ def OnlineCounselingSelectLawyerView(request, identity):
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
     lawyers = Lawyer.objects.filter(verified=True).all()
+    for lawyer in lawyers:
+        lawyer.comment_count = Comment.objects.filter(lawyer=lawyer).count()
+        avg_score = Comment.objects.filter(lawyer=lawyer).aggregate(avg_score=Avg('score'))
+        if avg_score['avg_score'] is not None:
+            lawyer.avg_score = avg_score['avg_score']/2
+        else:
+            lawyer.avg_score=5.0
+    
     consultation_prices = []
     for lawyer in lawyers:
         if ConsultationPrice.objects.filter(lawyer=lawyer).exists():

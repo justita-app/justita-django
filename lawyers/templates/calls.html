@@ -28,14 +28,13 @@
     </div>
 </div>
 
-    <table class="table table-striped">
-        <thead>
+    <table class="table table-striped mt-2" style="min-width: 100% !important;">
+        <thead class="table-dark">
         <tr>
 
-            <th scope="col">موکل</th>
-            <th scope="col">شماره تماس موکل</th>
+           
 
-            <th scope="col">زمان مشاوره
+            <th scope="col">زمان درخواستی کاربر
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/>
               </svg>
@@ -54,8 +53,7 @@
         <!-- On tables -->
             <tr>
 
-                        <td>{{call.client.get_full_name}}</td>
-                        <td>{{call.client}}</td>
+                      
 
 
                 <td>{{call.persian_reserve_day}} , {{call.persian_reserve_time}}</td>
@@ -93,18 +91,18 @@
 
 
                             <div class="info">
-                                <p class="m-0">مبلغ پرداختی : 
-                                    {{call.amount_paid}} تومان
+                                <p class="m-0">مبلغ دریافتی شما : 
+                                    <span class="profit text-success">{{call.amount_paid}}</span> تومان
                                </p>
                             </div>
                 
 
                             <div class="info">
-                                <p class="m-0">روز رزور شده مشاوره : {{call.persian_reserve_day}}</p>
-                                <p class="m-0">ساعت رزور شده مشاوره : {{call.persian_reserve_time}}</p>
+                                <p class="m-0">تاریخ رزور شده : {{call.persian_reserve_day}}</p>
+                                <p class="m-0">ساعت رزور شده : {{call.persian_reserve_time}}</p>
                             </div>
                             <div class="info">
-                                <p class="m-0">توضیحات :</p>
+                                <p class="m-0">توضیحات کاربر :</p>
                                 <p class="m-0">{{call.description}}</p>
                             </div>
 
@@ -240,5 +238,29 @@ function sortTable(column, sort_asc) {
             cursor: pointer;
         }
     </style>
+    <script>
+         function formatPrice(price) {
+        return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function updatePrices() {
+        var priceElements = document.getElementsByClassName('price');
+        
+        for (var i = 0; i < priceElements.length; i++) {
+            var rawPrice = parseFloat(priceElements[i].innerText);
+            
+            priceElements[i].innerText = formatPrice(rawPrice + " تومان ");
+        }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        updatePrices();
+    });
+        const profits = document.querySelectorAll('.profit')
+        profits.forEach(profit =>{
+            profit.innerText = formatPrice(profit.innerText*65/100)
+        })
+    </script>
+    
     
 {% endblock extra_scripts %}

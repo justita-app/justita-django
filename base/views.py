@@ -19,10 +19,6 @@ User = get_user_model()
 
 
 def home(request):
-    if request.user.is_authenticated:
-        if request.user.is_lawyer:            
-            return redirect('lawyers:lawyers')
-         
 
     return render(request,'base/home.html')
 
