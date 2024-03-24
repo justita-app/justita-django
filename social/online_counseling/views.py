@@ -43,7 +43,7 @@ def OnlineCounselingSelectLawyerView(request, identity):
     if not OnlineCounseling.objects.filter(identity=identity , payment_status='undone').exists():
         return HttpResponseNotFound("چنین درخواستی در سایت ثبت نشده است")
 
-    lawyers = Lawyer.objects.filter(verified=True).all()
+    lawyers = Lawyer.objects.filter(verified=True).all().order_by('office_address')
     for lawyer in lawyers:
         lawyer.comment_count = Comment.objects.filter(lawyer=lawyer).count()
         avg_score = Comment.objects.filter(lawyer=lawyer).aggregate(avg_score=Avg('score'))
