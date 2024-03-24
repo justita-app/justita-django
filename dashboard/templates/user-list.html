@@ -22,7 +22,9 @@
        
         <th style="width: 5%;">شهر</th>
         <th style="width: 10%;">آشنایی</th>
-        <th>سفارشات</th>
+
+        <th>آنلاین</th>
+        <th>تلفنی</th>
       </tr>
     </thead>
     <tbody>
@@ -33,88 +35,29 @@
        
           <td>{{ user.date_joined|date:"Y-m-d H:i" }}</td>
           
-<td style="width: 5%;">{{user.city}}</td>
-<td style="width: 10%;">{{user.introduction_method}}</td>
-<td>
-
-      
-    <div class="cllorders" >
+        <td style="width: 5%;">{{user.city}}</td>
+        <td style="width: 10%;">{{user.introduction_method}}</td>
+        <td>
+            {% for online in online_counselings %}
+             {% if user == online.client %}  
+             <a title="{{online.created_at}}" target="_blank" href="{%url 'base:home'%}admin/social/onlinecounseling/{{online.id}}" class="mx-1 p-0 btn {% if online.payment_status == 'ok'%}text-success{%else%}text-danger{%endif%} " style="font-size: small;">آنلاین {{online.identity}}</a>
+   
+            
+            {%endif%}
+            {%endfor%}
+        </td>
+        <td>
             {% for call_counseling in call_counselings %}
     
             
-            {% if user == call_counseling.client %}    
-            <button class="mx-1 p-0 btn {% if call_counseling.payment_status == 'ok'%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{call_counseling.id}}">تلفنی {{call_counseling.id}}</button>
-    
-         
-            <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{call_counseling.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdrop{{call_counseling.id}}_Label">جزئیات سفارش</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul class="p-3" style="border-radius: 15px;">   
-                            <li>شناسه :<span><a href="{%url 'base:home'%}admin/social/callcounseling/{{call_counseling.id}}"> {{call_counseling.identity}}</a> </span></li>
-                            <li>وکیل : <span>{{call_counseling.get_lawyer_display}}</span> </li>
-                            <li>زمان درخواستی : <span>{{call_counseling.persian_reserve_day}} </span><span class="timeElement"> {{call_counseling.persian_reserve_time}} </span> </li>
-                            <li>سرویس : <span class="ordertype">{{call_counseling.call_time}}</span> دقیقه ای </li>
-                            <li>ساعت ثبت : <span>{{call_counseling.created_at|time:"H:i"}}</span></li>
-                
-                        </ul>   
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-          {% endif %}
-    
-          {% endfor %}
-    
-    
-    
-      
-        </div>
-    
-        {% for online in online_counselings %}
-        {% if user == online.client %}  
-        <button class="mx-1 p-0 btn {% if online.payment_status == 'ok'%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop{{online.id}}">آنلاین {{online.id}}</button>
-    
-        <div class="modal modal-dialog-scrollable fade" id="staticBackdrop{{online.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdrop{{online.id}}_Label">جزئیات سفارش</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="p-3" style="border-radius: 15px;">   
-                        <li>شناسه :<span><a target="_blank" href="{%url 'base:home'%}admin/social/onlinecounseling/{{online.id}}"> {{online.identity}}</a> </span></li>
-                        <li>وکیل : <span>
-                            {{online.lawyer}}
-                        </span> </li>
-                        <li>تاریخ ثبت : <span>{{online.created_at}}</span></li>
-               
-                    </ul>   
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
-                </div>
-            </div>
-            </div>
-        </div>
-    
-        {%endif%}
+            {% if user == call_counseling.client %}  
+             <a title="{{call_counseling.created_at}}" target="_blank" href="{%url 'base:home'%}admin/social/callcounseling/{{call_counseling.id}}" class="mx-1 p-0 btn {% if call_counseling.payment_status == 'ok'%}text-success{%else%}text-danger{%endif%} " style="font-size: small;" >تلفنی {{call_counseling.identity}}</a>
+   
             
-      
-    
-        
-    
-    
-    {% endfor %}
-                    </td>
+            {%endif%}
+            {%endfor%}
+        </td>
+
       {% endfor %}
     </tbody>
   </table>

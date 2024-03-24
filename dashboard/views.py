@@ -13,6 +13,7 @@ from accounts.models import User
 from datetime import datetime
 from lawyers.models import Comment , Lawyer
 
+
 @login_required
 def dashboardView(request) :
     if not request.user.is_superuser :
@@ -168,13 +169,10 @@ def ChatRoomsView(request) :
 def UsersView(request):
     if not request.user.is_superuser :
         return HttpResponseForbidden('شما نمیتوانید وارد این قسمت شوید.')
-    users = User.objects.all()
+    users = User.objects.all().order_by('date_joined')
     call_counselings = CallCounseling.objects.all()
 
     online_counseling_chats = OnlineCounseling.objects.all()
-    # complaint_chats = ComplaintRoom.objects.all()
-    # contract_chats = ContractRoom.objects.all()
-    # legal_panle_chats = LegalPanel.objects.all()
     today = datetime.now().date()
     users_joined_today_count = User.objects.filter(date_joined__date=today).count()
 

@@ -46,17 +46,17 @@
 <div class="container mt-2 mb-3">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators mb-0">
-            <div class="carousel-indicators-bg">          
+            <div class="">          
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button></div>
             </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <a href="#"><img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="بنر"></a>
+            <a target="_blank" href="https://t.me/justita_official"><img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="بنر"></a>
           </div>
           <div class="carousel-item rounded">
-            <a href="#"><img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="بنر"></a>
+            <a target="_blank" href="https://t.me/justita_official"><img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="بنر"></a>
           </div>
           <!-- <div class="carousel-item rounded">
             <img src="/media/lawyers/banners/online_attorney_banner.webp" class="d-block w-100 rounded" alt="بنر">
@@ -75,6 +75,20 @@
 
 {% csrf_token %}
 <div class="container">
+    <div class="bg-light p-3 rounded">
+        <div class="small">اطلاعیه موقت</div>
+        <h5>آخرین تغییرات سامانه</h5>
+        <ul>
+            <li class="x-small">1) ضرورت تایید کاربر متخصص پس از ثبت درخواست مشاوره تلفنی توسط موکل.</li>
+            <li class="x-small mt-2">2) بروزرسانی اعتبار حساب بلافاصله پس از تغییر وضعیت مشاوره تلفنی به "انجام شده". </li>
+            <li class="x-small mt-2">3) بروزرسانی اعتبار حساب بلافاصله پس از بستن چت در مشاوره آنلاین. </li>
+
+        </ul>
+        <div class="text-center small">در صورت نیاز به کسب اطلاعات بیشتر به <a href="{%url 'social:support'%}">پشتیبانی</a> مراجعه نمایید.</div>
+
+    </div>
+
+
 <div class="row p-0 m-0 justify-content-center align-items-center">
     
         <div class="finances p-0 col-lg-5 mx-md-1 mt-3 ">

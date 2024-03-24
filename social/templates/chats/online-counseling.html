@@ -52,7 +52,7 @@
     <div class="chat-lawyer-info">
       <img src="/media/accounts/main/user.png" alt="تصویر کاربر" class="profile-picture">
       <div class="info-text">
-        <p class="m-0">{{client.first_name}} {{client.last_name}}</p>
+        <p class="m-0">{{client.get_full_name}}</p>
         
       </div>
     </div>
@@ -61,7 +61,7 @@
     <div class="chat-lawyer-info">
       <img src="{{lawyer_profile}}" alt="{{lawyer}}" class="profile-picture">
       <div class="info-text">
-        <p class="m-0">{{lawyer_f}} {{lawyer_l}}</p>
+        <p class="m-0">{{lawyer}}</p>
         <span class="small text-muted">{{lawyer_license}}</span>
       </div>
     </div>

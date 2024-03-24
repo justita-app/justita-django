@@ -58,6 +58,7 @@ class CallCounseling(models.Model) :
     status = models.CharField(verbose_name="وضعیت" , choices=status_choices , default="undone" , max_length=8)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    accepted = models.BooleanField(verbose_name="تایید وکیل" , default=False)
 
 
     def get_client(self):

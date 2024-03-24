@@ -83,6 +83,7 @@ def OrdersView(request):
                 'service_name': 'درخواست مشاوره تلفنی' if isinstance(order, CallCounseling) else 'درخواست مشاوره آنلاین',
                 'identity': order.identity,
                 'lawyer' : order.get_lawyer_display,
+                'status' : order.status if isinstance(order, CallCounseling) else "پرداخت موفق"
                  
                 
                 
@@ -135,7 +136,7 @@ def ChatsView(request) :
                 url = f'/social/chat/contract/{chat.identity}'
                 last_message_time = ContractRoomMessage.objects.filter(room=chat).last().created_at_persian() if ContractRoomMessage.objects.filter(room=chat).last() else chat.created_at_persian()
             elif isinstance(chat , ComplaintRoom):
-                service_name = 'تنظیم شکوائیه'
+                service_name = 'تنظیم متون قضائی'
                 lawyer = 'جاستیتا'
                 lawyer_profile = '/media/team/justita-team.png'
                 url = f'/social/chat/complaint/{chat.identity}'
@@ -225,8 +226,7 @@ def OnlineCounselingRoomView(request , identity) :
         'messages' : room_messages,
         'status' : online_counseling_room.status,
         'lawyer_license': lawyer_license,
-        'lawyer_f' : lawyer.first_name,
-        'lawyer_l' : lawyer.last_name
+   
     }
 
     return render(request , 'chats/online-counseling.html' , args)
@@ -337,7 +337,7 @@ def LegalPanelRoomStartView(request) :
 @login_required
 def LegalPanelRoomView(request , identity) :
 
-    if (not request.user.is_superuser or not request.user.is_lawyer) and not LegalPanel.objects.filter(identity=identity , client=request.user).exists():
+    if not request.user.is_superuser and not LegalPanel.objects.filter(identity=identity , client=request.user).exists():
         return HttpResponseNotFound("گفت و گو یافت نشد")
 
     for lawyer in Lawyer.objects.filter(verified=True).all():
