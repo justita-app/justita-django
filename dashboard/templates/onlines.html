@@ -8,29 +8,20 @@
 {% endblock links %}
 
 {% block main_content %}
-<header>
-    <a href="{% url 'lawyers:lawyers' %}">
-        <span>
-            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
-        </span>
-        
-    </a>
-    <span class="fs-5">مشاوره های آنلاین</span>
-    </header>
+
 <button id="today" class="btn btn-primary">امروز</button>
 
 <div class="dropdown d-inline">
     <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       وکلا
     </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <ul class="dropdown-menu mt-2" aria-labelledby="dropdownMenuButton1">
+        {%for lawyer in lawyers%}
+        <li><a class="dropdown-item" href="#" onclick="updateInput('{{lawyer.first_name}} {{lawyer.last_name}}')">{{lawyer.first_name}} {{lawyer.last_name}}</a></li>
+        {%endfor%}
 
 
-        <li><a class="dropdown-item" href="#" onclick="updateInput('محمدجواد خسرو نوبری')">محمدجواد خسرو نوبری</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('آتمیش جهانشاهی')">آتمیش جهانشاهی</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('ارغوان منصوری')">ارغوان منصوری</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('علیرضا آتش زران')">علیرضا آتش زران</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('نیلوفر شهاب')">نیلوفر شهاب</a></li>
+   
       </ul>
   </div>
   
@@ -44,7 +35,7 @@
         <tr>
             
                 <th scope="col">شناسه</th>
-                <th scope="col">سرویس</th>
+               
            
 
             <th scope="col">موکل</th>
@@ -52,38 +43,49 @@
              
                 <th scope="col">وکیل</th>
                
-            <th scope="col">وضعیت</th>
-            <th scope="col">تغییر وضعیت</th>
-            <th scope="col">آخرین پیام در</th>
-            <th scope="col">صفحه چت</th>
+            <th scope="col">ساعت و تارخ ثبت</th>
+            <th scope="col"> وضعیت پرداخت</th>
+            <th scope="col">پرداختی</th>
+            <th scope="col">چت</th>
+           
         </tr>
         </thead>
         <tbody>
-        {% for chat in chats %}
+        {% for online in onlineCounselings %}
         <!-- On tables -->
             <tr>    
 
                   
-                    <td scope="row">#{{chat.identity}}</td>
-                    <td>{{chat.service_name}}</td>
-                
+                    <td scope="row"><a target="_blank" href="{%url 'base:home'%}admin/social/onlinecounseling/{{online.id}}">#{{online.identity}}</a></td>
+                    <td>{{online.client.get_full_name}}</td>
+                    <td>{% if online.lawyer %}
+                        {{online.get_lawyer_display}}
+                        {%else%}انتخاب نشده{% endif %}</td>        
 
-                <td>{{chat.client.get_full_name}}</td>
+                <td>{{online.created.date}} , {{online.created.time}}</td>
                 
                  
-                    <td>{{chat.lawyer}}</td>
-                 
-                <td><span class="badge {% if chat.status == 'open' %}bg-success{% else %}bg-danger{% endif %}">{{chat.get_status_display}}</span></td>
+                <td><span style="min-width: 4rem;" class="badge p-2 {% if online.payment_status == 'ok' %}bg-success{% elif online.payment_status == 'undone' %}bg-info{% else %}bg-danger{% endif %}">{{online.get_payment_status_display}}</span></td>
+
                 <td>
-                    <button class="change-status" data-identity="{{chat.identity}}" data-service_name="{{chat.service_name}}" onclick="changeStatus(event)">
-                        {% if chat.status == 'open' %}بستن چت{%else%}باز کردن چت{% endif %}
-                    </button>
-                </td>
-                <td>{{chat.last_message_time.date}} , {{chat.last_message_time.time}}</td>
+                    <p class="m-0"> {% if online.amount_paid != None%}
+                        <span class="text-success">{{online.amount_paid}} تومان</span>
+                    {% else %}
+                    پرداخت نشده
+                    {% endif %}</p>
+                </td> 
+
+                
                 <td>
-                    <a href="{{chat.url}}">رفتن به چت</a>
+                    {%if online.chat == 'بدون روم'%}
+                    {{online.chat}}
+                    {%else%}
+
+                   <a target="_blank" href="{%url 'social:home'%}chat/online-counseling/{{online.chat}}">{{online.chat}}</a>
+
+                    {%endif%}
                 </td>
-  
+                
             </tr>
         {% endfor %}
         </tbody>

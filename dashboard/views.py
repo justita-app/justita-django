@@ -30,16 +30,20 @@ def dashboardView(request) :
             call_counseling_object.save()
             
 
-    call_counseling = CallCounseling.objects.filter(created_at__date = datetime.now().date()).annotate(
+    call_counseling = CallCounseling.objects.annotate(
     has_reservation=Case(
         When(Reservation_day__isnull=False, Reservation_time__isnull=False, then=1),
         default=0,
         output_field=models.IntegerField(),
     )
+    
     ).order_by('-has_reservation', 'Reservation_day', 'Reservation_time')
+    lawyers = Lawyer.objects.all()
+
 
     args = {
-        'call_counseling' : call_counseling
+        'call_counseling' : call_counseling,
+        'lawyers':lawyers
     }
 
     return render(request , 'call-counseling.html' , args)
@@ -184,38 +188,9 @@ def UsersView(request):
     return render(request, 'user-list.html', context)
     
 @login_required
-def dashboardViewAll(request) :
+def Comments(request):
     if not request.user.is_superuser :
         return HttpResponseForbidden('شما نمیتوانید وارد این قسمت شوید.')
-
-    if request.method == 'POST' :
-        data = request.POST
-        identity = data.get('identity' , None)
-        if identity and CallCounseling.objects.filter(identity=identity).exists() :
-            call_counseling_object = CallCounseling.objects.get(identity=identity)
-            
-            status = call_counseling_object.status
-            changed_status = 'done' if status == 'undone' else 'undone'
-            call_counseling_object.status = changed_status
-            call_counseling_object.save()
-            
-
-    call_counseling = CallCounseling.objects.annotate(
-    has_reservation=Case(
-        When(Reservation_day__isnull=False, Reservation_time__isnull=False, then=1),
-        default=0,
-        output_field=models.IntegerField(),
-    )
-    ).order_by('-has_reservation', 'Reservation_day', 'Reservation_time')
-
-    args = {
-        'call_counseling' : call_counseling
-    }
-
-    return render(request , 'call-counseling.html' , args)
-
-@login_required
-def Comments(request):
     comments = Comment.objects.all()
     lawyers = Lawyer.objects.all()
     for comment in comments:
@@ -226,3 +201,26 @@ def Comments(request):
         'comments_count' : comments.count()
     }
     return render(request , 'comments.html',args)
+
+@login_required
+def OnliceCouncelings(request):
+    onlineCounselings = OnlineCounseling.objects.all()
+    lawyers = Lawyer.objects.all()
+    
+    for online in onlineCounselings:
+        online.created = customize_datetime_format(online.created_at)
+        try:
+            instance = OnlineCounselingRoom.objects.get( online_counseling = online)
+        except OnlineCounselingRoom.DoesNotExist:
+            online.chat = "بدون روم"
+        else:
+            online.chat = OnlineCounselingRoom.objects.get( online_counseling = online).identity
+
+
+
+    args={
+        'onlineCounselings': onlineCounselings,
+        'lawyers':lawyers
+    }
+    return render(request ,'onlines.html',args)
+
