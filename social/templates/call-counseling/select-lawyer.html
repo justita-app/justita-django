@@ -43,7 +43,7 @@
             <h1 class="text-center fs-6 px-3">لطفا از لیست زیر وکیل مورد نظر خود را انتخاب نمایید سپس دکمه "ادامه" را در پایین صفحه بزنید.</h1>
             
         </header>
-        <div class="container">
+        <div class="container" style="padding-bottom: 5rem;">
             {% for lawyer in lawyers %}     
             
             <div class="col-12 col-lg-5 lawyer-box">
@@ -91,7 +91,7 @@
                             <div class="accordion-body py-1">
                                 <div>
                                     <span class="text-muted small">امتیاز موکلین: </span>
-                                    <span class="small green-color" class="score">{{lawyer.avg_score}} از 5</span>
+                                    <span class="small green-color" ><span class="score small green-color">{{lawyer.avg_score}}</span> از 5</span>
                                 </div>
                                 <!-- <hr color="#010110" class="my-1">
                                 <div>

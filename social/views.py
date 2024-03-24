@@ -30,7 +30,7 @@ lawyer_pictures = {
 
 
 def Home(request):
-    lawyers = Lawyer.objects.filter(online=True)
+    lawyers = Lawyer.objects.filter(online=True).order_by('office_address')
 
     lawyer_comment_count = {}
     lawyer_avg_score = {}
