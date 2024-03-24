@@ -225,8 +225,7 @@ def OnlineCounselingRoomView(request , identity) :
         'messages' : room_messages,
         'status' : online_counseling_room.status,
         'lawyer_license': lawyer_license,
-        'lawyer_f' : lawyer.first_name,
-        'lawyer_l' : lawyer.last_name
+   
     }
 
     return render(request , 'chats/online-counseling.html' , args)
