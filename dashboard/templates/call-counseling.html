@@ -9,29 +9,19 @@
 {% endblock links %}
 
 {% block main_content %}
-<header>
-    <a href="{% url 'lawyers:lawyers' %}">
-        <span>
-            <img src="/media/accounts/main/back-arrow.png" alt="برگشت" ,="" class="back-arrow w-75">
-        </span>
-        
-    </a>
-    <span class="fs-5">مشاوره های تلفنی</span>
-    </header>
-    
-<button id="today" class="btn btn-primary">کل</button>
+
+<!-- <button id="today" class="btn btn-primary">کل</button> -->
+<button id="today" class="btn btn-primary">امروز</button>
 {% if request.user.is_superuser %}
 <div class="dropdown d-inline">
     <button class="btn btn-secondary dropdown-toggle " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       وکلا
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <li><a class="dropdown-item" href="#" onclick="updateInput('محمدجواد خسرو نوبری')">محمدجواد خسرو نوبری</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('آتمیش جهانشاهی')">آتمیش جهانشاهی</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('ارغوان منصوری')">ارغوان منصوری</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('علیرضا آتش زران')">علیرضا آتش زران</a></li>
-        <li><a class="dropdown-item" href="#" onclick="updateInput('نیلوفر شهاب')">نیلوفر شهاب</a></li>
-      </ul>
+        {%for lawyer in lawyers%}
+        <li><a class="dropdown-item" href="#" onclick="updateInput('{{lawyer.first_name}} {{lawyer.last_name}}')">{{lawyer.first_name}} {{lawyer.last_name}}</a></li>
+        {%endfor%}
+    </ul>
   </div>
 {% endif %}
 <div class="input-group d-inline">
@@ -51,104 +41,85 @@
                 <th scope="col">وکیل</th>
             {%endif%}
             <th scope="col">زمان مشاوره</th>
-            <th scope="col">وضعیت مشاوره و پرداخت</th>
+            <th scope="col">وضعیت پرداخت</th>
+            <th scope="col">وضعیت</th>
+            <th scope="col">پرداختی</th>
+
+            <th scope="col">فایل</th>
+            <th scope="col">توضیحات</th>
+
+
             
-            <th scope="col">جزئیات</th>
+            
         </tr>
         </thead>
         <tbody>
         {% for call in call_counseling %}
         <!-- On tables -->
             <tr>
-                {% if request.user.is_superuser %}
+                
 
-                     <td scope="row"><a href="{%url 'base:home'%}admin/social/callcounseling/{{call.id}}">{{call.identity}}</a></td>
-                {%endif%}
+                     <td scope="row"><a target="_blank" href="{%url 'base:home'%}admin/social/callcounseling/{{call.id}}">{{call.identity}}</a></td>
+                
                         <td>{{call.client.get_full_name}}</td>
                         <td>{{call.client}}</td>
 
-                {% if request.user.is_superuser %}
+                
                 <td>{% if call.lawyer %}
                     {{call.get_lawyer_display}}
                     {%else%}انتخاب نشده{% endif %}</td>
-                    {%endif%}
+                    
                 <td>{{call.persian_reserve_day}} , {{call.persian_reserve_time}}</td>
                 <td>
-                    <span class="badge p-2 {% if call.status == 'done' %}bg-success{% else %}bg-info{% endif %}">{{call.get_status_display}}</span>
-                    <span class="badge p-2 {% if call.payment_status == 'ok' %}bg-success{% elif call.payment_status == 'undone' %}bg-info{% else %}bg-danger{% endif %}">{{call.get_payment_status_display}}</span>
+                    <span style="min-width: 4rem;" class="badge p-2 {% if call.payment_status == 'ok' %}bg-success{% elif call.payment_status == 'undone' %}bg-info{% else %}bg-danger{% endif %}">{{call.get_payment_status_display}}</span>
+                </td>
+                <td>
+                    
+                    
+                    {% if call.status == 'done' %}
+                    <button class="change-status my-0 bg-success text-light p-1 x-small" data-identity="{{call.identity}}" onclick="changeStatus(event)">
+                        
+                        {{call.get_status_display}}
+                        
+                    </button>
+                    {%else%}
+                    <button class="change-status my-0 bg-danger text-light p-1 x-small" data-identity="{{call.identity}}" onclick="changeStatus(event)">
+                        
+                        {{call.get_status_display}}
+                        
+                    </button>
+                    {% endif %}
+                
+                </td>
+                <td>
+                    <p class="m-0"> {% if call.amount_paid != None%}
+                        <span class="text-success">{{call.amount_paid}} تومان</span>
+                    {% else %}
+                    پرداخت نشده
+                    {% endif %}</p>
+                </td>
+            
+                <td>
+                    <div class="files">
+                        {% for file in call.files.all %}
+                        
+                            <a target="_blank" href="{{file.file.url}}" class="small">{{file.file.url|truncatechars:10}}</a>
+                        
+                        {%empty%}
+                        ...
+                        {% endfor %}
+                    </div>
+
+                </td>
+                <td>
+                    <p class="m-0 x-small">{%if call.description%} {{call.description|truncatechars:20}} {%else%} ... {%endif%} </p>
                 </td>
                
-                <td>
-                    <button class="detail-btn" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{call.identity}}">جزئیات</button>
-                </td>
+               
+                
+              
 
-                <!-- Modal -->
-                <div class="modal modal-dialog-scrollable fade" id="staticBackdrop_{{call.identity}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdrop_{{call.identity}}_Label" aria-hidden="true">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdrop_{{call.identity}}_Label">جزئیات مشاوره</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            
-
-                            <div class="info">
-                                <p class="m-0">شماره  : 
-                                    {{call.client}}</p>
-                                    <p class="m-0">موکل  : 
-                                        {{call.client.get_full_name}}</p>
-                            </div>
-
-
-                            <div class="info">
-                                <p class="m-0">مبلغ پرداختی : {% if call.amount_paid != None%}
-                                    {{call.amount_paid}} تومان
-                                {% else %}
-                                پرداخت نشده
-                                {% endif %}</p>
-                            </div>
-
-                            <div class="info">
-                                <p class="m-0">روز رزور شده مشاوره : {{call.persian_reserve_day}}</p>
-                                <p class="m-0">ساعت رزور شده مشاوره : {{call.persian_reserve_time}}</p>
-                            </div>
-                            <div class="info">
-                                <p class="m-0">توضیحات :</p>
-                                <p class="m-0">{{call.description}}</p>
-                            </div>
-
-                            <div class="info">
-                                <p class="m-0">فایل های  پیوست شده :</p>
-                                <div class="files">
-                                    {% for file in call.files.all %}
-                                    <div class="file">
-                                        <a href="{{file.file.url}}" class="small">{{file.file.url|truncatechars:30}}</a>
-                                    </div>
-                                    {%empty%}
-                                    <p class="text-danger">فایلی وجود ندارد</p>
-                                    {% endfor %}
-                                </div>
-                            </div>
-
-                            <div class="info">
-                                <p class="m-0">وضعیت فعلی مشاوره : {{call.get_status_display}}</p>
-                                <button class="change-status my-1" data-identity="{{call.identity}}" onclick="changeStatus(event)">
-                                    {% if call.status == 'done' %}
-                                      تغییر وضفیت به انجام نشده
-                                    {%else%}
-                                        تغییر وضعیت به انجام شده
-                                    {% endif %}
-                                </button>
-                            </div>
-
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
-                        </div>
-                    </div>
-                    </div>
-                </div>
+           
   
             </tr>
         {% endfor %}
@@ -170,11 +141,7 @@
     }
     
   </script>
-<script>
-    document.getElementById('today').addEventListener('click', function() {
-        window.location.href = "allcalls"
-    });
-</script>
+
 
   <script>
 
@@ -243,5 +210,13 @@ function sortTable(column, sort_asc) {
             cursor: pointer;
         }
     </style>
-    
+      <script>
+        document.getElementById('today').addEventListener('click', function() {
+            const currentDate = new persianDate();
+            currentDate.toLocale('en');
+            const currentDateShamsi = currentDate.format('YYYY/MM/DD');
+            document.getElementById('searchInput').value = currentDateShamsi;
+            document.getElementById('searchInput').dispatchEvent(new Event('input'));
+        });
+    </script>
 {% endblock extra_scripts %}

@@ -117,8 +117,7 @@ body {
 }
 
 .sidbar .main-menu .active a span{
-    color: #f16a58;
-    margin-bottom: 0.25rem;
+    color: #fff;
 }
 
 .sidbar .main-menu .sidbar-menu_item svg{
@@ -135,7 +134,7 @@ body {
 
 
 .sidbar .main-menu .active svg{
-    fill: #f16a58;
+    fill: #fff;
 }
 
 .messages {
