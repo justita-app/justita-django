@@ -5,7 +5,14 @@
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'dashboard/dashboard/style.css' %}">
   <script src="https://cdn.jsdelivr.net/npm/persian-date/dist/persian-date.min.js"></script>
-
+    <style>
+        td{
+            vertical-align: middle;
+        }
+        th{
+            text-align: center;
+        }
+    </style>
 {% endblock links %}
 
 {% block main_content %}
@@ -20,50 +27,72 @@
     </header>
     
 <div class=" mt-3">
-    <button id="today" class="btn btn-primary">امروز</button>
+    <button id="today"  class="pill pill-active x-small px-2 py-1" style="border: .5px solid #dee2e6; background-color: white; border-radius: 15px; color: #212529;">امروز</button>
+    <button id="notDone" onclick="updateFilter('انجام نشده')" class="pill pill-active x-small px-2 py-1" style="border: .5px solid #dee2e6; background-color: white; border-radius: 15px; color: #212529;">انجام نشده</button>
+    <button id="pending" onclick="updateFilter('در انتظار')" class="pill pill-active x-small px-2 py-1" style="border: .5px solid #dee2e6; background-color: white; border-radius: 15px; color: #212529;">در انتظار</button>
+
     
     <div class="input-group d-inline">
-        <input type="search" class="w-25 p-2 d-inline form-control" style="font-size: small;" placeholder="فیلتر" id="searchInput">
+        <input type="search" class="w-25 py-1 px-2 d-inline form-control x-small" style="border-radius: 15px;" placeholder="فیلتر" id="searchInput">
     
     </div>
 </div>
 
     <table class="table table-striped mt-2" style="min-width: 100% !important;">
-        <thead class="table-dark">
+        <thead class="table-secondary">
         <tr>
 
            
 
-            <th scope="col">زمان درخواستی کاربر
+            <th scope="col" style="font-size: 14px;">زمان درخواستی کاربر
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/>
               </svg>
             </th>
-            <th scope="col">وضعیت مشاوره
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down-short" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4"/>
-                  </svg>
+            <th scope="col" style="font-size: 14px;">وضعیت مشاوره
+                
             </th>
             
-            <th scope="col">جزئیات</th>
+            <th scope="col" style="font-size: 14px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                    <path d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2z"/>
+                    <path d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5z"/>
+                  </svg>
+            </th>
         </tr>
         </thead>
         <tbody>
         {% for call in call_counseling %}
         <!-- On tables -->
-            <tr>
+            <tr data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{call.identity}}">
 
-                      
+                  
+           
+                       <td class="x-small">{{call.persian_reserve_day}} , {{call.persian_reserve_time}}
 
-
-                <td>{{call.persian_reserve_day}} , {{call.persian_reserve_time}}</td>
-                <td>
-                    <span class="badge p-2 {% if call.status == 'done' %}bg-success{% else %}bg-info{% endif %}">{{call.get_status_display}}</span>
+          
 
                 </td>
+                <td class="text-center">
+              
+                            {%if call.accepted%}
+                    <span class="badge p-2 {% if call.status == 'done' %}bg-success{% else %}bg-warning{% endif %}">{{call.get_status_display}}</span>
+                    {%else%}
+                          
+                    <button class="btn bg-primary p-2 badge" data-identity="{{call.identity}}">
+                
+                
+                        در انتظار تایید
+                               
+                            </button>
+                            {%endif%}
+                </td>
                
-                <td>
-                    <button class="detail-btn text-primary" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop_{{call.identity}}">جزئیات</button>
+                <td style="text-align: left;">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#0d6efd" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                        <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                      </svg> 
                 </td>
 
                 <!-- Modal -->
@@ -81,6 +110,7 @@
                      
                             </div>
 
+                        {%if call.accepted%}
                             <div class="info">
                                 <p class="m-0">موکل  : 
                                     {{call.client.get_full_name}}</p>
@@ -88,10 +118,16 @@
                                     {{call.client}}</p>
                                  
                             </div>
+                            {%endif%}
+                            
 
 
                             <div class="info">
-                                <p class="m-0">مبلغ دریافتی شما : 
+                                <p class="m-0">مشاوره : 
+                                    <span class="call_time text-success">{{call.call_time}}</span>
+                                     دقیقه ای
+                               </p>
+                                <p class="m-0">مبلغ پرداخت شده : 
                                     <span class="profit text-success">{{call.amount_paid}}</span> تومان
                                </p>
                             </div>
@@ -120,27 +156,50 @@
                             </div>
 
                             <div class="info">
-                                <p class="m-0">وضعیت فعلی مشاوره : {{call.get_status_display}}</p>
-                                {% if call.status != 'done' %}
-                                <button class="change-status my-1" data-identity="{{call.identity}}" onclick="changeStatus(event)">
+                                {% if not call.accepted %}
+                                <button class="change-status bg-primary text-light my-1" data-identity="{{call.identity}}" onclick="changeAccepted(event)">
                                     
                                      
                                    
-                                        تغییر وضعیت به انجام شده
-                                   
-                                </button>
+                                    تایید درخواست مشاوره
+                               
+                            </button>
+
                                 
+
+                                
+                             
+                                
+                                {%else%}
+                                <p class="m-0">وضعیت فعلی مشاوره : {{call.get_status_display}}</p>
+                                    {% if call.status != 'done' %}
+                                    <button class="change-status my-1" data-identity="{{call.identity}}" onclick="changeStatus(event)">
+                                        
+                                        
+                                    
+                                            تغییر وضعیت به انجام شده
+                                    
+                                    </button>
+                                    {%endif%}
                                 {% endif %}
                             </div>
 
                         </div>
                         <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
+                        <button type="button" class="mx-2 btn btn-outline-secondary"><a href="{%url 'social:support'%}">درخواست پشتیبانی</a></button>
+
+                        <button type="button" class="mx-2 btn btn-outline-secondary" data-bs-dismiss="modal">بستن</button>
+
                         </div>
                     </div>
                     </div>
                 </div>
   
+            
+      
+        
+
+     
             </tr>
         {% endfor %}
         </tbody>
@@ -149,17 +208,23 @@
     <form class="change-status_form" method="post" style="display: none;">
         {% csrf_token %}
         <input type="text" name="identity" id="identityInput">
+        <input type="text" name="identifier" id="identifierInput">
     </form>
+
+
+
 
 {% endblock main_content %}
 
 {% block extra_scripts %}
 <script>
-    function updateInput(value) {
-      document.getElementById('searchInput').value = value;
-      document.getElementById('searchInput').dispatchEvent(new Event('input'));
+  
+    function updateFilter(filter){
+        document.getElementById('searchInput').value = filter;
+        document.getElementById('searchInput').dispatchEvent(new Event('input'));
+
+
     }
-    
   </script>
 <script>
     document.getElementById('today').addEventListener('click', function() {
@@ -177,16 +242,33 @@
         var identity = event.target.dataset.identity
         var form = document.querySelector('.change-status_form')
         var identityInput = document.querySelector('#identityInput')
+        var identifierInputInput = document.querySelector('#identifierInput')
+            
+        identifierInputInput.value = "StatusChanger"
 
         identityInput.value = identity
         form.submit()
     }
   </script>
+    <script>
+
+        function changeAccepted(event) {
+            var identity = event.target.dataset.identity
+            var form = document.querySelector('.change-status_form')
+            var identityInput = document.querySelector('#identityInput')
+            var identifierInputInput = document.querySelector('#identifierInput')
+            
+            identifierInputInput.value = "AcceptedChanger"
+    
+            identityInput.value = identity
+            form.submit()
+        }
+      </script>
   <script>
     const search = document.querySelector('.input-group input'),
     table_rows = document.querySelectorAll('tbody tr');
 
-// 1. Searching for specific data of HTML table
+
 search.addEventListener('input', searchTable);
 
 function searchTable() {
@@ -202,7 +284,10 @@ function searchTable() {
     document.querySelectorAll('tbody tr:not([hidden])').forEach((visible_row, i) => {
         visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
     });
+    
+
 }
+
 
   </script>
     <script>
@@ -222,6 +307,7 @@ function searchTable() {
         sortTable(i, sort_asc);
     }
 })
+
 function sortTable(column, sort_asc) {
     [...table_rowss].sort((a, b) => {
         let first_row = a.querySelectorAll('td')[column].textContent.toLowerCase(),
@@ -233,11 +319,7 @@ function sortTable(column, sort_asc) {
 }
 
     </script>
-      <style>
-        th {
-            cursor: pointer;
-        }
-    </style>
+
     <script>
          function formatPrice(price) {
         return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -256,11 +338,19 @@ function sortTable(column, sort_asc) {
     document.addEventListener("DOMContentLoaded", function() {
         updatePrices();
     });
-        const profits = document.querySelectorAll('.profit')
-        profits.forEach(profit =>{
-            profit.innerText = formatPrice(profit.innerText*50/100)
-        })
+        
     </script>
+        <script>
+           const calltimes = document.querySelectorAll('.call_time')
+           
+           calltimes.forEach(ct => {
+
+            if(ct.innerText == "20"){ct.innerText = "10"}
+            if(ct.innerText == "30"){ct.innerText = "15"}
+            if(ct.innerText == "45"){ct.innerText = "30"}
+           })
+    
+        </script>
     
     
 {% endblock extra_scripts %}

@@ -1,7 +1,7 @@
 from social import jalali
 from datetime import datetime
 from django.utils import timezone
-from ippanel import Client
+from ippanel import Client , Error , HTTPError , ResponseCode
 
 
 def day_to_string_persian(day) :
@@ -131,3 +131,29 @@ def send_new_message_available_legal_pannel(phone_number ,name, link):
                 print(f"Field: {field} , Errors: {e.message[field]}")
     except HTTPError as e: # http error like network error, not found, ...
         print(f"Error handled => code: {e}")
+
+def send_comment_req(phone_number ,name,service,lawyer, link):
+    sms = Client("B-mILNC5m_lJcyISEqGz-WD53wV7W2FaMsrPIyJHZd8=")
+
+    try :
+        x = sms.send_pattern("6tv1wrg2vi0qbxh", "3000505", phone_number, {'name' : name ,'service':service,'lawyer':lawyer, 'link' : link})
+    except Error as e: # ippanel sms error
+        print(f"Error handled => code: {e.code}, message: {e.message}")
+        if e.code == ResponseCode.ErrUnprocessableEntity.value:
+            for field in e.message:
+                print(f"Field: {field} , Errors: {e.message[field]}")
+    except HTTPError as e: # http error like network error, not found, ...
+        print(f"Error handled => code: {e}")        
+
+def send_call_acc(phone_number ,lawyer,time,num):
+    sms = Client("B-mILNC5m_lJcyISEqGz-WD53wV7W2FaMsrPIyJHZd8=")
+
+    try :
+        x = sms.send_pattern("w26fiuxp99o950k", "3000505", phone_number, {'laywer':lawyer, 'time' : time, 'num' : num})
+    except Error as e: # ippanel sms error
+        print(f"Error handled => code: {e.code}, message: {e.message}")
+        if e.code == ResponseCode.ErrUnprocessableEntity.value:
+            for field in e.message:
+                print(f"Field: {field} , Errors: {e.message[field]}")
+    except HTTPError as e: # http error like network error, not found, ...
+        print(f"Error handled => code: {e}")                
