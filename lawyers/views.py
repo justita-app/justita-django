@@ -215,7 +215,7 @@ def councilView(request) :
                     lawyer.balance = lawyer.balance + int(call_counseling_object.amount_paid)/2
                     lawyer.save()
                 send_comment_req(phone_number = call_counseling_object.client.username ,name= call_counseling_object.client.first_name , service='تلفنی' ,lawyer= f'{call_counseling_object.get_lawyer_display()}', link=f'justita.app/social/submit-review/?pk={call_counseling_object.identity}' )
-       
+                return redirect('lawyers:council')
         else:
             identity = data.get('identity' , None)
             if identity and CallCounseling.objects.filter(identity=identity).exists() :
@@ -224,7 +224,7 @@ def councilView(request) :
                 call_counseling_object.accepted = True
                 call_counseling_object.save()
                 send_call_acc(phone_number=f'{call_counseling_object.client.username}' ,lawyer= f'{call_counseling_object.get_lawyer_display()}', time=call_counseling_object.Reservation_time.strftime("%H:%M:%S") , num=f'{Lawyer.objects.get(id = call_counseling_object.lawyer).username}')
-
+                return redirect('lawyers:council')
 
 
 
@@ -274,7 +274,7 @@ def ChatRoomsView(request) :
             my_object.save()
             lawyer.balance = lawyer.balance + int(my_object.online_counseling.amount_paid)/2
             lawyer.save()
-            # send_comment_req(phone_number = my_object.online_counseling.client.username ,name= my_object.online_counseling.client.first_name , service='آنلاین' ,lawyer= f'{my_object.online_counseling.get_lawyer_display()}', link=f'justita.app/social/submit-review/?pk={my_object.identity}' )
+            send_comment_req(phone_number = my_object.online_counseling.client.username ,name= my_object.online_counseling.client.first_name , service='آنلاین' ,lawyer= f'{my_object.online_counseling.get_lawyer_display()}', link=f'justita.app/social/submit-review/?pk={my_object.identity}' )
             return redirect('lawyers:chats')
     online_counselings = OnlineCounseling.objects.filter(lawyer=lawyer.pk , payment_status='ok')
     online_counseling_ids = online_counselings.values_list('id', flat=True)
